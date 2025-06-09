@@ -134,7 +134,7 @@ cp config-examples/claude_desktop_demo.json \
         "-e", "SCHEMA_REGISTRY_NAME_3=production", 
         "-e", "SCHEMA_REGISTRY_URL_3=http://prod-registry:8083",
         "-e", "READONLY_3=true",
-        "aywengo/kafka-schema-reg-mcp:stable"
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
       ],
       "env": {
         "GITHUB_CLIENT_ID": "your_github_client_id",
@@ -174,7 +174,7 @@ docker run -p 38000:8000 \
   -e SCHEMA_REGISTRY_URL=http://your-registry:8081 \
   -e SCHEMA_REGISTRY_USER=your_username \
   -e SCHEMA_REGISTRY_PASSWORD=your_password \
-  aywengo/kafka-schema-reg-mcp:stable
+  aywengo/kafka-schema-reg-mcp:v2.0.0-rc1
 
 # Or using Python directly
 git clone https://github.com/aywengo/kafka-schema-reg-mcp.git
@@ -196,7 +196,7 @@ python kafka_schema_registry_unified_mcp.py
         "-e", "SCHEMA_REGISTRY_URL=http://your-registry:8081",
         "-e", "SCHEMA_REGISTRY_USER=your_username",
         "-e", "SCHEMA_REGISTRY_PASSWORD=your_password",
-        "aywengo/kafka-schema-reg-mcp:stable"
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
       ]
     }
   }
