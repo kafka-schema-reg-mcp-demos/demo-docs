@@ -262,7 +262,18 @@
             position: fixed;
             top: 30px;
             left: 30px;
-            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
             font-weight: bold;
             color: #4ecdc4;
         }
@@ -292,11 +303,19 @@
             margin: 1rem 0;
             color: #ffc107;
             font-size: 1rem;
+            display: none; /* Hidden by default */
+        }
+
+        .show-tips .video-recording-tip {
+            display: block; /* Show when .show-tips class is added to body */
         }
     </style>
 </head>
 <body>
-    <div class="logo">🚀 Schema MCP</div>
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/assets/logo.png" alt="MCP Schema Registry Logo">
+        <span class="logo-text">MCP Schema Registry</span>
+    </div>
     
     <div class="slide-counter">
         <span id="current-slide">1</span> / <span id="total-slides"></span>
@@ -305,7 +324,12 @@
     <div class="presentation">
         <!-- Slide 1: Title -->
         <div class="slide active">
-            <h1>Kafka Schema Registry MCP</h1>
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                <img src="https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/assets/logo.png" 
+                     alt="MCP Schema Registry Logo" 
+                     style="width: 100px; height: 100px; margin-right: 1rem;">
+                <h1 style="margin-bottom: 0;">Kafka Schema Registry MCP</h1>
+            </div>
             <p class="subtitle">Streamlining Schema Management with Claude Desktop Integration</p>
             <div class="demo-url">
                 <strong>🌐 Live Demo:</strong> localhost:3000
@@ -682,6 +706,7 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
     <div class="navigation">
         <button class="nav-btn" onclick="previousSlide()">← Previous</button>
         <button class="nav-btn" onclick="toggleNotes()">📝 Notes</button>
+        <button class="nav-btn" onclick="toggleTips()">🎥 Tips</button>
         <button class="nav-btn" onclick="nextSlide()">Next →</button>
     </div>
 
@@ -741,6 +766,10 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
             notes.classList.toggle('show');
         }
 
+        function toggleTips() {
+            document.body.classList.toggle('show-tips');
+        }
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             switch(e.key) {
@@ -754,6 +783,10 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                 case 'n':
                 case 'N':
                     toggleNotes();
+                    break;
+                case 't':
+                case 'T':
+                    toggleTips();
                     break;
             }
         });
