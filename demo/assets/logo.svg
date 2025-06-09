@@ -1,0 +1,35 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background (optional - remove if transparent needed) -->
+  <rect width="200" height="200" fill="#f8f9fa" rx="10"/>
+  
+  <!-- Curly braces -->
+  <path d="M20 40 C20 30, 30 30, 30 40 L30 70 C30 80, 25 85, 20 85 C25 85, 30 90, 30 100 L30 130 C30 140, 20 140, 20 130" 
+        stroke="#1e3c72" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <path d="M180 40 C180 30, 170 30, 170 40 L170 70 C170 80, 175 85, 180 85 C175 85, 170 90, 170 100 L170 130 C170 140, 180 140, 180 130" 
+        stroke="#1e3c72" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Schema network diagram -->
+  <!-- Central node -->
+  <circle cx="100" cy="85" r="12" fill="none" stroke="#1e3c72" stroke-width="6"/>
+  
+  <!-- Connected nodes -->
+  <circle cx="70" cy="55" r="8" fill="none" stroke="#1e3c72" stroke-width="5"/>
+  <circle cx="130" cy="55" r="8" fill="none" stroke="#1e3c72" stroke-width="5"/>
+  <circle cx="130" cy="115" r="8" fill="none" stroke="#1e3c72" stroke-width="5"/>
+  <circle cx="70" cy="115" r="8" fill="none" stroke="#1e3c72" stroke-width="5"/>
+  
+  <!-- Connection lines -->
+  <line x1="88" y1="73" x2="75" y2="62" stroke="#1e3c72" stroke-width="4" stroke-linecap="round"/>
+  <line x1="112" y1="73" x2="125" y2="62" stroke="#1e3c72" stroke-width="4" stroke-linecap="round"/>
+  <line x1="112" y1="97" x2="125" y2="108" stroke="#1e3c72" stroke-width="4" stroke-linecap="round"/>
+  <line x1="88" y1="97" x2="75" y2="108" stroke="#1e3c72" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- MCP Text -->
+  <text x="100" y="155" font-family="Arial, sans-serif" font-size="36" font-weight="bold" 
+        text-anchor="middle" fill="#1e3c72">MCP</text>
+  
+  <!-- Schema Registry Text -->
+  <text x="100" y="178" font-family="Arial, sans-serif" font-size="16" font-weight="600" 
+        text-anchor="middle" fill="#1e3c72">Schema Registry</text>
+</svg>
