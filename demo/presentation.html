@@ -114,6 +114,8 @@
             text-align: left;
             overflow-x: auto;
             border-left: 4px solid #4ecdc4;
+            white-space: pre-wrap;
+            line-height: 1.2;
         }
 
         .architecture-diagram {
@@ -338,15 +340,13 @@
             <div class="demo-steps">
                 <div class="step">
                     <h3>📚 Anthropic's Remote MCP Architecture</h3>
-                    <div class="code-block">
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+                    <div class="code-block">┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Claude App    │    │   Remote MCP     │    │   Enterprise    │
 │   (Desktop)     │────│     Server       │────│    Systems      │
 │                 │    │   + OAuth        │    │                 │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
    Multiple Users         Secure Gateway         Schema Registries
-                                                 Databases, APIs
-                    </div>
+                                                 Databases, APIs</div>
                 </div>
                 <div class="step">
                     <h3>🔐 Security Requirements for Remote Access</h3>
@@ -447,8 +447,7 @@
         <!-- Slide 6: Architecture Deep Dive -->
         <div class="slide">
             <h2>🏗️ Architecture Overview</h2>
-            <div class="code-block">
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+            <div class="code-block">┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Development   │    │     Staging      │    │   Production    │
 │   Registry      │    │    Registry      │    │    Registry     │
 │   :8081         │    │     :8082        │    │     :8083       │
@@ -468,8 +467,7 @@
                     │    Claude Desktop       │
                     │   Natural Language      │
                     │     Interface           │
-                    └─────────────────────────┘
-            </div>
+                    └─────────────────────────┘</div>
             <div class="video-recording-tip">
                 🎥 <strong>Recording Tip:</strong> Walk through each component, explaining how data flows from Claude to the registries.
             </div>
@@ -515,24 +513,18 @@
             <div class="demo-steps">
                 <div class="step">
                     <h3>Step 1: Register New Schema</h3>
-                    <div class="code-block">
-Ask Claude: "Register a new user profile schema in development with fields: 
-user_id (string), email (string), created_at (long)"
-                    </div>
+                    <div class="code-block">Ask Claude: "Register a new user profile schema in development with fields: 
+user_id (string), email (string), created_at (long)"</div>
                 </div>
                 <div class="step">
                     <h3>Step 2: Test Compatibility</h3>
-                    <div class="code-block">
-Ask Claude: "Check if adding an optional 'phone' field to user-profile 
-schema is compatible"
-                    </div>
+                    <div class="code-block">Ask Claude: "Check if adding an optional 'phone' field to user-profile 
+schema is compatible"</div>
                 </div>
                 <div class="step">
                     <h3>Step 3: View Schema Evolution</h3>
-                    <div class="code-block">
-Ask Claude: "Show me all versions of the user-profile schema 
-and their differences"
-                    </div>
+                    <div class="code-block">Ask Claude: "Show me all versions of the user-profile schema 
+and their differences"</div>
                 </div>
             </div>
             <div class="video-recording-tip">
@@ -546,24 +538,18 @@ and their differences"
             <div class="demo-steps">
                 <div class="step">
                     <h3>Step 1: Compare Environments</h3>
-                    <div class="code-block">
-Ask Claude: "Compare schemas between development and staging registries. 
-What's missing in staging?"
-                    </div>
+                    <div class="code-block">Ask Claude: "Compare schemas between development and staging registries. 
+What's missing in staging?"</div>
                 </div>
                 <div class="step">
                     <h3>Step 2: Promote Schemas</h3>
-                    <div class="code-block">
-Ask Claude: "Migrate the user-profile schema from staging to production. 
-Preserve schema IDs and migrate all versions."
-                    </div>
+                    <div class="code-block">Ask Claude: "Migrate the user-profile schema from staging to production. 
+Preserve schema IDs and migrate all versions."</div>
                 </div>
                 <div class="step">
                     <h3>Step 3: Monitor Deployment</h3>
-                    <div class="code-block">
-Ask Claude: "Show me the migration status and any compatibility issues 
-in production registry"
-                    </div>
+                    <div class="code-block">Ask Claude: "Show me the migration status and any compatibility issues 
+in production registry"</div>
                 </div>
             </div>
             <div class="video-recording-tip">
@@ -640,34 +626,26 @@ in production registry"
             <div class="demo-steps">
                 <div class="step">
                     <h3>1. Clone the Repository</h3>
-                    <div class="code-block">
-git clone https://github.com/kafka-schema-reg-mcp-demos/demo-deployment.git
-cd demo-deployment
-                    </div>
+                    <div class="code-block">git clone https://github.com/kafka-schema-reg-mcp-demos/demo-deployment.git
+cd demo-deployment</div>
                 </div>
                 <div class="step">
                     <h3>2. Configure GitHub OAuth</h3>
-                    <div class="code-block">
-# Create OAuth App at github.com/settings/applications
+                    <div class="code-block"># Create OAuth App at github.com/settings/applications
 # Add credentials to .env file
 GITHUB_CLIENT_ID=your_client_id
-GITHUB_CLIENT_SECRET=your_client_secret
-                    </div>
+GITHUB_CLIENT_SECRET=your_client_secret</div>
                 </div>
                 <div class="step">
                     <h3>3. Start the Demo</h3>
-                    <div class="code-block">
-docker-compose -f docker-compose.github-oauth.yml up -d
-./scripts/setup-demo-data.sh
-                    </div>
+                    <div class="code-block">docker-compose -f docker-compose.github-oauth.yml up -d
+./scripts/setup-demo-data.sh</div>
                 </div>
                 <div class="step">
                     <h3>4. Open & Explore</h3>
-                    <div class="code-block">
-🌐 Web UI: http://localhost:3000
+                    <div class="code-block">🌐 Web UI: http://localhost:3000
 🤖 Claude Desktop: Configure MCP connection
-📊 Monitoring: http://localhost:9090
-                    </div>
+📊 Monitoring: http://localhost:9090</div>
                 </div>
             </div>
             <div class="video-recording-tip">
