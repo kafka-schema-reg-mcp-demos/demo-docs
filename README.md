@@ -288,7 +288,7 @@ cp config-examples/claude_desktop_demo.json \
 # Use the MCP server with your existing Schema Registry
 docker run -p 38000:8000 \
   -e SCHEMA_REGISTRY_URL=http://your-registry:8081 \
-  aywengo/kafka-schema-reg-mcp:stable
+  aywengo/kafka-schema-reg-mcp:v2.0.0-rc1
 ```
 
 **📖 Detailed Setup:** [Complete Getting Started Guide →](getting-started.md)
