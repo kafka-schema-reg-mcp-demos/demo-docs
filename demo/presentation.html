@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Schema Registry MCP Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #4ecdc4;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff9f43;
+        }
+
+        p, li {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a8a8a8;
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .code-block {
+            background: rgba(0,0,0,0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            text-align: left;
+            overflow-x: auto;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .architecture-diagram {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .registry-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .registry-box {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .arrow {
+            font-size: 2rem;
+            color: #4ecdc4;
+            margin: 0 1rem;
+        }
+
+        .demo-steps {
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .step {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-left: 4px solid #ff9f43;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .benefit-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .oauth-flow {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .oauth-step {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+            padding: 1.5rem;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .speaker-notes {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .speaker-notes.show {
+            opacity: 1;
+        }
+
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .demo-url {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .video-recording-tip {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #ffc107;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">🚀 Schema MCP</div>
+    
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides"></span>
+    </div>
+
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Kafka Schema Registry MCP</h1>
+            <p class="subtitle">Streamlining Schema Management with Claude Desktop Integration</p>
+            <div class="demo-url">
+                <strong>🌐 Live Demo:</strong> localhost:3000
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Start with a warm welcome and introduce yourself. Mention this is a live demo of the Kafka Schema Registry MCP integration.
+            </div>
+        </div>
+
+        <!-- Slide 2: Why OAuth? Remote MCP Servers -->
+        <div class="slide">
+            <h2>🌐 Why OAuth? Local vs Remote MCP</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🏠 Local MCP Servers</h3>
+                    <p><strong>Limited Scope</strong><br>
+                    • Single user access<br>
+                    • Local machine only<br>
+                    • No team collaboration<br>
+                    • Development only</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌍 Remote MCP Servers</h3>
+                    <p><strong>Enterprise Ready</strong><br>
+                    • Multi-user access<br>
+                    • Internal/public networks<br>
+                    • Team collaboration<br>
+                    • Production workloads</p>
+                </div>
+            </div>
+            
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>📚 Anthropic's Remote MCP Architecture</h3>
+                    <div class="code-block">
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Claude App    │    │   Remote MCP     │    │   Enterprise    │
+│   (Desktop)     │────│     Server       │────│    Systems      │
+│                 │    │   + OAuth        │    │                 │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+   Multiple Users         Secure Gateway         Schema Registries
+                                                 Databases, APIs
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>🔐 Security Requirements for Remote Access</h3>
+                    <p><strong>Authentication:</strong> Who can access the system?<br>
+                    <strong>Authorization:</strong> What can each user do?<br>
+                    <strong>Audit:</strong> Track all actions for compliance</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Explain that while local MCP is great for development, real enterprise use cases need remote deployment with proper authentication. Reference the Anthropic docs showing this architecture pattern.
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem Statement -->
+        <div class="slide">
+            <h2>The Challenge</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🏢 Multiple Environments</h3>
+                    <p>Managing schemas across Dev, Staging, and Production registries</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👥 Team Collaboration</h3>
+                    <p>Different access levels for different team members</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Schema Evolution</h3>
+                    <p>Ensuring compatibility while evolving schemas safely</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤖 AI Integration</h3>
+                    <p>Leveraging AI for schema management tasks</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Spend 30-45 seconds on each challenge, explaining why it's painful for developers.
+            </div>
+        </div>
+
+        <!-- Slide 4: Solution Overview -->
+        <div class="slide">
+            <h2>Our Solution</h2>
+            <div class="architecture-diagram">
+                <h3>🔗 MCP (Model Context Protocol) Integration</h3>
+                <p>Bridge between <span class="highlight">Claude Desktop</span> and <span class="highlight">Kafka Schema Registry</span></p>
+                
+                <div class="registry-flow">
+                    <div class="registry-box">
+                        <strong>Claude Desktop</strong><br>
+                        Natural Language Interface
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="registry-box">
+                        <strong>MCP Server</strong><br>
+                        GitHub OAuth + Multi-Registry
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="registry-box">
+                        <strong>Schema Registries</strong><br>
+                        Dev | Staging | Production
+                    </div>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Explain how Claude can now understand and manage schemas through natural language commands.
+            </div>
+        </div>
+
+        <!-- Slide 5: GitHub OAuth Integration -->
+        <div class="slide">
+            <h2>🔐 GitHub OAuth Authentication</h2>
+            <div class="oauth-flow">
+                <div class="oauth-step">GitHub<br>Login</div>
+                <div class="oauth-step">Scope<br>Based<br>Access</div>
+                <div class="oauth-step">Team<br>Based<br>Permissions</div>
+                <div class="oauth-step">Secure<br>API<br>Access</div>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📖 public_repo</h3>
+                    <p><strong>Read Access</strong><br>View schemas and configurations</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📝 repo</h3>
+                    <p><strong>Write Access</strong><br>Register and modify schemas</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👑 admin:org</h3>
+                    <p><strong>Admin Access</strong><br>Full management capabilities</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Demonstrate the GitHub OAuth flow in your browser. Show how different GitHub scopes map to different permissions.
+            </div>
+        </div>
+
+        <!-- Slide 6: Architecture Deep Dive -->
+        <div class="slide">
+            <h2>🏗️ Architecture Overview</h2>
+            <div class="code-block">
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Development   │    │     Staging      │    │   Production    │
+│   Registry      │    │    Registry      │    │    Registry     │
+│   :8081         │    │     :8082        │    │     :8083       │
+│   (Full Access) │    │ (Limited Write)  │    │   (Read-Only)   │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────────────┐
+                    │       MCP Server        │
+                    │   (Multi-Registry)      │
+                    │   GitHub OAuth          │
+                    │      :38000             │
+                    └─────────────────────────┘
+                                 │
+                    ┌─────────────────────────┐
+                    │    Claude Desktop       │
+                    │   Natural Language      │
+                    │     Interface           │
+                    └─────────────────────────┘
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Walk through each component, explaining how data flows from Claude to the registries.
+            </div>
+        </div>
+
+        <!-- Slide 7: Key Features -->
+        <div class="slide">
+            <h2>✨ Key Features</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <h3>🔄 Multi-Registry Support</h3>
+                    <p>Seamlessly work across development, staging, and production environments</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>🤝 Schema Migration</h3>
+                    <p>Safe promotion of schemas between registries with compatibility checks</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>📊 Real-time Monitoring</h3>
+                    <p>Prometheus metrics and Grafana dashboards for observability</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>🎯 Context Management</h3>
+                    <p>Organize schemas by business domain or team context</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>🚀 Developer Experience</h3>
+                    <p>Natural language interface through Claude Desktop</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>🔒 Enterprise Security</h3>
+                    <p>GitHub OAuth with fine-grained permissions and audit trails</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> This is a great slide to showcase the value proposition. Spend about 1 minute here.
+            </div>
+        </div>
+
+        <!-- Slide 8: Demo Scenario 1 -->
+        <div class="slide">
+            <h2>🎭 Demo Scenario 1: Schema Developer</h2>
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>Step 1: Register New Schema</h3>
+                    <div class="code-block">
+Ask Claude: "Register a new user profile schema in development with fields: 
+user_id (string), email (string), created_at (long)"
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Test Compatibility</h3>
+                    <div class="code-block">
+Ask Claude: "Check if adding an optional 'phone' field to user-profile 
+schema is compatible"
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>Step 3: View Schema Evolution</h3>
+                    <div class="code-block">
+Ask Claude: "Show me all versions of the user-profile schema 
+and their differences"
+                    </div>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Actually demonstrate these commands in Claude Desktop. Show the natural language interface in action.
+            </div>
+        </div>
+
+        <!-- Slide 9: Demo Scenario 2 -->
+        <div class="slide">
+            <h2>🎭 Demo Scenario 2: DevOps Engineer</h2>
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>Step 1: Compare Environments</h3>
+                    <div class="code-block">
+Ask Claude: "Compare schemas between development and staging registries. 
+What's missing in staging?"
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Promote Schemas</h3>
+                    <div class="code-block">
+Ask Claude: "Migrate the user-profile schema from staging to production. 
+Preserve schema IDs and migrate all versions."
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Monitor Deployment</h3>
+                    <div class="code-block">
+Ask Claude: "Show me the migration status and any compatibility issues 
+in production registry"
+                    </div>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Highlight how Claude makes complex DevOps tasks feel conversational and intuitive.
+            </div>
+        </div>
+
+        <!-- Slide 10: Web Interface Demo -->
+        <div class="slide">
+            <h2>🌐 Interactive Web Interface</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📋 Schema Browser</h3>
+                    <p>Visual exploration of schemas across all registries</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 Search & Filter</h3>
+                    <p>Find schemas by name, context, or compatibility level</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Visual Diff</h3>
+                    <p>Side-by-side comparison of schema versions</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 One-Click Actions</h3>
+                    <p>Register, migrate, and manage schemas with simple clicks</p>
+                </div>
+            </div>
+            <div class="demo-url">
+                <strong>🌐 Try it live:</strong> http://localhost:3000
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Switch to localhost:3000 and give a quick tour of the web interface. Show the GitHub OAuth flow.
+            </div>
+        </div>
+
+        <!-- Slide 11: Technical Benefits -->
+        <div class="slide">
+            <h2>🚀 Why This Matters</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>⚡ Developer Productivity</h3>
+                    <p>Natural language beats complex CLI commands and APIs</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Reduced Errors</h3>
+                    <p>AI-guided schema evolution prevents breaking changes</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Faster Iterations</h3>
+                    <p>Streamlined workflows from development to production</p>
+                </div>
+                <div class="feature-card">
+                    <h3>👥 Better Collaboration</h3>
+                    <p>GitHub-based permissions align with existing workflows</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Enterprise Ready</h3>
+                    <p>Monitoring, audit trails, and multi-tenancy support</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔮 Future Proof</h3>
+                    <p>MCP protocol enables extensibility to other tools</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Connect these benefits to real pain points developers face daily.
+            </div>
+        </div>
+
+        <!-- Slide 12: Getting Started -->
+        <div class="slide">
+            <h2>🚀 Getting Started</h2>
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>1. Clone the Repository</h3>
+                    <div class="code-block">
+git clone https://github.com/kafka-schema-reg-mcp-demos/demo-deployment.git
+cd demo-deployment
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>2. Configure GitHub OAuth</h3>
+                    <div class="code-block">
+# Create OAuth App at github.com/settings/applications
+# Add credentials to .env file
+GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_client_secret
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>3. Start the Demo</h3>
+                    <div class="code-block">
+docker-compose -f docker-compose.github-oauth.yml up -d
+./scripts/setup-demo-data.sh
+                    </div>
+                </div>
+                <div class="step">
+                    <h3>4. Open & Explore</h3>
+                    <div class="code-block">
+🌐 Web UI: http://localhost:3000
+🤖 Claude Desktop: Configure MCP connection
+📊 Monitoring: http://localhost:9090
+                    </div>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README.
+            </div>
+        </div>
+
+        <!-- Slide 13: Call to Action -->
+        <div class="slide">
+            <h1>Ready to Transform Your Schema Management?</h1>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🌟 Try the Demo</h3>
+                    <p><strong>GitHub Organization:</strong><br>kafka-schema-reg-mcp-demos</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🤝 Join the Community</h3>
+                    <p><strong>Contribute:</strong><br>Issues, PRs, and feedback welcome</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📚 Learn More</h3>
+                    <p><strong>Documentation:</strong><br>Complete guides and examples</p>
+                </div>
+            </div>
+            <div class="demo-url">
+                ⭐ <strong>Star the repository to stay updated!</strong>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and provide feedback. Thank them for watching.
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="toggleNotes()">📝 Notes</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="speaker-notes" id="speaker-notes">
+        <strong>Speaker Notes:</strong><br>
+        <span id="notes-content">Welcome to the Kafka Schema Registry MCP demo! This presentation will show you how we're revolutionizing schema management with AI integration.</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        const speakerNotes = [
+            "Welcome to the Kafka Schema Registry MCP demo! Start by introducing yourself and the purpose of this demo. Mention that this is a live, working demonstration.",
+            "Reference the Anthropic documentation about remote MCP servers. Explain why local MCP isn't enough for enterprise use cases. Emphasize the need for multi-user access and security.",
+            "Explain each challenge in detail. Ask: 'How many of you have dealt with schema compatibility issues in production?' Make it relatable.",
+            "This is the core innovation - explain how MCP bridges the gap between natural language (Claude) and technical systems (Schema Registry).",
+            "Demonstrate the GitHub OAuth flow live. Show how different scopes provide different levels of access. This is a key differentiator.",
+            "Walk through the architecture step by step. Explain how this scales from development to enterprise production environments.",
+            "Highlight the developer experience improvements. Each feature solves a real pain point in schema management.",
+            "This is your first live demo! Show Claude Desktop integration. Keep it simple but impressive - register a schema using natural language.",
+            "Show more advanced scenarios. Demonstrate the migration capabilities and how Claude makes complex operations simple.",
+            "Switch to the web interface at localhost:3000. Give a quick tour showing the visual schema management capabilities.",
+            "Connect the technical features to business value. How does this save time and reduce errors?",
+            "Keep this practical and actionable. Mention that the repository has detailed setup instructions.",
+            "End with energy! Encourage engagement and contributions. Thank your audience for their time."
+        ];
+
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('notes-content').textContent = speakerNotes[currentSlide];
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            const notes = document.getElementById('speaker-notes');
+            notes.classList.toggle('show');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    previousSlide();
+                    break;
+                case 'n':
+                case 'N':
+                    toggleNotes();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
