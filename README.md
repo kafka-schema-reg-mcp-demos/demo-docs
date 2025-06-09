@@ -104,6 +104,36 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 
 ---
 
+## 🔗 Apache Kafka & Confluent Integration
+
+Built for the **[Apache Kafka](https://kafka.apache.org/)** ecosystem with full **[Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/fundamentals/index.html)** compatibility:
+
+### **🎯 Supported Platforms**
+- **[Confluent Platform](https://www.confluent.io/product/confluent-platform/)** - Full enterprise distribution with advanced features
+- **[Confluent Cloud](https://www.confluent.io/confluent-cloud/)** - Fully managed cloud service
+- **[Apache Kafka](https://kafka.apache.org/)** - Open source distribution
+- **[Amazon MSK](https://aws.amazon.com/msk/)** - AWS managed Kafka with Schema Registry
+- **[Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/)** - Azure managed Kafka service
+
+### **📋 Schema Format Support**
+- **[Apache Avro](https://avro.apache.org/)** - Primary focus with full evolution support
+- **[JSON Schema](https://json-schema.org/)** - Web-friendly schema definition
+- **[Protocol Buffers](https://protobuf.dev/)** - Google's language-neutral serialization
+
+### **🔧 Enterprise Features**
+- **[Schema Evolution](https://docs.confluent.io/platform/current/schema-registry/avro.html#schema-evolution-and-compatibility)** - Backward, forward, and full compatibility
+- **[Schema Contexts](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#contexts)** - Logical grouping and multi-tenancy
+- **[Compatibility Levels](https://docs.confluent.io/platform/current/schema-registry/avro.html#compatibility-types)** - Fine-grained evolution control
+- **[Subject Naming](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#subject-name-strategy)** - Flexible naming strategies
+
+**🌐 Kafka Ecosystem Resources:**
+- **[Kafka Documentation](https://kafka.apache.org/documentation/)** - Complete Apache Kafka guide
+- **[Confluent Documentation](https://docs.confluent.io/)** - Enterprise platform documentation  
+- **[Schema Registry API](https://docs.confluent.io/platform/current/schema-registry/develop/api.html)** - REST API reference
+- **[Kafka Community](https://kafka.apache.org/contact)** - Get involved with the broader ecosystem
+
+---
+
 ## 🎬 See It In Action
 
 ### **🎯 Enterprise Scenarios**
@@ -407,8 +437,10 @@ Help others discover AI-powered schema management:
 
 <div align="center">
 
-**Built with ❤️ for the Kafka and AI community**
+**Built with ❤️ for the [Apache Kafka](https://kafka.apache.org/) and AI community**
 
 [Documentation](https://github.com/aywengo/demo-docs) • [Demo](https://github.com/aywengo/demo-deployment) • [Schemas](https://github.com/aywengo/demo-schemas) • [MCP Server](https://github.com/aywengo/kafka-schema-reg-mcp)
+
+**Powered by:** [Apache Kafka](https://kafka.apache.org/) • [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/) • [Apache Avro](https://avro.apache.org/) • [Claude Desktop](https://claude.ai/)
 
 </div>
