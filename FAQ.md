@@ -43,6 +43,94 @@ curl -X POST \
 
 Many of the patterns and schemas are based on real production systems.
 
+## 🔗 Apache Kafka & Confluent Compatibility
+
+### **Q: Which Kafka and Schema Registry platforms are supported?**
+
+**A:** We support the entire **[Apache Kafka](https://kafka.apache.org/)** ecosystem with full **[Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/fundamentals/index.html)** API compatibility:
+
+**✅ Fully Supported Platforms:**
+- **[Confluent Platform](https://www.confluent.io/product/confluent-platform/)** - All versions (5.0+)
+- **[Confluent Cloud](https://www.confluent.io/confluent-cloud/)** - Fully managed service
+- **[Apache Kafka](https://kafka.apache.org/)** with [Confluent Schema Registry](https://github.com/confluentinc/schema-registry)
+- **[Amazon MSK](https://aws.amazon.com/msk/)** with AWS Glue Schema Registry
+- **[Azure Event Hubs](https://docs.microsoft.com/en-us/azure/event-hubs/)** with Schema Registry
+- **[Aiven for Apache Kafka](https://aiven.io/kafka)** with managed Schema Registry
+- **[Red Hat Streams](https://www.redhat.com/en/technologies/cloud-computing/openshift/streams-for-apache-kafka)** (OpenShift)
+
+**📋 Schema Format Support:**
+- **[Apache Avro](https://avro.apache.org/)** - Primary focus with full evolution support
+- **[JSON Schema](https://json-schema.org/)** - Web-friendly schema definitions
+- **[Protocol Buffers](https://protobuf.dev/)** - Google's language-neutral serialization
+
+### **Q: Do I need specific Kafka or Confluent versions?**
+
+**A:** The MCP server works with any Schema Registry that implements the **[Confluent Schema Registry API](https://docs.confluent.io/platform/current/schema-registry/develop/api.html)**:
+
+**Minimum Requirements:**
+- **Schema Registry API**: v1 or higher
+- **Authentication**: Basic Auth, mTLS, or no auth
+- **Network Access**: HTTP/HTTPS connectivity to registry endpoints
+
+**Tested Versions:**
+- **Confluent Platform**: 5.0.x - 7.4.x
+- **Confluent Cloud**: All regions and service tiers
+- **Apache Kafka**: 2.0+ with compatible Schema Registry
+- **Cloud Services**: AWS MSK, Azure Event Hubs, Google Cloud Pub/Sub
+
+### **Q: How do I connect to Confluent Cloud?**
+
+**A:** Confluent Cloud integration is straightforward:
+
+```bash
+# Basic Confluent Cloud configuration
+export SCHEMA_REGISTRY_URL="https://psrc-xxxxx.us-central1.gcp.confluent.cloud"
+export SCHEMA_REGISTRY_USER="your-api-key"
+export SCHEMA_REGISTRY_PASSWORD="your-api-secret"
+
+# Multi-environment setup with Confluent Cloud
+export SCHEMA_REGISTRY_NAME_1="confluent-dev"
+export SCHEMA_REGISTRY_URL_1="https://psrc-dev.us-west-2.aws.confluent.cloud"
+export SCHEMA_REGISTRY_USER_1="dev-api-key"
+export SCHEMA_REGISTRY_PASSWORD_1="dev-api-secret"
+
+export SCHEMA_REGISTRY_NAME_2="confluent-prod"
+export SCHEMA_REGISTRY_URL_2="https://psrc-prod.eu-west-1.aws.confluent.cloud"
+export SCHEMA_REGISTRY_USER_2="prod-api-key"
+export SCHEMA_REGISTRY_PASSWORD_2="prod-api-secret"
+export READONLY_2="true"  # Production safety
+```
+
+**Confluent Cloud Features Supported:**
+- **[Schema Contexts](https://docs.confluent.io/cloud/current/sr/fundamentals/schema-references.html#schema-contexts)** - Multi-tenancy and isolation
+- **[Schema Evolution](https://docs.confluent.io/cloud/current/sr/fundamentals/schema-evolution.html)** - Compatibility checking
+- **[Schema Linking](https://docs.confluent.io/cloud/current/sr/fundamentals/schema-linking.html)** - Cross-cluster schema replication
+- **[Role-Based Access Control](https://docs.confluent.io/cloud/current/access-management/access-control/overview.html)** - Fine-grained permissions
+
+### **Q: What about AWS MSK Schema Registry or Azure Event Hubs?**
+
+**A:** Cloud-specific schema registries are supported with configuration adjustments:
+
+**AWS MSK with Glue Schema Registry:**
+```bash
+# AWS MSK configuration
+export SCHEMA_REGISTRY_URL="https://glue.us-east-1.amazonaws.com"
+export AWS_ACCESS_KEY_ID="your-access-key"
+export AWS_SECRET_ACCESS_KEY="your-secret-key"
+export AWS_REGION="us-east-1"
+```
+
+**Azure Event Hubs Schema Registry:**
+```bash
+# Azure Event Hubs configuration
+export SCHEMA_REGISTRY_URL="https://your-namespace.servicebus.windows.net"
+export AZURE_CLIENT_ID="your-client-id"
+export AZURE_CLIENT_SECRET="your-client-secret"
+export AZURE_TENANT_ID="your-tenant-id"
+```
+
+**Note**: Some cloud providers may have API differences. Check the **[compatibility matrix](https://github.com/aywengo/kafka-schema-reg-mcp/blob/main/docs/compatibility.md)** for specific feature support.
+
 ## 🏗️ Technical Questions
 
 ### **Q: What's the performance impact of using the MCP server?**
@@ -57,11 +145,11 @@ For schema operations (which are typically low-frequency), this overhead is negl
 
 ### **Q: Can I use this with my existing Schema Registry?**
 
-**A:** Absolutely! The MCP server works with any Confluent Schema Registry:
-- **Confluent Platform**: All versions supported
-- **Confluent Cloud**: Full compatibility
-- **Apache Schema Registry**: Community distributions
-- **AWS MSK Schema Registry**: With configuration adjustments
+**A:** Absolutely! The MCP server works with any Confluent Schema Registry API-compatible service:
+- **[Confluent Platform](https://www.confluent.io/product/confluent-platform/)**: All versions supported
+- **[Confluent Cloud](https://www.confluent.io/confluent-cloud/)**: Full compatibility
+- **[Apache Kafka](https://kafka.apache.org/)** distributions: Community and enterprise
+- **[AWS MSK Schema Registry](https://docs.aws.amazon.com/msk/latest/developerguide/msk-schema-registry.html)**: With configuration adjustments
 - **Custom Deployments**: Any Schema Registry API-compatible service
 
 Just point the `SCHEMA_REGISTRY_URL` to your existing registry and start using AI for schema management.
@@ -89,7 +177,7 @@ Then use natural language to specify which registry: "List subjects in the produ
 
 ### **Q: What about Schema Registry contexts? Are they supported?**
 
-**A:** Yes! Schema contexts are fully supported and encouraged:
+**A:** Yes! **[Schema contexts](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#contexts)** are fully supported and encouraged:
 - **Environment Separation**: `dev`, `staging`, `prod` contexts
 - **Team Isolation**: `ecommerce`, `payments`, `analytics` contexts  
 - **Multi-Tenancy**: `tenant-a`, `tenant-b`, `customer-xyz` contexts
@@ -99,7 +187,7 @@ Use contexts like: "Register schema in the ecommerce context" or "Export all sch
 
 ### **Q: How do I handle schema evolution and compatibility?**
 
-**A:** The MCP server provides AI-assisted schema evolution:
+**A:** The MCP server provides AI-assisted schema evolution with full **[Confluent compatibility checking](https://docs.confluent.io/platform/current/schema-registry/avro.html#schema-evolution-and-compatibility)**:
 
 ```
 "Add an optional phone_number field to user-profile and check if it's backward compatible"
@@ -108,11 +196,11 @@ Use contexts like: "Register schema in the ecommerce context" or "Export all sch
 Claude will:
 1. Analyze the current schema structure
 2. Design the field addition with proper defaults
-3. Check compatibility against all previous versions  
+3. Check compatibility against all previous versions using **[Avro resolution rules](https://avro.apache.org/docs/current/spec.html#Schema+Resolution)**
 4. Register the new version if safe
 5. Provide migration guidance if breaking
 
-You get expert-level schema evolution without needing to understand Avro compatibility rules.
+You get expert-level schema evolution without needing to understand **[Avro compatibility rules](https://docs.confluent.io/platform/current/schema-registry/avro.html#compatibility-types)**.
 
 ## 🔒 Security & Authentication
 
@@ -241,7 +329,7 @@ Example CI/CD integration:
 - `analytics`: Business intelligence per customer
 - `webhooks`: Customer integration endpoints
 
-Each schema includes multiple versions demonstrating evolution patterns.
+Each schema includes multiple versions demonstrating **[Avro evolution patterns](https://avro.apache.org/docs/current/spec.html#Schema+Resolution)**.
 
 ### **Q: How do I adapt these schemas for my business?**
 
@@ -262,7 +350,7 @@ You get industry-specific expertise without starting from scratch.
 
 ### **Q: Can I use this for event-driven architectures?**
 
-**A:** Absolutely! The system is perfect for event-driven patterns:
+**A:** Absolutely! The system is perfect for **[Kafka-based event-driven patterns](https://kafka.apache.org/documentation/#design)**:
 - **Command/Event/Query Separation**: Different schema types for CQRS
 - **Event Sourcing**: Schema evolution for event stores
 - **Microservices**: Schema federation across service boundaries
@@ -337,6 +425,11 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 - **💬 Discussions**: [Community Q&A and ideas](https://github.com/aywengo/kafka-schema-reg-mcp/discussions)
 - **📧 Email**: For enterprise inquiries and private issues
 
+**Kafka Community Resources:**
+- **[Apache Kafka Community](https://kafka.apache.org/contact)** - General Kafka questions
+- **[Confluent Community](https://community.confluent.io/)** - Schema Registry specific issues
+- **[Avro Project](https://avro.apache.org/mailing_lists.html)** - Schema format questions
+
 **When Reporting Issues:**
 - Include your environment details (OS, Docker version, registry type)
 - Provide relevant logs from `docker-compose logs mcp-server`
@@ -361,7 +454,7 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 
 **🎨 Schema Examples:**
 - Industry-specific schema collections
-- Evolution pattern demonstrations
+- **[Avro evolution pattern](https://avro.apache.org/docs/current/spec.html#Schema+Resolution)** demonstrations
 - Integration examples with popular frameworks
 - Performance optimization examples
 
@@ -384,6 +477,12 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 Follow [GitHub Discussions](https://github.com/aywengo/kafka-schema-reg-mcp/discussions) for roadmap updates and feature voting.
 
 ---
+
+**🔗 Additional Resources:**
+- **[Apache Kafka Documentation](https://kafka.apache.org/documentation/)** - Complete Kafka ecosystem guide
+- **[Confluent Schema Registry Docs](https://docs.confluent.io/platform/current/schema-registry/)** - Enterprise Schema Registry features
+- **[Avro Specification](https://avro.apache.org/docs/current/spec.html)** - Schema format specification
+- **[Schema Evolution Best Practices](https://docs.confluent.io/platform/current/schema-registry/avro.html#schema-evolution-and-compatibility)** - Evolution guidelines
 
 **💡 Have a question not answered here?** [Start a discussion](https://github.com/aywengo/kafka-schema-reg-mcp/discussions) and help us improve this FAQ for future users!
 
