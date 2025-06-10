@@ -1,26 +1,169 @@
 # 🤖 AI-Powered Kafka Schema Management
 
-**Transform how you manage Kafka schemas with natural language commands through Claude Desktop or VsCode**
+**Transform how you manage Kafka schemas with natural language commands through any MCP-compatible AI client**
 
 [![🚀 Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://github.com/aywengo/demo-deployment) [![📚 Documentation](https://img.shields.io/badge/📚-Documentation-green?style=for-the-badge)](https://github.com/aywengo/kafka-schema-reg-mcp) [![🎨 Demo Schemas](https://img.shields.io/badge/🎨-Demo%20Schemas-orange?style=for-the-badge)](https://github.com/aywengo/demo-schemas)
 
 ---
 
-## 🎯 What if managing Kafka schemas was as simple as talking to AI Model like Claude or Copilot in VsCode?
+## 🎯 What if managing Kafka schemas was as simple as talking to any AI assistant?
 
 Instead of wrestling with APIs, CLIs, and complex configurations, imagine:
 
 ```
 You: "Register a new user profile schema for our e-commerce platform with id, name, email, and preferences"
 
-Claude: I'll create and register that schema for you in the development registry under the ecommerce context.
+AI Assistant: I'll create and register that schema for you in the development registry under the ecommerce context.
 
 ✅ Schema registered successfully!
 ✅ Compatibility verified with existing schemas
 ✅ Available in development environment
 ```
 
-**That's the power of the Kafka Schema Registry MCP Server** - bringing AI-driven schema management directly to your Claude Desktop workflow.
+**That's the power of the Kafka Schema Registry MCP Server** - bringing AI-driven schema management to any MCP-compatible IDE or AI assistant.
+
+---
+
+## 🔌 MCP Client Compatibility
+
+The **Model Context Protocol (MCP)** is an open standard that enables AI models to interact with external tools and services through a unified interface. Our Kafka Schema Registry MCP Server works seamlessly with any MCP-compatible client:
+
+### **🎨 Supported AI Clients & IDEs**
+
+<table>
+<tr>
+<td width="25%" align="center">
+<h4>🤖 <a href="#claude-desktop-setup">Claude Desktop</a></h4>
+<p><strong>Status:</strong> ✅ Full Support</p>
+<ul>
+<li>Native MCP integration</li>
+<li>Natural language commands</li>
+<li>Multi-registry support</li>
+<li>GitHub OAuth integration</li>
+</ul>
+</td>
+<td width="25%" align="center">
+<h4>💻 <a href="#vs-code-copilot-setup">VS Code + Copilot</a></h4>
+<p><strong>Status:</strong> ✅ Agent Mode (Preview)</p>
+<ul>
+<li>GitHub Copilot agent mode</li>
+<li>Workspace/user configuration</li>
+<li>Tool integration in chat</li>
+<li>Auto-discovery support</li>
+</ul>
+</td>
+<td width="25%" align="center">
+<h4>⚡ <a href="#cursor-ide-setup">Cursor IDE</a></h4>
+<p><strong>Status:</strong> ✅ Full Support</p>
+<ul>
+<li>One-click MCP installation</li>
+<li>Project/global configuration</li>
+<li>Agent & Composer modes</li>
+<li>OAuth server support</li>
+</ul>
+</td>
+<td width="25%" align="center">
+<h4>🧠 <a href="#jetbrains-setup">JetBrains IDEs</a></h4>
+<p><strong>Status:</strong> ✅ Full Support (2025.1+)</p>
+<ul>
+<li>IntelliJ IDEA, PyCharm, WebStorm</li>
+<li>AI Assistant integration</li>
+<li>Codebase-mode support</li>
+<li>MCP proxy support</li>
+</ul>
+</td>
+</tr>
+</table>
+
+### **🌐 Additional MCP Clients**
+
+- **Microsoft Copilot Studio**: Enterprise-grade MCP integration
+- **Eclipse IDE**: Copilot with MCP support  
+- **Xcode**: GitHub Copilot agent mode
+- **Emacs**: MCP client with gptel/llm integration
+- **Warp Terminal**: AI-powered terminal with MCP
+- **And many more**: [See full list →](https://modelcontextprotocol.io/clients)
+
+---
+
+## 🛠️ Quick Setup for Your IDE
+
+Choose your preferred development environment:
+
+### Claude Desktop Setup
+
+```json
+{
+  "mcpServers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "demo-deployment_default",
+        "-e", "SCHEMA_REGISTRY_URL=http://dev-registry:8081",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ]
+    }
+  }
+}
+```
+
+### VS Code Copilot Setup
+
+Create `.vscode/mcp.json` in your workspace:
+```json
+{
+  "servers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "host",
+        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ]
+    }
+  }
+}
+```
+
+### Cursor IDE Setup
+
+Create `.cursor/mcp.json` in your project:
+```json
+{
+  "mcpServers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "host", 
+        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ]
+    }
+  }
+}
+```
+
+### JetBrains Setup
+
+In **Settings → Tools → AI Assistant → Model Context Protocol (MCP)**:
+```json
+{
+  "servers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "host",
+        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081", 
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ]
+    }
+  }
+}
+```
 
 ---
 
@@ -49,7 +192,7 @@ You: "Migrate user-events schema from staging to production"
 You: "Export all e-commerce schemas for documentation"
 ```
 
-**AI Copilot handles all the complexity while you focus on the business logic.**
+**Any AI assistant handles all the complexity while you focus on the business logic.**
 
 ---
 
@@ -61,7 +204,7 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 <tr>
 <td width="25%" align="center">
 <h3>🤖 <a href="https://github.com/aywengo/kafka-schema-reg-mcp">MCP Server</a></h3>
-<p>The core AI integration that connects Claude Desktop to Kafka Schema Registry</p>
+<p>The core AI integration that connects any MCP client to Kafka Schema Registry</p>
 <ul>
 <li>48 MCP tools for complete schema operations</li>
 <li>Multi-registry support (dev/staging/prod)</li>
@@ -143,11 +286,11 @@ Built for the **[Apache Kafka](https://kafka.apache.org/)** ecosystem with full 
 Developer: "Our user profile schema needs to support international addresses. 
            Can you add country and postal_code fields that are backward compatible?"
 
-Claude: I'll add those fields as optional with defaults to maintain backward compatibility.
-        [Registers new schema version]
-        ✅ New version registered successfully
-        ✅ Backward compatibility verified
-        ✅ Ready for gradual rollout
+AI Assistant: I'll add those fields as optional with defaults to maintain backward compatibility.
+              [Registers new schema version]
+              ✅ New version registered successfully
+              ✅ Backward compatibility verified
+              ✅ Ready for gradual rollout
 ```
 
 **Scenario 2: Multi-Environment Promotion**
@@ -155,22 +298,22 @@ Claude: I'll add those fields as optional with defaults to maintain backward com
 DevOps Engineer: "The order-events schema tested successfully in staging. 
                   Promote it to production."
 
-Claude: I'll migrate the order-events schema from staging to production.
-        [Performs cross-registry migration]
-        ✅ Schema migrated successfully  
-        ✅ Production registry updated
-        ✅ All versions preserved
+AI Assistant: I'll migrate the order-events schema from staging to production.
+              [Performs cross-registry migration]
+              ✅ Schema migrated successfully  
+              ✅ Production registry updated
+              ✅ All versions preserved
 ```
 
 **Scenario 3: Compliance and Documentation**
 ```
 Data Governance: "Export all schemas from our fintech context for the audit."
 
-Claude: I'll export all fintech schemas with their documentation and evolution history.
-        [Generates comprehensive export]
-        ✅ 12 schemas exported in JSON format
-        ✅ Evolution history included
-        ✅ Compliance metadata attached
+AI Assistant: I'll export all fintech schemas with their documentation and evolution history.
+              [Generates comprehensive export]
+              ✅ 12 schemas exported in JSON format
+              ✅ Evolution history included
+              ✅ Compliance metadata attached
 ```
 
 ### **🔒 GitHub OAuth Integration**
@@ -189,8 +332,8 @@ Realistic permission management using familiar GitHub authentication:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        Claude Desktop                           │
-│                      (Natural Language)                         │
+│                     MCP-Compatible Clients                      │
+│  Claude Desktop │ VS Code Copilot │ Cursor │ JetBrains │ Others │
 └─────────────────────┬───────────────────────────────────────────┘
                       │ MCP Protocol
 ┌─────────────────────▼───────────────────────────────────────────┐
@@ -216,6 +359,7 @@ Realistic permission management using familiar GitHub authentication:
 - **🔒 Secure**: GitHub OAuth with granular permissions
 - **📈 Scalable**: Handles complex schema evolution and governance
 - **🌐 Cloud-Ready**: Docker-based deployment for any environment
+- **🔌 Client-Agnostic**: Works with any MCP-compatible AI client
 
 ---
 
@@ -225,10 +369,12 @@ Realistic permission management using familiar GitHub authentication:
 > *"Finally, schema management that doesn't interrupt my flow"*
 
 **What you get:**
-- Natural language schema operations in Claude Desktop or in VsCode/Copilot
+- Natural language schema operations in your favorite IDE
 - Instant compatibility checking before deployment
 - AI-assisted schema design and evolution
 - Context-aware environment management
+
+**Compatible with:** Claude Desktop, VS Code Copilot, Cursor, JetBrains IDEs
 
 **Try it:** [Developer Quick Start →](getting-started.md#developers)
 
@@ -276,11 +422,8 @@ git clone https://github.com/aywengo/demo-deployment.git
 cd demo-deployment
 docker-compose -f docker-compose.github-oauth.yml up -d
 
-# Configure Claude Desktop
-cp config-examples/claude_desktop_demo.json \
-   ~/Library/Application\ Support/Claude/claude_desktop_config.json
-
-# Restart Claude Desktop and start managing schemas with AI!
+# Configure your MCP client (examples above)
+# Restart your IDE/AI client and start managing schemas with AI!
 ```
 
 ### **Option 2: Try with Your Registry**
@@ -402,7 +545,7 @@ ecommerce/          fintech/           iot-platform/
 ## 🔗 Complete Ecosystem Links
 
 | Component | Purpose | Repository | Status |
-|-----------|---------|------------|---------|
+|-----------|---------|------------|---------| 
 | **🤖 MCP Server** | Core AI integration | [kafka-schema-reg-mcp](https://github.com/aywengo/kafka-schema-reg-mcp) | ✅ Production Ready |
 | **🏗️ Demo Deployment** | Infrastructure & OAuth | [demo-deployment](https://github.com/aywengo/demo-deployment) | ✅ Ready to Deploy |
 | **🎨 Demo Schemas** | Business examples | [demo-schemas](https://github.com/aywengo/demo-schemas) | ✅ 14 schemas, 39 versions |
@@ -441,6 +584,6 @@ Help others discover AI-powered schema management:
 
 [Documentation](https://github.com/aywengo/demo-docs) • [Demo](https://github.com/aywengo/demo-deployment) • [Schemas](https://github.com/aywengo/demo-schemas) • [MCP Server](https://github.com/aywengo/kafka-schema-reg-mcp)
 
-**Powered by:** [Apache Kafka](https://kafka.apache.org/) • [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/) • [Apache Avro](https://avro.apache.org/) • [Claude Desktop](https://claude.ai/)
+**Powered by:** [Apache Kafka](https://kafka.apache.org/) • [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/) • [Apache Avro](https://avro.apache.org/) • [Model Context Protocol](https://modelcontextprotocol.io/)
 
 </div>
