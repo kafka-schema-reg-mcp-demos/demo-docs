@@ -1,18 +1,32 @@
 # 🚀 Getting Started with AI-Powered Schema Management
 
-**From zero to AI-powered schema management in under 10 minutes**
+**From zero to AI-powered schema management in under 10 minutes with any MCP-compatible IDE**
 
-This guide walks you through setting up the complete demo environment and integrating it with Claude Desktop for natural language schema operations.
+This guide walks you through setting up the complete demo environment and integrating it with your preferred AI-powered development environment for natural language schema operations.
 
 ## 📋 Prerequisites
 
 Before you begin, ensure you have:
 
 - **Docker** and **Docker Compose** installed
-- **Claude Desktop** installed ([download here](https://claude.ai/chat))
+- **MCP-compatible AI client** (see [supported clients](#supported-clients))
 - **GitHub account** (for OAuth authentication)
 - **6GB+ RAM** available
 - **Ports available**: 3000, 8081-8083, 9090-9092, 38000
+
+## 🔌 Supported Clients
+
+Our Kafka Schema Registry MCP Server works with any MCP-compatible client:
+
+| Client | Status | Notes |
+|--------|--------|--------|
+| **Claude Desktop** | ✅ Full Support | Native MCP integration |
+| **VS Code + Copilot** | ✅ Agent Mode (Preview) | Requires agent mode activation |
+| **Cursor IDE** | ✅ Full Support | One-click installation available |
+| **JetBrains IDEs** | ✅ Full Support | Requires 2025.1+ and AI Assistant |
+| **Microsoft Copilot Studio** | ✅ Full Support | Enterprise integration |
+| **Eclipse + Copilot** | ✅ Agent Mode | GitHub Copilot integration |
+| **Xcode + Copilot** | ✅ Agent Mode | GitHub Copilot integration |
 
 ## 🎯 Quick Start Options
 
@@ -102,7 +116,11 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
   http://localhost:38000/subjects?registry=development
 ```
 
-### Step 5: Configure Claude Desktop
+### Step 5: Configure Your MCP Client
+
+Choose your preferred development environment:
+
+#### 🤖 Claude Desktop Configuration
 
 ```bash
 # Copy the demo configuration
@@ -145,10 +163,124 @@ cp config-examples/claude_desktop_demo.json \
 }
 ```
 
+#### 💻 VS Code + Copilot Configuration
+
+Create `.vscode/mcp.json` in your workspace:
+```json
+{
+  "servers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "demo-deployment_default",
+        "-e", "ENABLE_AUTH=true",
+        "-e", "AUTH_PROVIDER=github",
+        "-e", "SCHEMA_REGISTRY_NAME_1=development",
+        "-e", "SCHEMA_REGISTRY_URL_1=http://dev-registry:8081",
+        "-e", "SCHEMA_REGISTRY_NAME_2=staging",
+        "-e", "SCHEMA_REGISTRY_URL_2=http://staging-registry:8082",
+        "-e", "SCHEMA_REGISTRY_NAME_3=production",
+        "-e", "SCHEMA_REGISTRY_URL_3=http://prod-registry:8083",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ],
+      "env": {
+        "GITHUB_CLIENT_ID": "your_github_client_id",
+        "GITHUB_CLIENT_SECRET": "your_github_client_secret"
+      }
+    }
+  }
+}
+```
+
+**Activate Agent Mode:**
+1. Open GitHub Copilot Chat in VS Code
+2. Select **Agent** from the popup menu
+3. Click the **tools** 🔧 icon to see available MCP servers
+
+#### ⚡ Cursor IDE Configuration
+
+**Option A: One-Click Installation (Recommended)**
+1. In Cursor, open **Settings** → **MCP**
+2. Browse available servers and find "Kafka Schema Registry"
+3. Click **"Add to Cursor"** for instant setup
+
+**Option B: Manual Configuration**
+Create `.cursor/mcp.json` in your project:
+```json
+{
+  "mcpServers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i", 
+        "--network", "demo-deployment_default",
+        "-e", "ENABLE_AUTH=true",
+        "-e", "AUTH_PROVIDER=github",
+        "-e", "SCHEMA_REGISTRY_NAME_1=development",
+        "-e", "SCHEMA_REGISTRY_URL_1=http://dev-registry:8081",
+        "-e", "SCHEMA_REGISTRY_NAME_2=staging", 
+        "-e", "SCHEMA_REGISTRY_URL_2=http://staging-registry:8082",
+        "-e", "SCHEMA_REGISTRY_NAME_3=production",
+        "-e", "SCHEMA_REGISTRY_URL_3=http://prod-registry:8083",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ],
+      "env": {
+        "GITHUB_CLIENT_ID": "your_github_client_id",
+        "GITHUB_CLIENT_SECRET": "your_github_client_secret"
+      }
+    }
+  }
+}
+```
+
+#### 🧠 JetBrains IDEs Configuration
+
+**Requirements:**
+- IntelliJ IDEA 2025.1+ (or PyCharm, WebStorm, etc.)
+- AI Assistant plugin enabled
+
+**Setup:**
+1. Go to **Settings** → **Tools** → **AI Assistant** → **Model Context Protocol (MCP)**
+2. Click **"+"** to add a new server
+3. Enter the configuration:
+
+```json
+{
+  "servers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": [
+        "run", "--rm", "-i",
+        "--network", "demo-deployment_default", 
+        "-e", "ENABLE_AUTH=true",
+        "-e", "AUTH_PROVIDER=github",
+        "-e", "SCHEMA_REGISTRY_NAME_1=development",
+        "-e", "SCHEMA_REGISTRY_URL_1=http://dev-registry:8081",
+        "-e", "SCHEMA_REGISTRY_NAME_2=staging",
+        "-e", "SCHEMA_REGISTRY_URL_2=http://staging-registry:8082",
+        "-e", "SCHEMA_REGISTRY_NAME_3=production",
+        "-e", "SCHEMA_REGISTRY_URL_3=http://prod-registry:8083",
+        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+      ],
+      "env": {
+        "GITHUB_CLIENT_ID": "your_github_client_id",
+        "GITHUB_CLIENT_SECRET": "your_github_client_secret"
+      }
+    }
+  }
+}
+```
+
+**Usage:**
+- Enable **"Codebase"** mode in AI Assistant chat
+- Type `/` to see available MCP tools
+- Ask questions about schemas naturally
+
 ### Step 6: Test the Integration
 
-1. **Restart Claude Desktop**
-2. **Look for the 🔨 tools icon** in the interface
+1. **Restart your IDE/AI client**
+2. **Look for tools/MCP indicators** in the interface
 3. **Try these commands:**
 
 ```
@@ -158,7 +290,7 @@ cp config-examples/claude_desktop_demo.json \
 "Check what registries are available"
 ```
 
-**🎉 Success!** You now have AI-powered schema management with Claude Desktop.
+**🎉 Success!** You now have AI-powered schema management with your preferred development environment.
 
 ---
 
@@ -184,8 +316,11 @@ export SCHEMA_REGISTRY_URL=http://your-registry:8081
 python kafka_schema_registry_unified_mcp.py
 ```
 
-### Step 2: Configure Claude Desktop
+### Step 2: Configure Your Client
 
+Choose your preferred client and update the configuration to point to your registry:
+
+#### Claude Desktop
 ```json
 {
   "mcpServers": {
@@ -202,6 +337,9 @@ python kafka_schema_registry_unified_mcp.py
   }
 }
 ```
+
+#### VS Code / Cursor / JetBrains
+Similar configuration but update the environment variables to point to your registry.
 
 ### Step 3: Test Connection
 
@@ -245,11 +383,29 @@ export SCHEMA_REGISTRY_URL=http://localhost:8081
 python kafka_schema_registry_unified_mcp.py
 ```
 
-### Step 3: Configure Claude Desktop for Local Development
+### Step 3: Configure Your Client for Local Development
 
+Update your client configuration to use local Python execution:
+
+#### Claude Desktop
 ```json
 {
   "mcpServers": {
+    "kafka-schema-registry-dev": {
+      "command": "python",
+      "args": ["/path/to/kafka-schema-reg-mcp/kafka_schema_registry_unified_mcp.py"],
+      "env": {
+        "SCHEMA_REGISTRY_URL": "http://localhost:8081"
+      }
+    }
+  }
+}
+```
+
+#### VS Code
+```json
+{
+  "servers": {
     "kafka-schema-registry-dev": {
       "command": "python",
       "args": ["/path/to/kafka-schema-reg-mcp/kafka_schema_registry_unified_mcp.py"],
@@ -332,11 +488,14 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
   http://localhost:38000/auth/user
 ```
 
-### Verify Claude Desktop Integration
+### Verify Your Client Integration
 
-1. **🔨 Tools Icon**: Should appear in Claude Desktop interface
-2. **MCP Status**: Try "What MCP tools are available?"
-3. **Schema Operations**: Try "List all schema contexts"
+| Client | Verification Method |
+|--------|-------------------|
+| **Claude Desktop** | Look for 🔨 tools icon in interface |
+| **VS Code** | Tools icon in Copilot Chat (Agent mode) |
+| **Cursor** | MCP server indicator turns green |
+| **JetBrains** | Type `/` in AI Assistant to see tools |
 
 ---
 
@@ -344,8 +503,9 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 
 ### Common Issues and Solutions
 
-#### **Claude Desktop Not Showing Tools**
+#### **MCP Client Not Showing Tools**
 
+**Claude Desktop:**
 ```bash
 # Check configuration file location
 # macOS: ~/Library/Application Support/Claude/claude_desktop_config.json
@@ -355,6 +515,37 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 python -m json.tool claude_desktop_config.json
 
 # Restart Claude Desktop completely
+```
+
+**VS Code:**
+```bash
+# Ensure agent mode is activated
+# Click Copilot Chat → Agent → Tools icon
+
+# Check .vscode/mcp.json exists in workspace
+ls .vscode/mcp.json
+
+# Restart VS Code
+```
+
+**Cursor:**
+```bash
+# Check server indicator is green
+# Settings → MCP to view configured servers
+
+# Verify .cursor/mcp.json in project root
+ls .cursor/mcp.json
+```
+
+**JetBrains:**
+```bash
+# Verify AI Assistant is enabled
+# Settings → Tools → AI Assistant
+
+# Check MCP configuration
+# Settings → Tools → AI Assistant → MCP
+
+# Enable "Codebase" mode in chat
 ```
 
 #### **Docker Services Not Starting**
@@ -424,6 +615,6 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 
 ---
 
-**🎊 Congratulations!** You now have AI-powered schema management running with Claude Desktop. Start exploring natural language schema operations and see how it transforms your workflow.
+**🎊 Congratulations!** You now have AI-powered schema management running with your preferred development environment. Start exploring natural language schema operations and see how it transforms your workflow.
 
 [← Back to Main](README.md) | [Architecture →](architecture.md) | [Use Cases →](use-cases.md)
