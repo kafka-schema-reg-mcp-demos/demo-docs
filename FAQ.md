@@ -2,11 +2,118 @@
 
 **Quick answers to common questions about AI-powered Kafka Schema Registry management**
 
+## 🔌 MCP Client Compatibility
+
+### **Q: Which IDEs and AI assistants work with this MCP server?**
+
+**A:** Our Kafka Schema Registry MCP Server works with any MCP-compatible client through the standardized **[Model Context Protocol](https://modelcontextprotocol.io/)**. Here are the currently supported options:
+
+**✅ Production Ready Clients:**
+- **[Claude Desktop](https://claude.ai/)** - Native MCP integration with conversational interface
+- **[VS Code + GitHub Copilot](https://code.visualstudio.com/)** - Agent mode (preview) with tool integration
+- **[Cursor IDE](https://cursor.com/)** - Full MCP support with one-click installation
+- **[JetBrains IDEs](https://www.jetbrains.com/)** - IntelliJ IDEA, PyCharm, WebStorm (2025.1+)
+- **[Microsoft Copilot Studio](https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio)** - Enterprise MCP integration
+
+**🌐 Additional Supported Clients:**
+- **Eclipse IDE** - GitHub Copilot with MCP support
+- **Xcode** - GitHub Copilot agent mode  
+- **Emacs** - MCP client with gptel/llm plugins
+- **Warp Terminal** - AI-powered terminal with MCP
+- **Windsurf IDE** - AI-first editor with MCP support
+
+**The beauty of MCP is that our server works with ANY client that supports the protocol - you're not locked into a specific IDE or AI assistant.**
+
+### **Q: Do I need Claude Desktop specifically, or can I use other AI assistants?**
+
+**A:** You can use **any MCP-compatible AI assistant**! While our documentation often shows Claude Desktop examples (since it has the most mature MCP support), the server works equally well with:
+
+- **VS Code Copilot** - Natural language schema operations in your editor
+- **Cursor** - Agent mode with schema management capabilities  
+- **JetBrains IDEs** - AI Assistant with codebase-aware schema operations
+- **Any other MCP client** - Current and future implementations
+
+The MCP protocol ensures you can switch between different AI assistants while keeping the same powerful schema management capabilities.
+
+### **Q: How do I set up the MCP server with my preferred IDE?**
+
+**A:** Each IDE has slightly different configuration approaches:
+
+**Claude Desktop:** Configuration via JSON file
+```json
+{
+  "mcpServers": {
+    "kafka-schema-registry": {
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"]
+    }
+  }
+}
+```
+
+**VS Code Copilot:** Create `.vscode/mcp.json` in workspace
+```json
+{
+  "servers": {
+    "kafka-schema-registry": {
+      "command": "docker", 
+      "args": ["run", "--rm", "-i", "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"]
+    }
+  }
+}
+```
+
+**Cursor:** One-click installation or `.cursor/mcp.json` configuration
+**JetBrains:** Settings → Tools → AI Assistant → MCP configuration
+
+**📖 Detailed Setup:** See our **[MCP Client Integration Guide](MCP-CLIENT-INTEGRATION.md)** for complete instructions for each IDE.
+
+### **Q: What's the difference between using this with Claude Desktop vs VS Code Copilot?**
+
+**A:** Each client offers unique advantages:
+
+**Claude Desktop:**
+- **Conversational**: Natural chat interface for schema operations
+- **Context Switching**: Easy to ask follow-up questions and iterate
+- **Multi-Registry**: Seamless switching between dev/staging/prod
+- **Documentation**: Built-in help and explanation capabilities
+
+**VS Code Copilot (Agent Mode):**
+- **Editor Integration**: Schema operations within your development workflow
+- **Code Context**: AI understands your project structure and files
+- **Inline Assistance**: Generate code that uses schemas directly
+- **Workspace Awareness**: Access to project files and Git history
+
+**Cursor:**
+- **AI-First**: Designed specifically for AI-powered development
+- **Composer Mode**: Multi-file editing with schema context
+- **One-Click Setup**: Easiest installation and configuration
+- **Agent Capabilities**: Autonomous multi-step operations
+
+**JetBrains IDEs:**
+- **Professional Tools**: Integration with enterprise development features
+- **Language Specific**: Optimized for Java, Python, JavaScript development
+- **Codebase Mode**: Deep understanding of project structure
+- **Debugging Integration**: Schema validation during development
+
+**All clients access the same powerful MCP server - choose based on your preferred development environment!**
+
+### **Q: Can I use multiple MCP clients with the same server?**
+
+**A:** Yes! You can configure the same MCP server across multiple clients simultaneously. For example:
+
+- Use **Claude Desktop** for exploratory schema design and documentation
+- Use **VS Code Copilot** for day-to-day development and testing
+- Use **Cursor** for AI-assisted refactoring and optimization
+- Use **JetBrains** for enterprise development and debugging
+
+Each client connects to the same MCP server, so you get consistent schema management capabilities across your entire development toolkit.
+
 ## 🤖 About the MCP Server
 
 ### **Q: What makes this different from other Schema Registry tools?**
 
-**A:** This is the first true AI-powered schema management solution that integrates directly with Claude Desktop. Instead of learning complex CLI commands or crafting JSON payloads, you use natural language like "Register a user profile schema with email and preferences" and Claude handles all the technical details.
+**A:** This is the first true AI-powered schema management solution that integrates directly with any MCP-compatible AI assistant. Instead of learning complex CLI commands or crafting JSON payloads, you use natural language like "Register a user profile schema with email and preferences" and your AI assistant handles all the technical details.
 
 **Key Differentiators:**
 - **True MCP Implementation**: Uses official Model Context Protocol, not a custom API
@@ -14,10 +121,11 @@
 - **GitHub OAuth Integration**: Realistic enterprise authentication
 - **Complete Ecosystem**: Deployment, schemas, and documentation included
 - **Real Business Schemas**: 14 production-ready schemas across 4 industries
+- **Universal Compatibility**: Works with any MCP-compatible AI client
 
 ### **Q: Do I need to learn the Schema Registry API?**
 
-**A:** No! That's the whole point. Claude Desktop with the MCP server abstracts away all the API complexity. You simply describe what you want to do in natural language, and the AI handles the REST API calls, JSON formatting, and error handling.
+**A:** No! That's the whole point. Any MCP-compatible AI assistant with the MCP server abstracts away all the API complexity. You simply describe what you want to do in natural language, and the AI handles the REST API calls, JSON formatting, and error handling.
 
 **Before (Traditional):**
 ```bash
@@ -193,7 +301,7 @@ Use contexts like: "Register schema in the ecommerce context" or "Export all sch
 "Add an optional phone_number field to user-profile and check if it's backward compatible"
 ```
 
-Claude will:
+Your AI assistant will:
 1. Analyze the current schema structure
 2. Design the field addition with proper defaults
 3. Check compatibility against all previous versions using **[Avro resolution rules](https://avro.apache.org/docs/current/spec.html#Schema+Resolution)**
@@ -250,16 +358,16 @@ The demo schemas include examples of privacy-compliant design patterns.
 git clone https://github.com/aywengo/demo-deployment.git
 cd demo-deployment && docker-compose up -d
 
-# Configure Claude Desktop  
+# Configure your preferred MCP client (Claude Desktop example)
 cp config-examples/claude_desktop_config.json \
    ~/Library/Application\ Support/Claude/claude_desktop_config.json
 
-# Restart Claude Desktop and try:
+# Restart your AI client and try:
 "List all schema registries"
 "Register a test schema with name and email fields"
 ```
 
-No GitHub OAuth needed for local experimentation!
+No GitHub OAuth needed for local experimentation! Works with any MCP-compatible client.
 
 ### **Q: Do I need Docker to run this?**
 
@@ -278,7 +386,7 @@ No GitHub OAuth needed for local experimentation!
 **Option 3: Cloud Services**
 - Use existing Schema Registry (Confluent Cloud, AWS MSK)
 - Deploy MCP server to cloud platform
-- Configure Claude Desktop with cloud endpoints
+- Configure your AI client with cloud endpoints
 
 ### **Q: Can I use this in CI/CD pipelines?**
 
@@ -339,7 +447,7 @@ Each schema includes multiple versions demonstrating **[Avro evolution patterns]
 "Create a schema based on the user-profile template but for healthcare patients with medical_record_number, date_of_birth, and emergency_contact fields"
 ```
 
-Claude will:
+Your AI assistant will:
 1. Analyze the existing user-profile structure
 2. Adapt field types for healthcare requirements
 3. Add compliance annotations for HIPAA
@@ -365,7 +473,7 @@ Example event-driven workflow:
 
 ## 🛠️ Troubleshooting
 
-### **Q: Claude Desktop shows no tools - what's wrong?**
+### **Q: My AI client shows no tools - what's wrong?**
 
 **A:** Check the MCP configuration:
 1. **Config Location**: Verify file is in correct location for your OS
@@ -374,10 +482,16 @@ Example event-driven workflow:
 4. **Service Health**: Check `docker-compose ps` and `curl http://localhost:38000/health`
 
 **Common Fixes:**
-- Restart Claude Desktop completely (not just refresh)
+- Restart your AI client completely (not just refresh)
 - Check Docker daemon is running
 - Verify port 38000 is not blocked by firewall
 - Ensure all services in docker-compose are healthy
+
+**Client-Specific Troubleshooting:**
+- **Claude Desktop**: Check tools icon (🔨) appears in interface
+- **VS Code**: Activate agent mode, look for tools icon in Copilot Chat
+- **Cursor**: Verify server indicator turns green in settings
+- **JetBrains**: Enable "Codebase" mode, type `/` to see tools
 
 ### **Q: Getting authentication errors with GitHub OAuth?**
 
@@ -431,7 +545,7 @@ curl -H "Authorization: Bearer $GITHUB_TOKEN" \
 - **[Avro Project](https://avro.apache.org/mailing_lists.html)** - Schema format questions
 
 **When Reporting Issues:**
-- Include your environment details (OS, Docker version, registry type)
+- Include your environment details (OS, Docker version, registry type, AI client)
 - Provide relevant logs from `docker-compose logs mcp-server`
 - Share your configuration (remove sensitive credentials)
 - Describe expected vs actual behavior
@@ -479,11 +593,12 @@ Follow [GitHub Discussions](https://github.com/aywengo/kafka-schema-reg-mcp/disc
 ---
 
 **🔗 Additional Resources:**
+- **[MCP Client Integration Guide](MCP-CLIENT-INTEGRATION.md)** - Complete setup for all IDEs
 - **[Apache Kafka Documentation](https://kafka.apache.org/documentation/)** - Complete Kafka ecosystem guide
 - **[Confluent Schema Registry Docs](https://docs.confluent.io/platform/current/schema-registry/)** - Enterprise Schema Registry features
 - **[Avro Specification](https://avro.apache.org/docs/current/spec.html)** - Schema format specification
-- **[Schema Evolution Best Practices](https://docs.confluent.io/platform/current/schema-registry/avro.html#schema-evolution-and-compatibility)** - Evolution guidelines
+- **[Model Context Protocol](https://modelcontextprotocol.io/)** - Official MCP documentation
 
 **💡 Have a question not answered here?** [Start a discussion](https://github.com/aywengo/kafka-schema-reg-mcp/discussions) and help us improve this FAQ for future users!
 
-[Back to Main](README.md) | [Getting Started →](getting-started.md) | [Tutorials →](tutorials/)
+[Back to Main](README.md) | [Getting Started →](getting-started.md) | [MCP Integration Guide →](MCP-CLIENT-INTEGRATION.md)
