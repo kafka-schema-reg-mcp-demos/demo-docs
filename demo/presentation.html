@@ -472,13 +472,13 @@
             <div class="demo-steps">
                 <div class="step">
                     <h3>📚 Anthropic's Remote MCP Architecture</h3>
-                    <div class="code-block">┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Claude App    │    │   Remote MCP     │    │   Enterprise    │
-│   (Desktop)     │────│     Server       │────│    Systems      │
-│                 │    │   + OAuth        │    │                 │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-   Multiple Users         Secure Gateway         Schema Registries
-                                                 Databases, APIs</div>
+                    <div class="code-block">┌─────────────────┐    ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Claude App    │    │     VsCode      │    │   Remote MCP     │    │   Enterprise    │
+│   (Desktop)     │────│   Extension     │────│     Server       │────│    Systems      │
+│                 │    │                 │    │   + OAuth        │    │                 │
+└─────────────────┘    └─────────────────┘    └──────────────────┘    └─────────────────┘
+                            Multiple Clients         Secure Gateway         Schema Registries
+                                                                             Databases, APIs</div>
                 </div>
                 <div class="step">
                     <h3>🔐 Security Requirements for Remote Access</h3>
@@ -488,7 +488,7 @@
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Explain that while local MCP is great for development, real enterprise use cases need remote deployment with proper authentication. Reference the Anthropic docs showing this architecture pattern.
+                🎥 <strong>Recording Tip:</strong> Explain that while local MCP is great for development, real enterprise use cases need remote deployment with proper authentication. Emphasize how multiple clients (Claude Desktop, VS Code, etc.) can connect to the same secure MCP server.
             </div>
         </div>
 
@@ -1314,7 +1314,7 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
 
         const speakerNotes = [
             "Welcome to the Kafka Schema Registry MCP demo! Start by introducing yourself and the purpose of this demo. Mention that this is a live, working demonstration.",
-            "Reference the Anthropic documentation about remote MCP servers. Explain why local MCP isn't enough for enterprise use cases. Emphasize the need for multi-user access and security.",
+            "Reference the Anthropic documentation about remote MCP servers. Explain why local MCP isn't enough for enterprise use cases. Emphasize the need for multi-user access and security. Highlight how multiple clients (Claude Desktop, VS Code extensions, etc.) can connect to the same secure MCP server.",
             "Explain each challenge in detail. Ask: 'How many of you have dealt with schema compatibility issues in production?' Make it relatable.",
             "This is the core innovation - explain how MCP bridges the gap between natural language (Claude) and technical systems (Schema Registry).",
             "Demonstrate the GitHub OAuth flow live. Show how different scopes provide different levels of access. This is a key differentiator.",
