@@ -1,12 +1,12 @@
-# 🤖 AI-Powered Kafka Schema Management with Claude Desktop
+# 🤖 AI-Powered Kafka Schema Management
 
-**Transform how you manage Kafka schemas with natural language commands through Claude Desktop**
+**Transform how you manage Kafka schemas with natural language commands through Claude Desktop or VsCode**
 
 [![🚀 Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://github.com/aywengo/demo-deployment) [![📚 Documentation](https://img.shields.io/badge/📚-Documentation-green?style=for-the-badge)](https://github.com/aywengo/kafka-schema-reg-mcp) [![🎨 Demo Schemas](https://img.shields.io/badge/🎨-Demo%20Schemas-orange?style=for-the-badge)](https://github.com/aywengo/demo-schemas)
 
 ---
 
-## 🎯 What if managing Kafka schemas was as simple as talking to Claude?
+## 🎯 What if managing Kafka schemas was as simple as talking to AI Model like Claude or Copilot in VsCode?
 
 Instead of wrestling with APIs, CLIs, and complex configurations, imagine:
 
@@ -49,7 +49,7 @@ You: "Migrate user-events schema from staging to production"
 You: "Export all e-commerce schemas for documentation"
 ```
 
-**Claude handles all the complexity while you focus on the business logic.**
+**AI Copilot handles all the complexity while you focus on the business logic.**
 
 ---
 
@@ -225,7 +225,7 @@ Realistic permission management using familiar GitHub authentication:
 > *"Finally, schema management that doesn't interrupt my flow"*
 
 **What you get:**
-- Natural language schema operations in Claude Desktop
+- Natural language schema operations in Claude Desktop or in VsCode/Copilot
 - Instant compatibility checking before deployment
 - AI-assisted schema design and evolution
 - Context-aware environment management
