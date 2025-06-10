@@ -1184,7 +1184,62 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- UPDATED SLIDE 20: Technical Benefits (was slide 11) -->
+        <!-- NEW SLIDE 20: Schema-Aware Data Generation with Shadowtraffic.io -->
+        <div class="slide">
+            <h2>🌊 Schema-Aware Data Generation: Shadowtraffic.io Integration</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Data Engineering Team Needing Realistic Test Data</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Generate realistic test data for our user-events schema using Shadowtraffic.io. I need 10K events per minute with realistic user behavior patterns"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll coordinate between the schema registry and Shadowtraffic.io to generate schema-compliant test data.</p>
+                    
+                    <div class="analysis-result">
+🌊 <span class="success">Schema-Aware Data Generation Setup:</span>
+
+<span class="info">**Retrieved Schema Definition:**</span>
+📋 user-events v4 from development registry:
+   - userId: string (UUID pattern)
+   - eventType: enum ["login", "logout", "purchase", "view", "click"]
+   - timestamp: long (epoch milliseconds)
+   - sessionId: string (session tracking)
+   - metadata: map<string> (contextual data)
+
+<span class="success">**Generated Shadowtraffic Configuration:**</span>
+✅ Data rate: 10,000 events/minute (167 events/second)
+✅ User behavior patterns: Realistic session flows
+✅ Schema compliance: 100% adherence to registered schema
+✅ Data correlation: Related events share sessionId
+
+<span class="info">**Realistic Patterns Applied:**</span>
+🔄 User sessions: 5-30 minutes average duration
+📊 Event distribution: 40% views, 25% clicks, 20% logins, 10% purchases, 5% logouts
+🎯 Peak hours simulation: 3x traffic during business hours
+💫 Geographic distribution: US/EU/APAC timezone patterns
+
+<span class="success">**Live Data Stream:**</span>
+📡 Kafka topic: user-events-test
+🔍 Schema validation: Enabled via schema registry
+📈 Current rate: 10,247 events/minute (within target)
+✅ Schema compliance: 100% (0 validation errors)</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🌊 <strong>Ecosystem Integration:</strong> Seamless tool coordination via MCP</div>
+                <div class="capability-item">📋 <strong>Schema Compliance:</strong> Automatic validation against registered schemas</div>
+                <div class="capability-item">🎯 <strong>Realistic Patterns:</strong> Behavioral simulation for testing</div>
+                <div class="capability-item">🔄 <strong>Live Monitoring:</strong> Real-time schema compliance tracking</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> This demonstrates the broader ecosystem integration capabilities. Explain how MCP enables coordination between different data tools. Reference Michael Drogalis's work with MCP tool integration.
+            </div>
+        </div>
+
+        <!-- UPDATED SLIDE 21: Technical Benefits (was slide 20) -->
         <div class="slide">
             <h2>🚀 Why This Matters</h2>
             <div class="feature-grid">
@@ -1217,11 +1272,11 @@ in production registry"</div>
                 <strong>🔧 Swiss Army Knife:</strong> One tool, unlimited schema management possibilities
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Connect these benefits to the advanced use cases you just showed. Emphasize how one tool handles everything from basic operations to complex enterprise scenarios.
+                🎥 <strong>Recording Tip:</strong> Connect these benefits to the advanced use cases you just showed. Emphasize how one tool handles everything from basic operations to complex enterprise scenarios and ecosystem integration.
             </div>
         </div>
 
-        <!-- UPDATED SLIDE 21: Getting Started (was slide 12) -->
+        <!-- UPDATED SLIDE 22: Getting Started (was slide 21) -->
         <div class="slide">
             <h2>🚀 Getting Started</h2>
             <div class="demo-steps">
@@ -1250,11 +1305,11 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases we just showed.
+                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases we just showed, including the ecosystem integrations.
             </div>
         </div>
 
-        <!-- UPDATED SLIDE 22: Call to Action (was slide 13) -->
+        <!-- UPDATED SLIDE 23: Call to Action (was slide 22) -->
         <div class="slide">
             <h1>Ready to Transform Your Schema Management?</h1>
             <div class="feature-grid">
@@ -1290,7 +1345,7 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                 🔧 <strong>Experience the Swiss Army knife of schema management</strong>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and explore the advanced use cases. Thank them for watching and invite questions.
+                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and explore the advanced use cases including ecosystem integrations. Thank them for watching and invite questions.
             </div>
         </div>
     </div>
@@ -1332,9 +1387,10 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
             "Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles.",
             "Demonstrate template engine for platform standardization. Show how platform teams can enforce consistency across microservices.",
             "Show impact analysis for schema changes. This prevents production incidents by mapping the blast radius of proposed changes.",
-            "Connect the technical features to business value. Emphasize how this Swiss Army knife approach means one tool handles everything from basic operations to complex enterprise scenarios.",
-            "Keep this practical and actionable. Mention that the repository has detailed setup instructions and encourage people to try the advanced use cases.",
-            "End with energy! Encourage engagement and contributions. Thank your audience for their time. Emphasize that they've seen a true Swiss Army knife for schema management."
+            "Demonstrate ecosystem integration with Shadowtraffic.io. This shows how MCP enables coordination between different data tools. Reference Michael Drogalis's work with MCP tool integration. Explain how schema registry provides the schema, and Shadowtraffic generates compliant test data.",
+            "Connect the technical features to business value. Emphasize how this Swiss Army knife approach means one tool handles everything from basic operations to complex enterprise scenarios and ecosystem integration.",
+            "Keep this practical and actionable. Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases including ecosystem integrations.",
+            "End with energy! Encourage engagement and contributions. Thank your audience for their time. Emphasize that they've seen a true Swiss Army knife for schema management that integrates with the broader data ecosystem."
         ];
 
         document.getElementById('total-slides').textContent = totalSlides;
