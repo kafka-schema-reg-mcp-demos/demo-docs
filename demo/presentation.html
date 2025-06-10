@@ -417,6 +417,45 @@
             border-left: 3px solid #4ecdc4;
             font-size: 1rem;
         }
+
+        /* New styles for MCP ecosystem diagram */
+        .mcp-ecosystem {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .ecosystem-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ecosystem-tool {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+            flex: 1;
+            min-width: 180px;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .central-mcp {
+            background: linear-gradient(45deg, #ff6b6b 0%, #4ecdc4 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem;
+            border: 3px solid rgba(255,255,255,0.5);
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -1184,58 +1223,111 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- NEW SLIDE 20: Schema-Aware Data Generation with Shadowtraffic.io -->
+        <!-- ENHANCED SLIDE 20: MCP Ecosystem Integration with Shadowtraffic.io -->
         <div class="slide">
-            <h2>🌊 Schema-Aware Data Generation: Shadowtraffic.io Integration</h2>
-            <p class="subtitle"><strong>Scenario:</strong> Data Engineering Team Needing Realistic Test Data</p>
+            <h2>🌊 MCP Ecosystem Integration: Beyond Schema Registry</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Coordinating Multiple Data Tools Through MCP Protocol</p>
+            
+            <!-- MCP Ecosystem Diagram -->
+            <div class="mcp-ecosystem">
+                <h3>🔗 MCP Protocol: The Universal Data Tool Coordinator</h3>
+                <div class="ecosystem-flow">
+                    <div class="ecosystem-tool">
+                        <strong>Schema Registry</strong><br>
+                        Schema definitions<br>
+                        & validation rules
+                    </div>
+                    <div class="arrow">↔</div>
+                    <div class="central-mcp">
+                        <strong>Claude + MCP</strong><br>
+                        Universal Coordinator<br>
+                        Natural Language Interface
+                    </div>
+                    <div class="arrow">↔</div>
+                    <div class="ecosystem-tool">
+                        <strong>Shadowtraffic.io</strong><br>
+                        Realistic test data<br>
+                        generation
+                    </div>
+                </div>
+                <div class="ecosystem-flow">
+                    <div class="ecosystem-tool">
+                        <strong>ksqlDB</strong><br>
+                        Stream processing<br>
+                        & transformations
+                    </div>
+                    <div class="arrow">↔</div>
+                    <div class="ecosystem-tool">
+                        <strong>Kafka Connect</strong><br>
+                        Data integration<br>
+                        & connectors
+                    </div>
+                    <div class="arrow">↔</div>
+                    <div class="ecosystem-tool">
+                        <strong>Monitoring Tools</strong><br>
+                        Observability<br>
+                        & alerting
+                    </div>
+                </div>
+            </div>
             
             <div class="use-case-demo">
                 <div class="conversation">
                     <div class="human-input">Human:</div>
-                    <p>"Generate realistic test data for our user-events schema using Shadowtraffic.io. I need 10K events per minute with realistic user behavior patterns"</p>
+                    <p>"Create an end-to-end test environment: retrieve our user-events schema, generate 10K realistic events with Shadowtraffic.io, process them through ksqlDB, and monitor the pipeline"</p>
                     
                     <div class="claude-response">Claude:</div>
-                    <p>I'll coordinate between the schema registry and Shadowtraffic.io to generate schema-compliant test data.</p>
+                    <p>I'll coordinate across the entire data ecosystem to set up your test environment.</p>
                     
                     <div class="analysis-result">
-🌊 <span class="success">Schema-Aware Data Generation Setup:</span>
+🌊 <span class="success">Multi-Tool Coordination via MCP:</span>
 
-<span class="info">**Retrieved Schema Definition:**</span>
-📋 user-events v4 from development registry:
-   - userId: string (UUID pattern)
-   - eventType: enum ["login", "logout", "purchase", "view", "click"]
-   - timestamp: long (epoch milliseconds)
-   - sessionId: string (session tracking)
-   - metadata: map<string> (contextual data)
+<span class="info">**Phase 1: Schema Retrieval (Schema Registry MCP)**</span>
+📋 Retrieved: user-events v4 from development registry
+   - Schema validation rules: userId (UUID), eventType (enum), timestamp (long)
+   - Compatibility level: BACKWARD
+   - Context: user-analytics
 
-<span class="success">**Generated Shadowtraffic Configuration:**</span>
-✅ Data rate: 10,000 events/minute (167 events/second)
-✅ User behavior patterns: Realistic session flows
-✅ Schema compliance: 100% adherence to registered schema
-✅ Data correlation: Related events share sessionId
+<span class="success">**Phase 2: Data Generation (Shadowtraffic.io Integration)**</span>
+✅ Generated Shadowtraffic configuration with schema compliance
+✅ Event patterns: Login flows (60%), Purchase journeys (25%), Support interactions (15%)
+✅ Geographic distribution: US (45%), EU (35%), APAC (20%)
+📈 Generation rate: 10,000 events/minute
+🎯 Realistic user behavior: Session-based event correlation
 
-<span class="info">**Realistic Patterns Applied:**</span>
-🔄 User sessions: 5-30 minutes average duration
-📊 Event distribution: 40% views, 25% clicks, 20% logins, 10% purchases, 5% logouts
-🎯 Peak hours simulation: 3x traffic during business hours
-💫 Geographic distribution: US/EU/APAC timezone patterns
+<span class="info">**Phase 3: Stream Processing (ksqlDB Coordination)**</span>
+🔄 Created processing topology:
+   - Source: user-events topic (schema-validated)
+   - Transform: sessionize events by userId + 30min window
+   - Aggregate: user engagement metrics per session
+   - Sink: user-session-analytics topic
 
-<span class="success">**Live Data Stream:**</span>
-📡 Kafka topic: user-events-test
-🔍 Schema validation: Enabled via schema registry
-📈 Current rate: 10,247 events/minute (within target)
-✅ Schema compliance: 100% (0 validation errors)</div>
+<span class="success">**Phase 4: Pipeline Monitoring**</span>
+📊 Kafka metrics: Throughput 167 events/sec (target achieved)
+🔍 Schema validation: 100% compliance (0 errors)
+⚡ Processing latency: avg 45ms (within SLA)
+🛡️ Error handling: Dead letter queue configured
+
+<span class="warning">**Cross-Tool Insights:**</span>
+💡 Schema evolution impact: Adding optional 'deviceType' field would enhance analytics
+🚀 Performance optimization: Consider partitioning by geographic region
+📈 Data quality: 99.97% valid events, 0.03% handled gracefully</div>
                 </div>
             </div>
 
             <div class="capabilities-list">
-                <div class="capability-item">🌊 <strong>Ecosystem Integration:</strong> Seamless tool coordination via MCP</div>
-                <div class="capability-item">📋 <strong>Schema Compliance:</strong> Automatic validation against registered schemas</div>
-                <div class="capability-item">🎯 <strong>Realistic Patterns:</strong> Behavioral simulation for testing</div>
-                <div class="capability-item">🔄 <strong>Live Monitoring:</strong> Real-time schema compliance tracking</div>
+                <div class="capability-item">🔗 <strong>Universal Coordination:</strong> MCP enables seamless tool integration</div>
+                <div class="capability-item">🧠 <strong>Intelligent Orchestration:</strong> AI understands relationships between tools</div>
+                <div class="capability-item">🌊 <strong>End-to-End Workflows:</strong> Complete data pipeline automation</div>
+                <div class="capability-item">📊 <strong>Cross-Tool Analytics:</strong> Insights spanning multiple systems</div>
             </div>
+
+            <div class="demo-url">
+                <strong>🎯 Inspired by:</strong> Michael Drogalis's MCP tool coordination research
+            </div>
+            
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> This demonstrates the broader ecosystem integration capabilities. Explain how MCP enables coordination between different data tools. Reference Michael Drogalis's work with MCP tool integration.
+                🎥 <strong>Recording Tip:</strong> This showcases the true power of MCP - not just connecting one tool, but orchestrating entire data ecosystems. Emphasize how natural language can coordinate complex multi-tool workflows that would normally require deep technical expertise across multiple systems.
             </div>
         </div>
 
@@ -1269,10 +1361,10 @@ in production registry"</div>
                 </div>
             </div>
             <div class="demo-url">
-                <strong>🔧 Swiss Army Knife:</strong> One tool, unlimited schema management possibilities
+                <strong>🔧 Swiss Army Knife:</strong> One interface, unlimited data ecosystem possibilities
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Connect these benefits to the advanced use cases you just showed. Emphasize how one tool handles everything from basic operations to complex enterprise scenarios and ecosystem integration.
+                🎥 <strong>Recording Tip:</strong> Connect these benefits to the ecosystem integration capabilities. Emphasize how MCP enables a single natural language interface to coordinate entire data toolchains.
             </div>
         </div>
 
@@ -1301,17 +1393,18 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                     <h3>4. Open & Explore</h3>
                     <div class="code-block">🌐 Web UI: http://localhost:3000
 🤖 Claude Desktop: Configure MCP connection
-📊 Monitoring: http://localhost:9090</div>
+📊 Monitoring: http://localhost:9090
+🌊 Ecosystem: Try the advanced integrations!</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases we just showed, including the ecosystem integrations.
+                🎥 <strong>Recording Tip:</strong> Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities between different data tools.
             </div>
         </div>
 
         <!-- UPDATED SLIDE 23: Call to Action (was slide 22) -->
         <div class="slide">
-            <h1>Ready to Transform Your Schema Management?</h1>
+            <h1>Ready to Transform Your Data Ecosystem?</h1>
             <div class="feature-grid">
                 <div class="feature-card">
                     <h3>🌟 Try the Demo</h3>
@@ -1336,16 +1429,16 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                 <div class="repo-link">
                     <h4>🎯 Demo Organization</h4>
                     <a href="https://github.com/kafka-schema-reg-mcp-demos" target="_blank">https://github.com/kafka-schema-reg-mcp-demos</a>
-                    <p>Complete demo environment, docs, and examples</p>
+                    <p>Complete demo environment, docs, and ecosystem examples</p>
                 </div>
             </div>
 
             <div class="demo-url">
                 ⭐ <strong>Star the repository to stay updated!</strong><br>
-                🔧 <strong>Experience the Swiss Army knife of schema management</strong>
+                🌊 <strong>Experience the future of data tool coordination</strong>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and explore the advanced use cases including ecosystem integrations. Thank them for watching and invite questions.
+                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Emphasize that they've seen not just schema management, but the future of how AI can coordinate entire data ecosystems through natural language. Thank them for watching and invite questions about the broader MCP ecosystem possibilities.
             </div>
         </div>
     </div>
@@ -1387,10 +1480,10 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
             "Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles.",
             "Demonstrate template engine for platform standardization. Show how platform teams can enforce consistency across microservices.",
             "Show impact analysis for schema changes. This prevents production incidents by mapping the blast radius of proposed changes.",
-            "Demonstrate ecosystem integration with Shadowtraffic.io. This shows how MCP enables coordination between different data tools. Reference Michael Drogalis's work with MCP tool integration. Explain how schema registry provides the schema, and Shadowtraffic generates compliant test data.",
-            "Connect the technical features to business value. Emphasize how this Swiss Army knife approach means one tool handles everything from basic operations to complex enterprise scenarios and ecosystem integration.",
-            "Keep this practical and actionable. Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases including ecosystem integrations.",
-            "End with energy! Encourage engagement and contributions. Thank your audience for their time. Emphasize that they've seen a true Swiss Army knife for schema management that integrates with the broader data ecosystem."
+            "This is the big reveal - MCP isn't just about connecting one tool, it's about orchestrating entire data ecosystems. Show how natural language can coordinate complex workflows across multiple tools like Schema Registry, Shadowtraffic.io, ksqlDB, and monitoring systems. Reference Michael Drogalis's work and explain how this represents the future of data tooling.",
+            "Connect the technical features to business value. Emphasize how MCP enables a single natural language interface to coordinate entire data toolchains, not just individual tools.",
+            "Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities between different data tools.",
+            "End with energy! Emphasize that they've seen not just schema management, but the future of how AI can coordinate entire data ecosystems through natural language. Thank them for watching and invite questions about the broader MCP ecosystem possibilities."
         ];
 
         document.getElementById('total-slides').textContent = totalSlides;
