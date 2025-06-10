@@ -357,6 +357,66 @@
             font-size: 1rem;
             margin: 0.5rem 0 0 0;
         }
+
+        /* New styles for use case slides */
+        .use-case-demo {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: left;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .conversation {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .human-input {
+            color: #ff9f43;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .claude-response {
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .analysis-result {
+            background: rgba(0,0,0,0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .warning { color: #ffc107; }
+        .error { color: #ff6b6b; }
+        .success { color: #4ecdc4; }
+        .info { color: #a8a8a8; }
+
+        .capabilities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .capability-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #4ecdc4;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -658,7 +718,473 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- Slide 11: Technical Benefits -->
+        <!-- NEW SLIDE 11: Swiss Army Knife Overview -->
+        <div class="slide">
+            <h2>🔧 The Swiss Army Knife of Schema Management</h2>
+            <p class="subtitle">Advanced Use Cases Beyond Basic Schema Operations</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔍 DevOps Intelligence</h3>
+                    <p>Schema drift detection, environmental analysis, automated compliance monitoring</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏛️ Schema Archaeology</h3>
+                    <p>Historical investigation, security audits, compliance timeline tracking</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌍 Global Governance</h3>
+                    <p>Multi-region compliance (GDPR, CCPA, LGPD), data residency management</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 AI Optimization</h3>
+                    <p>Performance analysis, automated recommendations, cost savings predictions</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⏱️ Time Machine</h3>
+                    <p>Emergency rollbacks, version control, production incident recovery</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎭 Privacy Engine</h3>
+                    <p>PII masking, development data safety, privacy-by-design compliance</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Explain that we'll now see advanced use cases that showcase the tool's true versatility - like a Swiss Army knife for schema management.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 12: DevOps Intelligence - Schema Drift Detection -->
+        <div class="slide">
+            <h2>🔍 DevOps Intelligence: Schema Drift Detection</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Platform Engineering Team Monitoring Schema Consistency</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Compare all schemas between our development and production registries to find inconsistencies"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll scan both registries for schema drift and inconsistencies.</p>
+                    
+                    <div class="analysis-result">
+🔍 <span class="success">Schema Drift Analysis Complete:</span>
+
+<span class="error">**Critical Findings:**</span>
+⚠️ user-profile: Dev has v4, Prod has v3 (Missing new field: phoneNumber)
+⚠️ order-events: Dev compatibility = BACKWARD, Prod = FULL (Config drift)
+❌ payment-flow: Exists in Dev, Missing in Prod (Deployment gap)
+
+<span class="success">**Safe Changes:**</span>
+✅ analytics-events: Both environments in sync
+✅ notification-prefs: Compatible evolution paths
+
+<span class="warning">**Action Required:**</span>
+🚨 3 schemas need attention before next release
+📊 Generated drift report with remediation steps</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🔍 <strong>Drift Detection:</strong> Automatically find inconsistencies</div>
+                <div class="capability-item">⚡ <strong>Cross-Environment:</strong> Compare unlimited registries</div>
+                <div class="capability-item">📋 <strong>Actionable Reports:</strong> Clear remediation guidance</div>
+                <div class="capability-item">🚨 <strong>Risk Assessment:</strong> Critical vs. safe differences</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Demonstrate this live by showing Claude detecting differences between environments. Emphasize how this prevents production issues.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 13: Schema Archaeology -->
+        <div class="slide">
+            <h2>🏛️ Schema Archaeology: Historical Investigation</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Security Team Investigating Data Breach Impact</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Show me the complete evolution of our user-profile schema over the last 6 months to see when PII fields were added"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll trace the archaeological history of your user-profile schema.</p>
+                    
+                    <div class="analysis-result">
+🏛️ <span class="success">Schema Archaeological Timeline:</span>
+
+<span class="info">**January 2024:** user-profile v1</span>
+- Basic fields: userId, email, createdAt
+- 🟢 No PII beyond email
+
+<span class="info">**March 2024:** user-profile v2</span>
+- Added: firstName, lastName
+- 🟡 Basic personal data added
+
+<span class="warning">**April 2024:** user-profile v3</span>
+- Added: phoneNumber, address
+- 🟠 Enhanced PII - GDPR impact
+
+<span class="error">**May 2024:** user-profile v4</span>
+- Added: socialSecurityNumber, creditScore
+- 🔴 CRITICAL: Sensitive financial data introduced
+- ⚠️ No GDPR consent fields present
+
+<span class="warning">**Security Assessment:**</span>
+📅 Sensitive data introduced: April 15, 2024
+🔒 Compliance gap: Missing data protection fields
+📋 Affected records: ~1.2M users</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🏛️ <strong>Complete History:</strong> Full schema evolution timeline</div>
+                <div class="capability-item">🔍 <strong>Field-Level Tracking:</strong> Trace individual field introductions</div>
+                <div class="capability-item">⚖️ <strong>Compliance Analysis:</strong> GDPR/HIPAA impact assessment</div>
+                <div class="capability-item">📊 <strong>Risk Timeline:</strong> When sensitive data was exposed</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Show how this helps with security investigations and compliance audits. This is powerful for governance teams.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 14: Global Schema Governance -->
+        <div class="slide">
+            <h2>🌍 Global Schema Governance: Multi-Region Compliance</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Multinational Corp with Data Residency Requirements</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Set up region-specific user schemas that comply with GDPR in EU, CCPA in California, and LGPD in Brazil"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll create compliant regional schema variants for each jurisdiction.</p>
+                    
+                    <div class="analysis-result">
+🌍 <span class="success">Global Compliance Setup Complete:</span>
+
+<span class="info">**EU Region (GDPR)**</span>
+✅ Context: eu-gdpr-compliant
+✅ Schema: user-profile-eu v1
+   - Fields: userId, email, gdprConsent, dataRetentionPeriod
+   - Compliance: Article 6 lawful basis, Article 17 deletion rights
+
+<span class="info">**California (CCPA)**</span>
+✅ Context: ca-ccpa-compliant
+✅ Schema: user-profile-ca v1
+   - Fields: userId, email, ccpaOptOut, personalInfoSaleConsent
+   - Compliance: Right to know, Right to delete, Right to opt-out
+
+<span class="info">**Brazil (LGPD)**</span>
+✅ Context: br-lgpd-compliant
+✅ Schema: user-profile-br v1
+   - Fields: userId, email, lgpdConsent, sensitiveDataFlag
+   - Compliance: Article 8 consent, Article 18 data subject rights
+
+<span class="success">**Cross-Region Sync:**</span>
+🔄 Common core schema: user-profile-global
+📊 Region-specific extensions applied automatically
+🛡️ Compliance validation passed for all regions</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🌍 <strong>Multi-Region:</strong> Different schemas per jurisdiction</div>
+                <div class="capability-item">⚖️ <strong>Compliance Automation:</strong> Built-in regulatory requirements</div>
+                <div class="capability-item">🔄 <strong>Synchronized Evolution:</strong> Core + regional extensions</div>
+                <div class="capability-item">🛡️ <strong>Automated Validation:</strong> Compliance checking</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Emphasize how this solves complex multinational data compliance challenges automatically.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 15: AI-Powered Schema Optimization -->
+        <div class="slide">
+            <h2>🚀 AI-Powered Schema Optimization</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Performance Team Optimizing Schema Efficiency</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Analyze our order-events schema for performance optimization opportunities and suggest improvements"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll perform a comprehensive performance analysis of your schema.</p>
+                    
+                    <div class="analysis-result">
+🚀 <span class="success">Schema Performance Analysis: order-events v3</span>
+
+<span class="warning">**Current Schema Issues:**</span>
+⚠️ Field order inefficiency: Large strings before primitives
+⚠️ Redundant fields: orderId stored in 3 different forms
+⚠️ Nested complexity: 5-level deep address object
+⚠️ Missing compression hints: Large text fields unoptimized
+
+<span class="success">**Optimization Recommendations:**</span>
+📈 Reorder fields: primitives first (estimated 15% size reduction)
+🗜️ Add compression logicalType for description field
+🔗 Normalize address: reference schema pattern
+⚡ Add indexes hint for frequently queried fields
+
+<span class="info">**Projected Impact:**</span>
+📊 Message size: -23% (avg 1.2KB → 0.9KB)
+⚡ Serialization speed: +18%
+💾 Storage savings: ~2.1TB annually
+🌊 Network bandwidth: -23%
+
+<span class="success">**Generated Optimized Schema:**</span>
+✅ order-events-optimized v1 ready for testing
+🧪 A/B test configuration prepared
+📋 Migration plan with zero downtime strategy</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">📊 <strong>Performance Analytics:</strong> Deep schema performance analysis</div>
+                <div class="capability-item">🚀 <strong>Optimization Engine:</strong> AI-powered improvement suggestions</div>
+                <div class="capability-item">💾 <strong>Cost Impact:</strong> Storage and bandwidth calculations</div>
+                <div class="capability-item">🧪 <strong>Safe Migration:</strong> A/B testing for optimizations</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Highlight the cost savings and performance improvements. This appeals to both technical and business stakeholders.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 16: Schema Time Machine -->
+        <div class="slide">
+            <h2>⏱️ Schema Time Machine: Emergency Rollbacks</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Production Incident Requiring Emergency Schema Rollback</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"We deployed user-profile v5 and it's causing serialization errors. Roll back to v4 immediately and analyze the breaking changes"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll execute an emergency rollback and identify the issue.</p>
+                    
+                    <div class="analysis-result">
+🚨 <span class="error">Emergency Schema Rollback Initiated:</span>
+
+<span class="warning">**Current State Analysis:**</span>
+❌ user-profile v5: Causing 23% serialization failures
+📊 Error pattern: Missing required field 'newRequiredField'
+⏰ Deployed: 14 minutes ago
+🔍 Root cause: Non-optional field added without default
+
+<span class="success">**Rollback Execution:**</span>
+✅ Production rolled back to: user-profile v4
+✅ Error rate: 23% → 0% (immediate recovery)
+⏱️ Rollback time: 45 seconds
+🛡️ Zero data loss confirmed
+
+<span class="error">**Breaking Change Analysis:**</span>
+🔴 v4 → v5 changes:
+   - Added required field: 'newRequiredField' (NO DEFAULT)
+   - Changed field type: 'age' int → long (INCOMPATIBLE)
+   - Removed field: 'deprecated_field' (BREAKING)
+
+<span class="success">**Recovery Plan:**</span>
+📋 v5-hotfix schema prepared with proper defaults
+🧪 Compatibility testing: 100% backward compatible
+⚡ Safe redeploy ready in 10 minutes</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">⚡ <strong>Emergency Response:</strong> Instant rollback capabilities</div>
+                <div class="capability-item">🔍 <strong>Root Cause Analysis:</strong> Automatic breaking change detection</div>
+                <div class="capability-item">🛡️ <strong>Zero Downtime:</strong> Production-safe rollback procedures</div>
+                <div class="capability-item">📋 <strong>Recovery Planning:</strong> Automated hotfix generation</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> This is critical for production reliability. Show how fast this recovery can be compared to manual processes.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 17: Schema Privacy Engine -->
+        <div class="slide">
+            <h2>🎭 Schema Privacy Engine: PII Masking</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Data Engineering Team Implementing Privacy-by-Design</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Create a development version of our user-profile schema that masks all PII but keeps the same structure for testing"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll generate privacy-safe development schemas with PII masking.</p>
+                    
+                    <div class="analysis-result">
+🎭 <span class="success">Privacy-Safe Schema Generation:</span>
+
+<span class="info">**Original Production Schema:**</span>
+📋 user-profile-prod v3:
+   - firstName: string (PII)
+   - lastName: string (PII)
+   - email: string (PII)
+   - socialSecurity: string (SENSITIVE PII)
+   - creditScore: int (FINANCIAL)
+   - address: object (PII)
+
+<span class="success">**Generated Development Schema:**</span>
+✅ user-profile-dev-safe v1:
+   - firstName: "MASKED_FIRST_NAME" (fixed string)
+   - lastName: "MASKED_LAST_NAME" (fixed string)
+   - email: "masked@example.com" (pattern)
+   - socialSecurity: "XXX-XX-XXXX" (pattern)
+   - creditScore: 750 (anonymized constant)
+   - address: masked address object with realistic structure
+
+<span class="success">**Privacy Features:**</span>
+🔒 PII Masking: All sensitive fields anonymized
+📊 Structure Preserved: Same schema validation rules
+🧪 Test-Friendly: Realistic but safe data patterns
+📋 Compliance: GDPR Article 25 privacy-by-design
+
+<span class="info">**Auto-Generated Test Data:**</span>
+✅ 10,000 sample records with masked PII
+🎯 Edge cases included (null values, empty strings)
+📈 Production-like data distribution maintained</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🎭 <strong>Automatic PII Masking:</strong> Intelligent sensitive data detection</div>
+                <div class="capability-item">📊 <strong>Structure Preservation:</strong> Same validation, safe data</div>
+                <div class="capability-item">🧪 <strong>Test Data Generation:</strong> Realistic development datasets</div>
+                <div class="capability-item">🔒 <strong>Privacy-by-Design:</strong> Built-in compliance features</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Emphasize the developer productivity and compliance benefits. No more waiting for sanitized data dumps.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 18: Schema Factory -->
+        <div class="slide">
+            <h2>🏭 Schema Factory: Template Engine</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Platform Team Standardizing Microservice Schemas</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Create a standard event schema template that all our microservices should follow for audit logging"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll design a standardized event schema template for your platform.</p>
+                    
+                    <div class="analysis-result">
+🏭 <span class="success">Schema Factory Template Created:</span>
+
+<span class="info">**Standard Event Template: audit-event-template v1**</span>
+{
+  "type": "record",
+  "name": "AuditEvent",
+  "namespace": "com.company.audit",
+  "fields": [
+    {"name": "eventId", "type": "string"},
+    {"name": "timestamp", "type": "long"},
+    {"name": "serviceId", "type": "string"},
+    {"name": "userId", "type": ["null", "string"], "default": null},
+    {"name": "action", "type": "string"},
+    {"name": "resource", "type": "string"},
+    {"name": "outcome", "type": {"type": "enum", "name": "Outcome", "symbols": ["SUCCESS", "FAILURE", "PARTIAL"]}},
+    {"name": "metadata", "type": {"type": "map", "values": "string"}, "default": {}},
+    {"name": "correlationId", "type": ["null", "string"], "default": null}
+  ]
+}
+
+<span class="success">**Template Applied to Services:**</span>
+✅ user-service: audit-event-user v1 (extends template)
+✅ order-service: audit-event-order v1 (extends template)
+✅ payment-service: audit-event-payment v1 (extends template)
+
+<span class="info">**Standardization Benefits:**</span>
+📊 Consistent logging across 47 microservices
+🔍 Unified audit trail format
+⚡ Automated compliance reporting
+🛡️ Security event correlation enabled
+
+<span class="success">**Template Variants Generated:**</span>
+🎯 audit-event-gdpr: GDPR-specific fields added
+🎯 audit-event-financial: SOX compliance fields
+🎯 audit-event-api: API-specific metadata</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🏭 <strong>Template Engine:</strong> Reusable schema patterns</div>
+                <div class="capability-item">📋 <strong>Platform Standardization:</strong> Consistent across services</div>
+                <div class="capability-item">🎯 <strong>Variant Generation:</strong> Compliance-specific templates</div>
+                <div class="capability-item">⚡ <strong>Automated Application:</strong> Apply templates to multiple services</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Show how this enables platform teams to enforce standards while giving teams flexibility. Great for microservices architecture.
+            </div>
+        </div>
+
+        <!-- NEW SLIDE 19: Schema Forensics -->
+        <div class="slide">
+            <h2>🔬 Schema Forensics: Impact Analysis</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Architecture Team Assessing Schema Change Impact</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"I want to change the user-profile schema to make email field optional. Show me the impact across all our systems"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll perform a comprehensive impact analysis for this schema change.</p>
+                    
+                    <div class="analysis-result">
+🔬 <span class="success">Schema Change Impact Analysis:</span>
+
+<span class="warning">**Proposed Change: user-profile.email (required → optional)**</span>
+
+<span class="info">**Direct Impact Analysis:**</span>
+📊 Dependent Schemas Found: 12 schemas reference user-profile
+   ✅ user-notifications: Compatible (already handles null email)
+   ⚠️ marketing-events: WARNING (assumes email always present)
+   ❌ email-verification: BREAKING (logic depends on required email)
+   ⚠️ audit-trail: Minor impact (logging changes needed)
+
+<span class="warning">**Service Impact Assessment:**</span>
+🎯 High Impact Services:
+   - email-service: CRITICAL (sends to user.email)
+   - notification-service: MODERATE (fallback logic exists)
+   - marketing-automation: HIGH (campaign targeting affected)
+
+<span class="info">**Database Impact:**</span>
+💾 Tables affected: 8 tables
+   - users: Index on email field (performance impact)
+   - user_preferences: Foreign key constraint (modify needed)
+
+<span class="error">**Consumer Impact:**</span>
+📱 Kafka Consumers: 23 consumers identified
+   ✅ Compatible: 18 consumers
+   ⚠️ Need updates: 3 consumers
+   ❌ Breaking: 2 consumers (email-validator, gdpr-processor)
+
+<span class="success">**Migration Strategy:**</span>
+🚀 Recommended approach: 3-phase deployment
+   Phase 1: Deploy optional field with default ""
+   Phase 2: Update consuming services
+   Phase 3: Remove default value</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🔬 <strong>Deep Impact Analysis:</strong> Trace change effects across ecosystem</div>
+                <div class="capability-item">📊 <strong>Dependency Mapping:</strong> Understand schema relationships</div>
+                <div class="capability-item">🎯 <strong>Risk Assessment:</strong> Categorize impact levels</div>
+                <div class="capability-item">🚀 <strong>Migration Planning:</strong> Automated safe deployment strategies</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> This is extremely powerful for preventing production incidents. Show how it maps the blast radius of changes.
+            </div>
+        </div>
+
+        <!-- UPDATED SLIDE 20: Technical Benefits (was slide 11) -->
         <div class="slide">
             <h2>🚀 Why This Matters</h2>
             <div class="feature-grid">
@@ -687,12 +1213,15 @@ in production registry"</div>
                     <p>MCP protocol enables extensibility to other tools</p>
                 </div>
             </div>
+            <div class="demo-url">
+                <strong>🔧 Swiss Army Knife:</strong> One tool, unlimited schema management possibilities
+            </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Connect these benefits to real pain points developers face daily.
+                🎥 <strong>Recording Tip:</strong> Connect these benefits to the advanced use cases you just showed. Emphasize how one tool handles everything from basic operations to complex enterprise scenarios.
             </div>
         </div>
 
-        <!-- Slide 12: Getting Started -->
+        <!-- UPDATED SLIDE 21: Getting Started (was slide 12) -->
         <div class="slide">
             <h2>🚀 Getting Started</h2>
             <div class="demo-steps">
@@ -721,11 +1250,11 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README.
+                🎥 <strong>Recording Tip:</strong> Mention that complete setup instructions are in the repository README. Encourage people to try the advanced use cases we just showed.
             </div>
         </div>
 
-        <!-- Slide 13: Call to Action -->
+        <!-- UPDATED SLIDE 22: Call to Action (was slide 13) -->
         <div class="slide">
             <h1>Ready to Transform Your Schema Management?</h1>
             <div class="feature-grid">
@@ -757,10 +1286,11 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
             </div>
 
             <div class="demo-url">
-                ⭐ <strong>Star the repository to stay updated!</strong>
+                ⭐ <strong>Star the repository to stay updated!</strong><br>
+                🔧 <strong>Experience the Swiss Army knife of schema management</strong>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and provide feedback. Thank them for watching.
+                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Encourage viewers to try the demo and explore the advanced use cases. Thank them for watching and invite questions.
             </div>
         </div>
     </div>
@@ -793,9 +1323,18 @@ GITHUB_CLIENT_SECRET=your_client_secret</div>
             "This is your first live demo! Show Claude Desktop integration. Keep it simple but impressive - register a schema using natural language.",
             "Show more advanced scenarios. Demonstrate the migration capabilities and how Claude makes complex operations simple.",
             "Switch to the web interface at localhost:3000. Give a quick tour showing the visual schema management capabilities.",
-            "Connect the technical features to business value. How does this save time and reduce errors?",
-            "Keep this practical and actionable. Mention that the repository has detailed setup instructions.",
-            "End with energy! Encourage engagement and contributions. Thank your audience for their time. Point people to the main repository and demo organization for getting started."
+            "Transition to advanced use cases. Explain that beyond basic schema operations, this tool is a Swiss Army knife that handles any schema challenge.",
+            "Demonstrate schema drift detection live. Show how this prevents production issues by catching environment inconsistencies automatically.",
+            "Show historical schema tracking. This is powerful for security teams and compliance officers who need to understand data evolution.",
+            "Demonstrate multi-region compliance. Show how the tool automatically handles different regulatory requirements in different regions.",
+            "Show AI-powered optimization. This appeals to performance engineers and can demonstrate significant cost savings and performance improvements.",
+            "Demonstrate emergency rollback capabilities. This is critical for production reliability and incident response.",
+            "Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles.",
+            "Demonstrate template engine for platform standardization. Show how platform teams can enforce consistency across microservices.",
+            "Show impact analysis for schema changes. This prevents production incidents by mapping the blast radius of proposed changes.",
+            "Connect the technical features to business value. Emphasize how this Swiss Army knife approach means one tool handles everything from basic operations to complex enterprise scenarios.",
+            "Keep this practical and actionable. Mention that the repository has detailed setup instructions and encourage people to try the advanced use cases.",
+            "End with energy! Encourage engagement and contributions. Thank your audience for their time. Emphasize that they've seen a true Swiss Army knife for schema management."
         ];
 
         document.getElementById('total-slides').textContent = totalSlides;
