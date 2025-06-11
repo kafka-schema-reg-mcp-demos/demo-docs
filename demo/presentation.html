@@ -984,60 +984,45 @@ docker-compose ps
             <h2>💻 Bonus! Client Integration</h2>
             <div class="demo-steps">
                 <div class="step">
-                    <h3>Step 4: Claude Desktop Configuration</h3>
+                    <h3>Step 4: Claude Desktop Connection</h3>
                     <div class="code-block">{
   "mcpServers": {
     "kafka-schema-registry-demo": {
-      "command": "docker",
+      "command": "mcp-client-http",
       "args": [
-        "run", "--rm", "-i",
-        "--network", "kafka-schema-mcp-demo",
-        "-e", "ENABLE_AUTH=true",
-        "-e", "AUTH_PROVIDER=github",
-        "-e", "GITHUB_CLIENT_ID",
-        "-e", "GITHUB_CLIENT_SECRET",
-        "-e", "GITHUB_ORG=kafka-schema-reg-mcp-demos",
-        "-e", "SCHEMA_REGISTRY_NAME_1=development",
-        "-e", "SCHEMA_REGISTRY_URL_1=http://dev-registry:8081",
-        "-e", "SCHEMA_REGISTRY_NAME_2=staging",
-        "-e", "SCHEMA_REGISTRY_URL_2=http://staging-registry:8081",
-        "-e", "SCHEMA_REGISTRY_NAME_3=production",
-        "-e", "SCHEMA_REGISTRY_URL_3=http://prod-registry:8081",
-        "-e", "READONLY_3=true",
-        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+        "--url", "http://localhost:38000",
+        "--auth", "github-oauth",
+        "--org", "kafka-schema-reg-mcp-demos"
       ],
       "env": {
-        "GITHUB_CLIENT_ID": "your_github_client_id",
-        "GITHUB_CLIENT_SECRET": "your_github_client_secret"
+        "GITHUB_TOKEN": "your_github_personal_access_token"
       }
     }
   }
 }</div>
                 </div>
                 <div class="step">
-                    <h3>VSCode + Copilot Setup</h3>
-                    <div class="code-block"># Create .vscode/mcp.json in your workspace:
+                    <h3>VSCode + Copilot Connection</h3>
+                    <div class="code-block"># Create .vscode/settings.json in your workspace:
 {
-  "servers": {
+  "mcp.servers": {
     "kafka-schema-registry": {
-      "command": "docker",
-      "args": [
-        "run", "--rm", "-i",
-        "--network", "kafka-schema-mcp-demo",
-        "-e", "ENABLE_AUTH=true",
-        "-e", "AUTH_PROVIDER=github",
-        # ... same environment variables as above
-      ]
+      "transport": "sse",
+      "endpoint": "http://localhost:38000/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer your_github_personal_access_token",
+        "X-GitHub-Org": "kafka-schema-reg-mcp-demos"
+      }
     }
   }
 }</div>
                 </div>
             </div>
             <div class="demo-url">
-                <strong>🔑 Key:</strong> Clients connect to running MCP server via Docker network • GitHub OAuth for authentication
+                <strong>🔑 Key:</strong> Clients connect via HTTP/SSE to localhost:38000 • GitHub OAuth for authentication as org users
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Explain that the clients use Docker containers that connect to the existing demo network where the MCP server is running. This is different from standalone MCP servers - here the clients connect to the centralized, authenticated MCP server. Show how the network connection enables seamless access to the running infrastructure.
+                🎥 <strong>Recording Tip:</strong> Explain that clients connect directly to the running MCP server via HTTP and Server-Sent Events (SSE), not Docker containers. Authentication happens through GitHub personal access tokens with org membership. Show how to generate a GitHub token with appropriate scopes.
             </div>
         </div>
 
@@ -1116,7 +1101,7 @@ docker-compose ps
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
             "Walk through the GitHub OAuth setup process step-by-step. Show how to create a new OAuth application in GitHub settings. Explain the demo deployment repository structure and how to configure environment variables properly.",
             "Show the docker-compose startup process. Explain that this creates the complete environment including the MCP server, multiple Schema Registry instances, and the demo UI. The MCP server is now running and ready for client connections at localhost:38000.",
-            "Explain that the clients use Docker containers that connect to the existing demo network where the MCP server is running. This is different from standalone MCP servers - here the clients connect to the centralized, authenticated MCP server. Show how the network connection enables seamless access to the running infrastructure.",
+            "Explain that clients connect directly to the running MCP server via HTTP and Server-Sent Events (SSE), not Docker containers. Authentication happens through GitHub personal access tokens with org membership. Show how to generate a GitHub token with appropriate scopes (public_repo, repo, admin:org).",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
