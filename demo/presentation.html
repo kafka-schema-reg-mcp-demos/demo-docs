@@ -305,11 +305,11 @@
             margin: 1rem 0;
             color: #ffc107;
             font-size: 1rem;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .show-tips .video-recording-tip {
-            display: block; /* Show when .show-tips class is added to body */
+            display: block;
         }
 
         .repo-links {
@@ -358,154 +358,6 @@
             margin: 0.5rem 0 0 0;
         }
 
-        /* New styles for use case slides */
-        .use-case-demo {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: left;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .conversation {
-            background: rgba(0,0,0,0.3);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            border-left: 4px solid #4ecdc4;
-        }
-
-        .human-input {
-            color: #ff9f43;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .claude-response {
-            color: #4ecdc4;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .analysis-result {
-            background: rgba(0,0,0,0.5);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 0.5rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.3;
-        }
-
-        .warning { color: #ffc107; }
-        .error { color: #ff6b6b; }
-        .success { color: #4ecdc4; }
-        .info { color: #a8a8a8; }
-
-        .capabilities-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .capability-item {
-            background: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid #4ecdc4;
-            font-size: 1rem;
-        }
-
-        /* New styles for MCP ecosystem diagram */
-        .mcp-ecosystem {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .ecosystem-flow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .ecosystem-tool {
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 0.5rem;
-            flex: 1;
-            min-width: 180px;
-            border: 2px solid rgba(255,255,255,0.3);
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .central-mcp {
-            background: linear-gradient(45deg, #ff6b6b 0%, #4ecdc4 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1rem;
-            border: 3px solid rgba(255,255,255,0.5);
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* Styles for Shadowtraffic.io video slide */
-        .video-container {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .video-embed {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .video-embed iframe,
-        .video-embed video {
-            width: 100%;
-            height: 450px;
-            border: none;
-            border-radius: 15px;
-        }
-
-        .shadowtraffic-highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-            text-align: left;
-        }
-
-        .shadowtraffic-feature {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #ff9f43;
-        }
-
-        .shadowtraffic-feature h4 {
-            color: #ff9f43;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* New styles for client compatibility */
         .client-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -554,6 +406,16 @@
             background: rgba(255, 107, 107, 0.2);
             color: #ff6b6b;
         }
+
+        .transition-to-advanced {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 3px solid rgba(255,255,255,0.5);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -575,12 +437,12 @@
                      style="width: 100px; height: 100px; margin-right: 1rem; filter: brightness(0) invert(1); opacity: 0.9;">
                 <h1 style="margin-bottom: 0;">Kafka Schema Registry MCP</h1>
             </div>
-            <p class="subtitle">Streamlining Schema Management with Claude Desktop Integration</p>
+            <p class="subtitle">Streamlining Schema Management with AI Integration</p>
             <div class="demo-url">
                 <strong>🌐 Live Demo:</strong> localhost:3000
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Start with a warm welcome and introduce yourself. Mention this is a live demo of the Kafka Schema Registry MCP integration.
+                🎥 <strong>Recording Tip:</strong> Start with a warm welcome and introduce yourself. Mention this is the foundation presentation, with advanced use cases available in the next presentation.
             </div>
         </div>
 
@@ -637,7 +499,7 @@
             </div>
         </div>
 
-        <!-- NEW SLIDE 3: MCP Client Ecosystem -->
+        <!-- Slide 3: MCP Client Ecosystem -->
         <div class="slide">
             <h2>🤖 MCP Works With Any AI Client</h2>
             <p class="subtitle">One MCP Server, Multiple AI Assistants - Use Your Preferred Development Environment</p>
@@ -697,7 +559,7 @@
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 4: Problem Statement (was slide 3) -->
+        <!-- Slide 4: Problem Statement -->
         <div class="slide">
             <h2>The Challenge</h2>
             <div class="feature-grid">
@@ -723,7 +585,7 @@
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 5: Solution Overview (was slide 4) -->
+        <!-- Slide 5: Solution Overview -->
         <div class="slide">
             <h2>Our Solution</h2>
             <div class="architecture-diagram">
@@ -752,7 +614,7 @@
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 6: GitHub OAuth Integration (was slide 5) -->
+        <!-- Slide 6: GitHub OAuth Integration -->
         <div class="slide">
             <h2>🔐 GitHub OAuth Authentication</h2>
             <div class="oauth-flow">
@@ -781,7 +643,7 @@
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 7: Architecture Deep Dive (was slide 6) -->
+        <!-- Slide 7: Architecture Deep Dive -->
         <div class="slide">
             <h2>🏗️ Architecture Overview</h2>
             <div class="code-block">┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -810,9 +672,7 @@
             </div>
         </div>
 
-        <!-- Continue with all remaining slides, keeping the same numbering pattern... -->
-        
-        <!-- RENUMBERED Slide 8: Key Features (was slide 7) -->
+        <!-- Slide 8: Key Features -->
         <div class="slide">
             <h2>✨ Key Features</h2>
             <div class="benefits-list">
@@ -846,7 +706,7 @@
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 9: Demo Scenario 1 (was slide 8) -->
+        <!-- Slide 9: Demo Scenario 1 -->
         <div class="slide">
             <h2>🎭 Demo Scenario 1: Schema Developer</h2>
             <div class="demo-steps">
@@ -871,7 +731,7 @@ and their differences"</div>
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 10: Demo Scenario 2 (was slide 9) -->
+        <!-- Slide 10: Demo Scenario 2 -->
         <div class="slide">
             <h2>🎭 Demo Scenario 2: DevOps Engineer</h2>
             <div class="demo-steps">
@@ -896,42 +756,14 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- RENUMBERED Slide 11: Web Interface Demo (was slide 10) -->
+        <!-- NEW SLIDE 11: Transition to Advanced Use Cases -->
         <div class="slide">
-            <h2>🌐 Interactive Web Interface</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>📋 Schema Browser</h3>
-                    <p>Visual exploration of schemas across all registries</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔍 Search & Filter</h3>
-                    <p>Find schemas by name, context, or compatibility level</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Visual Diff</h3>
-                    <p>Side-by-side comparison of schema versions</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🚀 One-Click Actions</h3>
-                    <p>Register, migrate, and manage schemas with simple clicks</p>
-                </div>
+            <h2>🔧 Ready for Advanced Use Cases?</h2>
+            <div class="transition-to-advanced">
+                <h3>🎯 Advanced Use Cases Available!</h3>
+                <p style="margin: 1rem 0; font-size: 1.2rem;">Beyond basic schema management lies a world of advanced capabilities...</p>
             </div>
-            <div class="demo-url">
-                <strong>🌐 Try it live:</strong> http://localhost:3000
-            </div>
-            <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Switch to localhost:3000 and give a quick tour of the web interface. Show the GitHub OAuth flow.
-            </div>
-        </div>
-
-        <!-- Continue with all other slides maintaining the same pattern... -->
-        <!-- I'll continue with the Swiss Army Knife and all advanced use case slides -->
-
-        <!-- RENUMBERED SLIDE 12: Swiss Army Knife Overview (was slide 11) -->
-        <div class="slide">
-            <h2>🔧 The Swiss Army Knife of Schema Management</h2>
-            <p class="subtitle">Advanced Use Cases Beyond Basic Schema Operations</p>
+            
             <div class="feature-grid">
                 <div class="feature-card">
                     <h3>🔍 DevOps Intelligence</h3>
@@ -949,126 +781,17 @@ in production registry"</div>
                     <h3>🚀 AI Optimization</h3>
                     <p>Performance analysis, automated recommendations, cost savings predictions</p>
                 </div>
-                <div class="feature-card">
-                    <h3>⏱️ Time Machine</h3>
-                    <p>Emergency rollbacks, version control, production incident recovery</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🎭 Privacy Engine</h3>
-                    <p>PII masking, development data safety, privacy-by-design compliance</p>
-                </div>
-            </div>
-            <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Explain that we'll now see advanced use cases that showcase the tool's true versatility - like a Swiss Army knife for schema management.
-            </div>
-        </div>
-
-        <!-- Continue with all the advanced use case slides (13-21)... -->
-        <!-- For brevity, I'll include just a few key ones and note that all others follow the same pattern -->
-
-        <!-- RENUMBERED SLIDE 13: DevOps Intelligence (was slide 12) -->
-        <div class="slide">
-            <h2>🔍 DevOps Intelligence: Schema Drift Detection</h2>
-            <p class="subtitle"><strong>Scenario:</strong> Platform Engineering Team Monitoring Schema Consistency</p>
-            
-            <div class="use-case-demo">
-                <div class="conversation">
-                    <div class="human-input">Human:</div>
-                    <p>"Compare all schemas between our development and production registries to find inconsistencies"</p>
-                    
-                    <div class="claude-response">Claude:</div>
-                    <p>I'll scan both registries for schema drift and inconsistencies.</p>
-                    
-                    <div class="analysis-result">
-🔍 <span class="success">Schema Drift Analysis Complete:</span>
-
-<span class="error">**Critical Findings:**</span>
-⚠️ user-profile: Dev has v4, Prod has v3 (Missing new field: phoneNumber)
-⚠️ order-events: Dev compatibility = BACKWARD, Prod = FULL (Config drift)
-❌ payment-flow: Exists in Dev, Missing in Prod (Deployment gap)
-
-<span class="success">**Safe Changes:**</span>
-✅ analytics-events: Both environments in sync
-✅ notification-prefs: Compatible evolution paths
-
-<span class="warning">**Action Required:**</span>
-🚨 3 schemas need attention before next release
-📊 Generated drift report with remediation steps</div>
-                </div>
-            </div>
-
-            <div class="capabilities-list">
-                <div class="capability-item">🔍 <strong>Drift Detection:</strong> Automatically find inconsistencies</div>
-                <div class="capability-item">⚡ <strong>Cross-Environment:</strong> Compare unlimited registries</div>
-                <div class="capability-item">📋 <strong>Actionable Reports:</strong> Clear remediation guidance</div>
-                <div class="capability-item">🚨 <strong>Risk Assessment:</strong> Critical vs. safe differences</div>
-            </div>
-            <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Demonstrate this live by showing Claude detecting differences between environments. Emphasize how this prevents production issues.
-            </div>
-        </div>
-
-        <!-- NOTE: Including all remaining slides 14-25 with same renumbering pattern -->
-        <!-- For brevity in this response, I'll jump to the key modified slides and final slides -->
-
-        <!-- RENUMBERED SLIDE 22: Shadowtraffic.io Deep Dive (was slide 21) -->
-        <div class="slide">
-            <h2>🌊 Shadowtraffic.io: Realistic Data Generation at Scale</h2>
-            <p class="subtitle"><strong>Deep Dive:</strong> The Power of Schema-Aware Test Data Generation</p>
-            
-            <!-- Video Container -->
-            <div class="video-container">
-                <h3>🎥 MCPs Shadowtraffic.io and Schema Registry in Action</h3>
-                <div class="video-embed">
-                    <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMUUzQzcyIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIyNSIgcj0iNjAiIGZpbGw9IiM0RUNEQUM0IiBvcGFjaXR5PSIwLjgiLz4KPHBvbHlnb24gcG9pbnRzPSIzODAsMTk1IDQzMCwyMjUgMzgwLDI1NSIgZmlsbD0iIzFFM0M3MiIvPgo8dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2hhZG93dHJhZmZpYy5pbyBEZW1vPC90ZXh0Pgo8L3N2Zz4=">
-                        <source src="https://dms.licdn.com/playlist/vid/v2/D4D05AQG32KIe46f-pg/mp4-720p-30fp-crf28/B4DZc386AaG8BM-/0/1748990439262?e=2147483647&v=beta&t=3AZVRHVoIKpxjwmH-gtL6TxaHPpTDgLooeZBTVPN2ec" type="video/mp4">
-                        <p style="color: #ff9f43; text-align: center; padding: 2rem;">
-                            🎥 <strong>Video Preview:</strong> Shadowtraffic.io demonstration<br>
-                            <small>Click to play the embedded video</small>
-                        </p>
-                    </video>
-                </div>
-            </div>
-
-            <!-- Shadowtraffic.io Features -->
-            <div class="shadowtraffic-highlights">
-                <div class="shadowtraffic-feature">
-                    <h4>🎯 Schema-Aware Generation</h4>
-                    <p>Automatically generates data that perfectly conforms to your registered schemas, ensuring 100% validation compliance</p>
-                </div>
-                <div class="shadowtraffic-feature">
-                    <h4>🧠 Realistic Behavior Patterns</h4>
-                    <p>Simulates real user journeys, session flows, and business logic rather than just random data</p>
-                </div>
-                <div class="shadowtraffic-feature">
-                    <h4>⚡ Massive Scale</h4>
-                    <p>Generate millions of events per minute with configurable patterns, geographic distribution, and time-based variations</p>
-                </div>
-                <div class="shadowtraffic-feature">
-                    <h4>🔗 MCP Integration</h4>
-                    <p>Seamlessly coordinate with Schema Registry through natural language commands via any AI client</p>
-                </div>
-                <div class="shadowtraffic-feature">
-                    <h4>📊 Quality Assurance</h4>
-                    <p>Built-in data quality checks, relationship constraints, and edge case handling for robust testing</p>
-                </div>
-                <div class="shadowtraffic-feature">
-                    <h4>🌍 Production-Like Scenarios</h4>
-                    <p>Peak hour simulations, geographic patterns, seasonal variations, and realistic error rates</p>
-                </div>
             </div>
 
             <div class="demo-url">
-                <strong>🌊 Perfect for:</strong> Load testing • Schema validation • Pipeline development • Performance tuning
+                <strong>📂 Continue with:</strong> adv-use-cases.html - Advanced Use Cases & Deep Dives
             </div>
-            
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Play the embedded video to show Shadowtraffic.io in action. Emphasize how it complements the schema registry by generating test data that perfectly matches your schemas. This is the missing piece for comprehensive data pipeline testing.
+                🎥 <strong>Recording Tip:</strong> Transition to advanced use cases by saying "Now that we've covered the foundation, let's explore the advanced capabilities. Please open adv-use-cases.html to see the Swiss Army Knife features."
             </div>
         </div>
 
-        <!-- FINAL SLIDES: Technical Benefits, Getting Started, Call to Action -->
-        <!-- RENUMBERED SLIDE 23: Technical Benefits (was slide 22) -->
+        <!-- Slide 12: Technical Benefits -->
         <div class="slide">
             <h2>🚀 Why This Matters</h2>
             <div class="feature-grid">
@@ -1105,10 +828,49 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- Continue with remaining slides... -->
-        <!-- For this response, I'm showing the key changes. All remaining slides would follow the same pattern -->
+        <!-- Slide 13: Getting Started -->
+        <div class="slide">
+            <h2>🚀 Getting Started</h2>
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>Step 1: GitHub OAuth Setup</h3>
+                    <div class="code-block">1. Visit: https://github.com/settings/applications/new
+2. Application name: "My Schema Registry MCP"
+3. Homepage URL: http://localhost:3000
+4. Authorization callback: http://localhost:3000/auth/callback
+5. Copy Client ID & Secret</div>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Environment Configuration</h3>
+                    <div class="code-block">GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_client_secret
+DEVELOPMENT_REGISTRY_URL=http://localhost:8081
+STAGING_REGISTRY_URL=http://localhost:8082
+PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Claude Desktop Integration</h3>
+                    <div class="code-block">{
+  "mcp": {
+    "servers": {
+      "schema-registry": {
+        "command": "node",
+        "args": ["path/to/mcp-server.js"],
+        "env": {
+          "PORT": "38000"
+        }
+      }
+    }
+  }
+}</div>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Walk through the setup process. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.
+            </div>
+        </div>
 
-        <!-- FINAL SLIDE: Call to Action -->
+        <!-- FINAL SLIDE 14: Call to Action -->
         <div class="slide">
             <h1>Ready to Transform Your Data Ecosystem?</h1>
             <div class="feature-grid">
@@ -1141,10 +903,11 @@ in production registry"</div>
 
             <div class="demo-url">
                 ⭐ <strong>Star the repository to stay updated!</strong><br>
-                🤖 <strong>Works with Claude, Copilot, Cursor & JetBrains AI</strong>
+                🤖 <strong>Works with Claude, Copilot, Cursor & JetBrains AI</strong><br>
+                📂 <strong>Advanced Features:</strong> adv-use-cases.html (Swiss Army Knife capabilities)
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Emphasize that they've seen the future of AI-assisted data management that works with any AI client. Thank them for watching and invite questions about the broader MCP compatibility.
+                🎥 <strong>Recording Tip:</strong> End with enthusiasm! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features.
             </div>
         </div>
     </div>
@@ -1158,7 +921,7 @@ in production registry"</div>
 
     <div class="speaker-notes" id="speaker-notes">
         <strong>Speaker Notes:</strong><br>
-        <span id="notes-content">Welcome to the Kafka Schema Registry MCP demo! This presentation will show you how we're revolutionizing schema management with AI integration.</span>
+        <span id="notes-content">Welcome to the Kafka Schema Registry MCP demo! This presentation covers the foundation concepts and basic integration.</span>
     </div>
 
     <script>
@@ -1167,7 +930,7 @@ in production registry"</div>
         const totalSlides = slides.length;
 
         const speakerNotes = [
-            "Welcome to the Kafka Schema Registry MCP demo! Start by introducing yourself and the purpose of this demo. Mention that this is a live, working demonstration.",
+            "Welcome to the Kafka Schema Registry MCP demo! Start by introducing yourself and mention this is the foundation presentation, with advanced use cases available in the next presentation.",
             "Reference the Anthropic documentation about remote MCP servers. Explain why local MCP isn't enough for enterprise use cases. Emphasize the need for multi-user access and security. Highlight how multiple clients (Claude Desktop, VS Code extensions, etc.) are equal clients that connect directly to the same secure MCP server.",
             "This is crucial - emphasize that MCP is not vendor lock-in! While today's demo uses Claude Desktop, the same MCP server works with VS Code Copilot, Cursor AI, and will work with JetBrains AI assistants. Developers can choose their preferred AI tool and still get the same schema management capabilities. This is about choice and flexibility.",
             "Explain each challenge in detail. Ask: 'How many of you have dealt with schema compatibility issues in production?' Make it relatable.",
@@ -1177,21 +940,10 @@ in production registry"</div>
             "Highlight the developer experience improvements. Each feature solves a real pain point in schema management, regardless of which AI assistant developers prefer.",
             "This is your first live demo! Show Claude Desktop integration, but remind the audience that developers could run the same commands in VS Code Copilot or Cursor. Keep it simple but impressive - register a schema using natural language.",
             "Show more advanced scenarios. Demonstrate the migration capabilities and how any AI assistant makes complex operations simple.",
-            "Switch to the web interface at localhost:3000. Give a quick tour showing the visual schema management capabilities.",
-            "Transition to advanced use cases. Explain that beyond basic schema operations, this tool is a Swiss Army knife that handles any schema challenge.",
-            "Demonstrate schema drift detection live. Show how this prevents production issues by catching environment inconsistencies automatically.",
-            "Show historical schema tracking. This is powerful for security teams and compliance officers who need to understand data evolution.",
-            "Demonstrate multi-region compliance. Show how the tool automatically handles different regulatory requirements in different regions.",
-            "Show AI-powered optimization. This appeals to performance engineers and can demonstrate significant cost savings and performance improvements.",
-            "Demonstrate emergency rollback capabilities. This is critical for production reliability and incident response.",
-            "Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles.",
-            "Demonstrate template engine for platform standardization. Show how platform teams can enforce consistency across microservices.",
-            "Show impact analysis for schema changes. This prevents production incidents by mapping the blast radius of proposed changes.",
-            "This is the big reveal - MCP isn't just about connecting one tool, it's about orchestrating entire data ecosystems. Show how natural language can coordinate complex workflows across multiple tools like Schema Registry, Shadowtraffic.io, ksqlDB, and monitoring systems. Reference Michael Drogalis's work and explain how this represents the future of data tooling.",
-            "Deep dive into Shadowtraffic.io capabilities. Play the embedded video to demonstrate realistic data generation at scale. Explain how this complements schema management by providing schema-aware test data. Emphasize the quality and realism of generated data - this isn't just random data, it's intelligent simulation of real user behavior and business processes.",
+            "Transition to advanced use cases by saying 'Now that we've covered the foundation, let's explore the advanced capabilities. Please open adv-use-cases.html to see the Swiss Army Knife features.'",
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
-            "Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities between different data tools including Shadowtraffic.io integration.",
-            "End with energy! Emphasize that they've seen the future of AI-assisted data management that works with any AI client - Claude, Copilot, Cursor, or JetBrains AI. This is about choice, not vendor lock-in. Thank them for watching and invite questions about MCP compatibility with different AI assistants."
+            "Walk through the setup process. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.",
+            "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
         document.getElementById('total-slides').textContent = totalSlides;
