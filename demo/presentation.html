@@ -1001,7 +1001,60 @@ READONLY_3=true</div>
             </div>
         </div>
 
-        <!-- FINAL SLIDE 16: Call to Action -->
+        <!-- NEW SLIDE 16: Step 4: Bonus! VsCode integration -->
+        <div class="slide">
+            <h2>💻 Step 4: Bonus! VSCode Integration</h2>
+            <div class="demo-steps">
+                <div class="step">
+                    <h3>VSCode MCP Extension Setup</h3>
+                    <div class="code-block">{
+    "mcp.servers": {
+        "kafka-schema-registry-multi": {
+            "name": "Kafka Schema Registry (Multi)",
+            "description": "Multi-registry MCP server for enterprise schema management",
+            "transport": "stdio",
+            "command": "docker",
+            "args": [
+                "run", "--rm", "-i",
+                "--network", "host",
+                "-e", "SCHEMA_REGISTRY_NAME_1=development",
+                "-e", "SCHEMA_REGISTRY_URL_1=http://localhost:8081",
+                "-e", "READONLY_1=false",
+                "-e", "SCHEMA_REGISTRY_NAME_2=staging", 
+                "-e", "SCHEMA_REGISTRY_URL_2=http://localhost:8082",
+                "-e", "READONLY_2=false",
+                "-e", "SCHEMA_REGISTRY_NAME_3=production",
+                "-e", "SCHEMA_REGISTRY_URL_3=http://localhost:8083",
+                "-e", "READONLY_3=true",
+                "aywengo/kafka-schema-reg-mcp:stable"
+            ],
+            "capabilities": [
+                "tools",
+                "resources", 
+                "prompts"
+            ],
+            "autoStart": false
+        }
+    },
+    "mcp.enableLogging": true,
+    "mcp.logLevel": "info",
+    "mcp.autoReconnect": true,
+    "files.associations": {
+        "*.avsc": "json",
+        "*.avdl": "avro-idl"
+    }
+}</div>
+                </div>
+            </div>
+            <div class="demo-url">
+                <strong>💡 VSCode Benefits:</strong> IDE-native schema management • Copilot integration • File associations for Avro schemas
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Highlight that VSCode users get the same powerful multi-registry capabilities as Claude Desktop users. Show how the configuration enables both Copilot integration and proper file associations for Avro schemas. This demonstrates the universal nature of MCP - one server, multiple AI clients.
+            </div>
+        </div>
+
+        <!-- FINAL SLIDE 17: Call to Action -->
         <div class="slide">
             <h1>Ready to Transform Your Data Ecosystem?</h1>
             <div class="feature-grid">
@@ -1076,6 +1129,7 @@ READONLY_3=true</div>
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
             "Walk through the GitHub OAuth setup process step-by-step. Show how to create a new OAuth application in GitHub settings and explain the environment variables structure. Note the READONLY_3=true setting for production security.",
             "Show the Claude Desktop configuration file and explain how the Docker integration works. Point out the --network host flag for localhost connectivity and the READONLY_3 environment variable that makes production read-only for safety. Emphasize that this same pattern works for other AI clients with MCP support. Mention that the demo includes examples of ecosystem integrations.",
+            "Highlight that VSCode users get the same powerful multi-registry capabilities as Claude Desktop users. Show how the configuration enables both Copilot integration and proper file associations for Avro schemas. This demonstrates the universal nature of MCP - one server, multiple AI clients.",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
