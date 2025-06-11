@@ -1,122 +1,78 @@
-# Demo Materials
+# Kafka Schema Registry MCP Demo Presentations
 
-This folder contains presentation and demo materials for the Kafka Schema Registry MCP project.
+## 📂 Presentation Structure
 
-## 📹 Presentation
+The demo presentation has been split into two focused parts for better organization and flow:
 
-### `presentation.html`
+### 🏗️ Part 1: Foundation (`presentation-part1.html`)
+**Duration:** ~20-25 minutes  
+**Focus:** Core concepts and basic functionality
 
-A professional, video-ready presentation covering:
-- **13 slides** with smooth transitions and animations
-- **Speaker notes** and recording tips for each slide
-- **Live demo integration points** for Claude Desktop and web interface
-- **Interactive navigation** with keyboard shortcuts
+**Contents:**
+- Introduction and motivation
+- MCP ecosystem and AI client compatibility  
+- OAuth authentication and architecture
+- Basic demo scenarios (developer and DevOps workflows)
+- Getting started guide
+- Call to action
 
-#### How to Use the Presentation
+**Best for:** Executives, new team members, or anyone wanting to understand the fundamentals
 
-1. **Open locally**:
-   ```bash
-   # Download the file
-   wget https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/presentation.html
-   
-   # Open in your browser
-   open presentation.html
-   ```
+### 🔧 Part 2: Advanced Use Cases (`presentation-part2.html`)
+**Duration:** ~15-20 minutes  
+**Focus:** Advanced scenarios and "Swiss Army Knife" capabilities
 
-2. **View online**: 
-   [Direct link to presentation](https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/presentation.html)
+**Contents:**
+- Web interface demonstration
+- DevOps intelligence (schema drift detection)
+- Schema archaeology (historical investigation)
+- Global governance (multi-region compliance)
+- AI optimization (performance and cost analysis)
+- Emergency recovery (time machine capabilities)
+- Privacy engine (development data safety)
+- MCP ecosystem orchestration
+- Shadowtraffic.io integration
 
-#### Navigation Controls
+**Best for:** Technical teams, platform engineers, or anyone interested in advanced capabilities
 
-- **Arrow Keys** or **Spacebar**: Next slide
-- **Left Arrow**: Previous slide  
-- **N Key**: Toggle speaker notes
-- **Mouse**: Click navigation buttons
+## 🎯 Recommended Usage
 
-#### Video Recording Tips
+### For Complete Demos (40-45 minutes)
+1. Start with `presentation-part1.html`
+2. Continue with `presentation-part2.html`
 
-- **Screen Resolution**: 1920x1080 recommended
-- **Frame Rate**: 30fps minimum
-- **Duration**: 15-20 minutes total
-- **Prepare**: Have localhost:3000 and Claude Desktop ready
-- **Practice**: Test live demo transitions beforehand
+### For Focused Sessions
+- **Executive Overview:** Part 1 only
+- **Technical Deep Dive:** Part 2 only (with brief Part 1 intro)
+- **Developer Onboarding:** Part 1 + selected Part 2 scenarios
 
-#### Presentation Structure
+## 🚀 Navigation
 
-1. **Introduction** (1 min) - Welcome and overview
-2. **Why OAuth?** (2 mins) - Local vs Remote MCP architecture
-3. **Problem Statement** (2 mins) - Schema management challenges
-4. **Solution Overview** (2 mins) - MCP integration approach
-5. **GitHub OAuth** (2 mins) - Authentication and permissions
-6. **Architecture** (1 min) - Technical deep dive
-7. **Key Features** (1 min) - Value proposition
-8. **Live Demo 1** (3 mins) - Schema developer workflow
-9. **Live Demo 2** (2 mins) - DevOps engineer workflow  
-10. **Web Interface** (3 mins) - Interactive demo at localhost:3000
-11. **Benefits** (1 min) - Why this matters
-12. **Getting Started** (1 min) - How to try it
-13. **Call to Action** (1 min) - Community engagement
+Each presentation:
+- ✅ Includes speaker notes for each slide
+- ✅ Has video recording tips
+- ✅ Features smooth transitions between parts
+- ✅ Contains cross-references to the other presentation
 
-#### Live Demo Integration Points
+## 📱 Controls
 
-The presentation is designed to seamlessly integrate with live demonstrations:
+- **Arrow Keys / Spacebar:** Navigate slides
+- **N:** Toggle speaker notes
+- **T:** Toggle video recording tips
 
-- **Slide 8**: Switch to Claude Desktop for natural language schema commands
-- **Slide 9**: Demonstrate DevOps workflows with Claude
-- **Slide 10**: Tour the web interface at http://localhost:3000
-- **Slide 5**: Show GitHub OAuth flow in browser
+## 🌐 Live Demo
 
-#### Speaker Notes
+Both presentations reference the live demo at:
+- **URL:** http://localhost:3000
+- **GitHub OAuth:** Required for full functionality
+- **Multi-registry:** Development, Staging, Production environments
 
-Each slide includes detailed speaker notes with:
-- Key talking points
-- Timing suggestions  
-- Demo instructions
-- Audience engagement tips
+## 🔗 Cross-References
 
-Press **N** during the presentation to view speaker notes.
-
-## 🎬 Recording Checklist
-
-### Pre-Recording
-- [ ] Test screen recording software
-- [ ] Verify microphone quality
-- [ ] Start demo environment (`docker-compose up -d`)
-- [ ] Open Claude Desktop with MCP connection
-- [ ] Prepare browser tabs (presentation, localhost:3000, GitHub)
-- [ ] Practice slide transitions and demos
-
-### During Recording
-- [ ] Speak clearly and at moderate pace
-- [ ] Use speaker notes for guidance
-- [ ] Demonstrate live Claude Desktop integration
-- [ ] Show GitHub OAuth flow
-- [ ] Tour the web interface
-- [ ] Keep energy high throughout
-
-### Post-Recording
-- [ ] Edit for smooth transitions
-- [ ] Add captions/subtitles
-- [ ] Include links in video description
-- [ ] Share with community for feedback
-
-## 🤝 Contributing
-
-To improve the presentation or add new demo materials:
-
-1. Fork the repository
-2. Make your changes in the `demo/` folder
-3. Test the presentation thoroughly
-4. Submit a pull request with description of changes
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/kafka-schema-reg-mcp-demos/demo-docs/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/kafka-schema-reg-mcp-demos/demo-docs/discussions)
-- **Documentation**: [Main README](../README.md)
+- Part 1 includes transition slide pointing to Part 2
+- Part 2 includes references back to Part 1
+- Both presentations link to the GitHub organization and main repository
 
 ---
 
-🎉 **Ready to create an amazing demo video!** 
-
-Use this presentation to showcase the power of Kafka Schema Registry MCP integration with Claude Desktop.
+**Note:** The original `presentation.html` remains available but is now considered the "legacy" version. The split presentations provide better organization and improved presenter experience.
