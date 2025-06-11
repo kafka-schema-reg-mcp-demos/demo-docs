@@ -967,6 +967,7 @@ READONLY_3=true</div>
         "command": "docker",
         "args": [
           "run", "-i", "--rm",
+          "--network", "host",
           "-e", "GITHUB_CLIENT_ID",
           "-e", "GITHUB_CLIENT_SECRET",
           "-e", "SCHEMA_REGISTRY_NAME_1",
@@ -996,7 +997,7 @@ READONLY_3=true</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Show the Claude Desktop configuration file and explain how the Docker integration works. Emphasize that this same pattern works for other AI clients with MCP support. Mention that the demo includes examples of ecosystem integrations.
+                🎥 <strong>Recording Tip:</strong> Show the Claude Desktop configuration file and explain how the Docker integration works. Emphasize that this same pattern works for other AI clients with MCP support. Point out the READONLY_3 environment variable that makes production read-only for safety. Mention that the demo includes examples of ecosystem integrations.
             </div>
         </div>
 
@@ -1074,7 +1075,7 @@ READONLY_3=true</div>
             "Deep dive into Shadowtraffic.io capabilities. Play the embedded video to demonstrate realistic data generation at scale. Emphasize how it complements schema management by providing schema-aware test data. This is the missing piece for comprehensive data pipeline testing.",
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
             "Walk through the GitHub OAuth setup process step-by-step. Show how to create a new OAuth application in GitHub settings and explain the environment variables structure. Note the READONLY_3=true setting for production security.",
-            "Show the Claude Desktop configuration file and explain how the Docker integration works. Emphasize that this same pattern works for other AI clients with MCP support. Point out the READONLY_3 environment variable that makes production read-only for safety. Mention that the demo includes examples of ecosystem integrations.",
+            "Show the Claude Desktop configuration file and explain how the Docker integration works. Point out the --network host flag for localhost connectivity and the READONLY_3 environment variable that makes production read-only for safety. Emphasize that this same pattern works for other AI clients with MCP support. Mention that the demo includes examples of ecosystem integrations.",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
