@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Schema Registry MCP Demo - Part 2: Advanced Use Cases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #4ecdc4;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff9f43;
+        }
+
+        p, li {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a8a8a8;
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+        }
+
+        .speaker-notes {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background: rgba(0,0,0,0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .speaker-notes.show {
+            opacity: 1;
+        }
+
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .demo-url {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .video-recording-tip {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #ffc107;
+            font-size: 1rem;
+            display: none;
+        }
+
+        .show-tips .video-recording-tip {
+            display: block;
+        }
+
+        .use-case-demo {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: left;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .conversation {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .human-input {
+            color: #ff9f43;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .claude-response {
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .analysis-result {
+            background: rgba(0,0,0,0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .warning { color: #ffc107; }
+        .error { color: #ff6b6b; }
+        .success { color: #4ecdc4; }
+        .info { color: #a8a8a8; }
+
+        .capabilities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .capability-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #4ecdc4;
+            font-size: 1rem;
+        }
+
+        .mcp-ecosystem {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .ecosystem-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ecosystem-tool {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 0.5rem;
+            flex: 1;
+            min-width: 180px;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .central-mcp {
+            background: linear-gradient(45deg, #ff6b6b 0%, #4ecdc4 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem;
+            border: 3px solid rgba(255,255,255,0.5);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .video-container {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .video-embed {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .video-embed iframe,
+        .video-embed video {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .shadowtraffic-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .shadowtraffic-feature {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff9f43;
+        }
+
+        .shadowtraffic-feature h4 {
+            color: #ff9f43;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .transition-from-part1 {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            border: 3px solid rgba(255,255,255,0.5);
+            font-weight: bold;
+        }
+
+        .back-to-part1 {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            margin: 2rem 0;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/assets/logo.svg" alt="MCP Schema Registry Logo">
+        <span class="logo-text">MCP Schema Registry - Part 2</span>
+    </div>
+    
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides"></span>
+    </div>
+
+    <div class="presentation">
+        <!-- Slide 1: Title for Part 2 -->
+        <div class="slide active">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;">
+                <img src="https://raw.githubusercontent.com/kafka-schema-reg-mcp-demos/demo-docs/main/demo/assets/logo.svg" 
+                     alt="MCP Schema Registry Logo" 
+                     style="width: 100px; height: 100px; margin-right: 1rem; filter: brightness(0) invert(1); opacity: 0.9;">
+                <h1 style="margin-bottom: 0;">Schema Registry MCP</h1>
+            </div>
+            <p class="subtitle">Part 2: Advanced Use Cases - The Swiss Army Knife of Schema Management</p>
+            <div class="transition-from-part1">
+                <h3>🔧 Beyond the Basics</h3>
+                <p style="margin: 1rem 0; font-size: 1.2rem;">Welcome to the advanced capabilities that showcase the true power of AI-assisted schema management!</p>
+            </div>
+            <div class="back-to-part1">
+                <strong>📂 Coming from Part 1?</strong> Perfect! Let's dive into the advanced scenarios.
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Welcome back! This is Part 2 where we explore advanced use cases that go far beyond basic schema operations. These scenarios showcase the tool as a Swiss Army knife for any schema challenge.
+            </div>
+        </div>
+
+        <!-- Slide 2: Web Interface Demo (from original slide 11) -->
+        <div class="slide">
+            <h2>🌐 Interactive Web Interface</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📋 Schema Browser</h3>
+                    <p>Visual exploration of schemas across all registries</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 Search & Filter</h3>
+                    <p>Find schemas by name, context, or compatibility level</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Visual Diff</h3>
+                    <p>Side-by-side comparison of schema versions</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 One-Click Actions</h3>
+                    <p>Register, migrate, and manage schemas with simple clicks</p>
+                </div>
+            </div>
+            <div class="demo-url">
+                <strong>🌐 Try it live:</strong> http://localhost:3000
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Switch to localhost:3000 and give a quick tour of the web interface. Show the GitHub OAuth flow.
+            </div>
+        </div>
+
+        <!-- Slide 3: Swiss Army Knife Overview (from original slide 12) -->
+        <div class="slide">
+            <h2>🔧 The Swiss Army Knife of Schema Management</h2>
+            <p class="subtitle">Advanced Use Cases Beyond Basic Schema Operations</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔍 DevOps Intelligence</h3>
+                    <p>Schema drift detection, environmental analysis, automated compliance monitoring</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏛️ Schema Archaeology</h3>
+                    <p>Historical investigation, security audits, compliance timeline tracking</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌍 Global Governance</h3>
+                    <p>Multi-region compliance (GDPR, CCPA, LGPD), data residency management</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🚀 AI Optimization</h3>
+                    <p>Performance analysis, automated recommendations, cost savings predictions</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⏱️ Time Machine</h3>
+                    <p>Emergency rollbacks, version control, production incident recovery</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎭 Privacy Engine</h3>
+                    <p>PII masking, development data safety, privacy-by-design compliance</p>
+                </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Explain that we'll now see advanced use cases that showcase the tool's true versatility - like a Swiss Army knife for schema management.
+            </div>
+        </div>
+
+        <!-- Slide 4: DevOps Intelligence (from original slide 13) -->
+        <div class="slide">
+            <h2>🔍 DevOps Intelligence: Schema Drift Detection</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Platform Engineering Team Monitoring Schema Consistency</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Compare all schemas between our development and production registries to find inconsistencies"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll scan both registries for schema drift and inconsistencies.</p>
+                    
+                    <div class="analysis-result">
+🔍 <span class="success">Schema Drift Analysis Complete:</span>
+
+<span class="error">**Critical Findings:**</span>
+⚠️ user-profile: Dev has v4, Prod has v3 (Missing new field: phoneNumber)
+⚠️ order-events: Dev compatibility = BACKWARD, Prod = FULL (Config drift)
+❌ payment-flow: Exists in Dev, Missing in Prod (Deployment gap)
+
+<span class="success">**Safe Changes:**</span>
+✅ analytics-events: Both environments in sync
+✅ notification-prefs: Compatible evolution paths
+
+<span class="warning">**Action Required:**</span>
+🚨 3 schemas need attention before next release
+📊 Generated drift report with remediation steps</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🔍 <strong>Drift Detection:</strong> Automatically find inconsistencies</div>
+                <div class="capability-item">⚡ <strong>Cross-Environment:</strong> Compare unlimited registries</div>
+                <div class="capability-item">📋 <strong>Actionable Reports:</strong> Clear remediation guidance</div>
+                <div class="capability-item">🚨 <strong>Risk Assessment:</strong> Critical vs. safe differences</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Demonstrate this live by showing Claude detecting differences between environments. Emphasize how this prevents production issues.
+            </div>
+        </div>
+
+        <!-- Slide 5: Schema Archaeology (from original slide 14) -->
+        <div class="slide">
+            <h2>🏛️ Schema Archaeology: Historical Investigation</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Security Team Investigating Data Breach Timeline</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Show me all schema changes to user-profile between January 1st and March 15th this year, including who made the changes and what fields were added or removed"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll analyze the complete evolution history for the user-profile schema during the specified period.</p>
+                    
+                    <div class="analysis-result">
+🏛️ <span class="success">Schema Archaeology Results:</span>
+
+<span class="info">**Timeline Analysis (Jan 1 - Mar 15, 2025):**</span>
+📅 Jan 15: v2 → v3 (Added: socialSecurityNumber field)
+   👤 Author: john.doe@company.com
+   🔍 Change: Added OPTIONAL string field with PII tag
+   ⚠️ Risk: Introduced sensitive data collection
+
+📅 Feb 28: v3 → v4 (Removed: socialSecurityNumber field)
+   👤 Author: jane.security@company.com  
+   🔍 Change: Emergency removal of PII field
+   ✅ Risk: Reduced data exposure
+
+📅 Mar 10: Configuration change
+   👤 Author: ops.team@company.com
+   🔍 Change: Added encryption directive for remaining PII
+
+<span class="warning">**Security Impact:**</span>
+🚨 PII field existed for 44 days (Jan 15 - Feb 28)
+📊 Estimated records affected: ~2.3M user profiles</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">📚 <strong>Historical Tracking:</strong> Complete change timeline</div>
+                <div class="capability-item">👤 <strong>Attribution:</strong> Who made what changes</div>
+                <div class="capability-item">🔍 <strong>Impact Analysis:</strong> Data exposure timeline</div>
+                <div class="capability-item">📋 <strong>Audit Reports:</strong> Compliance-ready documentation</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Show historical schema tracking. This is powerful for security teams and compliance officers who need to understand data evolution.
+            </div>
+        </div>
+
+        <!-- Slide 6: Global Governance (from original slide 15) -->
+        <div class="slide">
+            <h2>🌍 Global Governance: Multi-Region Compliance</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Multinational Company Managing Regional Data Laws</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Analyze our user-profile schema for GDPR compliance in EU, CCPA compliance in California, and LGPD compliance in Brazil. Show me what needs to change for each region"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll analyze the schema against regional privacy regulations and provide region-specific compliance recommendations.</p>
+                    
+                    <div class="analysis-result">
+🌍 <span class="success">Multi-Region Compliance Analysis:</span>
+
+<span class="info">**GDPR (EU) Analysis:**</span>
+✅ Consent fields: present and compliant
+⚠️ Legal basis field: missing (required for processing)
+❌ Data retention directive: not specified
+🔧 Fix: Add legalBasisForProcessing, retentionPeriod fields
+
+<span class="info">**CCPA (California) Analysis:**</span>
+✅ Opt-out mechanism: properly implemented
+⚠️ Data categories: incomplete labeling
+❌ Business purpose: not documented in schema
+🔧 Fix: Add dataCategoryTags, businessPurpose metadata
+
+<span class="info">**LGPD (Brazil) Analysis:**</span>
+✅ Consent mechanism: compliant with Brazilian law
+❌ Sensitive data classification: missing
+⚠️ Data minimization: excessive optional fields
+🔧 Fix: Add sensitiveDataFlag, reduce optional PII fields
+
+<span class="warning">**Recommended Actions:**</span>
+🚀 Create region-specific schema variants
+🛡️ Implement automated compliance checking
+📊 Set up monitoring for regulation changes</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🌍 <strong>Global Compliance:</strong> Multi-region analysis</div>
+                <div class="capability-item">⚖️ <strong>Legal Intelligence:</strong> Regulation-aware validation</div>
+                <div class="capability-item">🔧 <strong>Auto-Remediation:</strong> Compliance fix suggestions</div>
+                <div class="capability-item">📊 <strong>Monitoring:</strong> Ongoing regulation tracking</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Demonstrate multi-region compliance. Show how the tool automatically handles different regulatory requirements in different regions.
+            </div>
+        </div>
+
+        <!-- Slide 7: AI Optimization (from original slide 16) -->
+        <div class="slide">
+            <h2>🚀 AI Optimization: Performance & Cost Analysis</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Platform Team Optimizing Data Pipeline Performance</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Analyze our schemas for performance bottlenecks and suggest optimizations that could reduce Kafka throughput costs"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll analyze schema designs for performance impact and cost optimization opportunities.</p>
+                    
+                    <div class="analysis-result">
+🚀 <span class="success">Performance & Cost Analysis:</span>
+
+<span class="error">**High-Impact Issues:**</span>
+💰 user-events schema: 47% larger than optimal
+   🔍 Issue: Redundant nested objects, unused fields
+   💡 Fix: Flatten structure → Save $12K/month network costs
+
+📊 analytics-payload: Poor compression ratio (2.1x)
+   🔍 Issue: String-heavy design with repeated values
+   💡 Fix: Use enums + integer IDs → 68% size reduction
+
+<span class="warning">**Medium-Impact Optimizations:**</span>
+⚡ order-tracking: Excessive optional fields (23 of 30)
+   💡 Fix: Split into core + extended schemas
+   📈 Expected: 35% reduction in average message size
+
+<span class="success">**AI Recommendations:**</span>
+🤖 Auto-generated optimized schemas ready for review
+💰 Total potential savings: $18.5K/month
+⚡ Estimated throughput improvement: 42%
+🛡️ Zero breaking changes - all backward compatible</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">💰 <strong>Cost Analysis:</strong> Real savings calculations</div>
+                <div class="capability-item">⚡ <strong>Performance Tuning:</strong> Throughput optimization</div>
+                <div class="capability-item">🤖 <strong>AI Suggestions:</strong> Automated improvements</div>
+                <div class="capability-item">🛡️ <strong>Safe Changes:</strong> Compatibility guaranteed</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Show AI-powered optimization. This appeals to performance engineers and can demonstrate significant cost savings and performance improvements.
+            </div>
+        </div>
+
+        <!-- Slide 8: Time Machine (from original slide 17) -->
+        <div class="slide">
+            <h2>⏱️ Time Machine: Emergency Schema Recovery</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Production Incident - Immediate Schema Rollback Required</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"URGENT: The v5 user-profile schema deployed 30 minutes ago is causing consumer failures. I need to immediately rollback to v4 and analyze what went wrong"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>🚨 Emergency response activated! I'll immediately rollback the schema and provide root cause analysis.</p>
+                    
+                    <div class="analysis-result">
+⏱️ <span class="error">EMERGENCY ROLLBACK INITIATED:</span>
+
+<span class="success">**Immediate Actions (30 seconds):**</span>
+✅ Schema rolled back: v5 → v4 in production registry
+✅ Compatibility verified: All consumers now compatible
+✅ Circuit breaker activated: Auto-reject v5 registrations
+✅ Incident logged: #INC-2025-0311-001 created
+
+<span class="warning">**Root Cause Analysis:**</span>
+🔍 Issue: Required field 'newMandatoryId' added in v5
+❌ Impact: Legacy consumers missing field mapping
+🚨 Affected: 12 microservices, ~150K/sec failed events
+
+<span class="info">**Timeline Reconstruction:**</span>
+📅 10:30 AM: v5 registered (automatic validation passed)
+📅 10:45 AM: First consumer failures detected
+📅 10:47 AM: Error cascade began
+📅 11:00 AM: Rollback completed (your request)
+
+<span class="success">**Prevention for Future:**</span>
+🛡️ Added v5 to compatibility blacklist
+📋 Enhanced validation rules implemented
+🚀 Safe v5 deployment path created with migration period</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">⚡ <strong>Instant Rollback:</strong> 30-second emergency recovery</div>
+                <div class="capability-item">🔍 <strong>Root Cause:</strong> Immediate problem identification</div>
+                <div class="capability-item">📊 <strong>Impact Analysis:</strong> Blast radius mapping</div>
+                <div class="capability-item">🛡️ <strong>Prevention:</strong> Automated safeguards</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Demonstrate emergency rollback capabilities. This is critical for production reliability and incident response.
+            </div>
+        </div>
+
+        <!-- Slide 9: Privacy Engine (from original slide 18) -->
+        <div class="slide">
+            <h2>🎭 Privacy Engine: Development Data Safety</h2>
+            <p class="subtitle"><strong>Scenario:</strong> Creating Privacy-Safe Development Schemas</p>
+            
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Generate development-safe versions of our production schemas that remove all PII but maintain realistic data patterns for testing"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>I'll create privacy-safe development schemas with realistic synthetic data patterns while removing all personal information.</p>
+                    
+                    <div class="analysis-result">
+🎭 <span class="success">Privacy-Safe Schema Generation:</span>
+
+<span class="info">**Production Schema Analysis:**</span>
+🔍 Found PII fields: email, phone, ssn, address, creditCard
+🚨 Sensitivity level: HIGH (financial + identity data)
+📊 Data patterns identified for synthetic generation
+
+<span class="success">**Generated Development Schema:**</span>
+✅ email → masked_identifier (preserves format: user123@domain.test)
+✅ phone → region_code + random (maintains geographic distribution)
+✅ ssn → removed entirely (replaced with synthetic_id)
+✅ address → city/state only (no street addresses)
+✅ creditCard → test card numbers (valid format, fake data)
+
+<span class="warning">**Synthetic Data Patterns:**</span>
+📈 Maintains statistical distributions from production
+🌍 Preserves geographic and demographic patterns
+⚡ Generates at 10K records/second for load testing
+🛡️ Zero risk of real PII exposure
+
+<span class="success">**Development Benefits:**</span>
+🚀 Realistic testing without privacy risks
+📊 Full data pipeline validation capability
+⚖️ GDPR/CCPA compliant development environment</div>
+                </div>
+            </div>
+
+            <div class="capabilities-list">
+                <div class="capability-item">🎭 <strong>PII Masking:</strong> Automatic sensitive data removal</div>
+                <div class="capability-item">📊 <strong>Pattern Preservation:</strong> Realistic synthetic data</div>
+                <div class="capability-item">⚖️ <strong>Compliance:</strong> Privacy-by-design</div>
+                <div class="capability-item">🚀 <strong>Dev Velocity:</strong> Safe, fast testing</div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles.
+            </div>
+        </div>
+
+        <!-- Slide 10: MCP Ecosystem Orchestration (from original slide 20) -->
+        <div class="slide">
+            <h2>🌟 MCP Ecosystem: Orchestrating the Data Universe</h2>
+            <p class="subtitle"><strong>The Ultimate Vision:</strong> Natural Language Control of Entire Data Ecosystems</p>
+            
+            <div class="mcp-ecosystem">
+                <h3>🚀 From Schema Management to Complete Data Orchestration</h3>
+                <div class="ecosystem-flow">
+                    <div class="ecosystem-tool">📊 Shadowtraffic.io<br><small>Realistic Data Generation</small></div>
+                    <div class="ecosystem-tool">🔗 Schema Registry<br><small>Schema Management</small></div>
+                    <div class="ecosystem-tool">🌊 ksqlDB<br><small>Stream Processing</small></div>
+                </div>
+                
+                <div class="central-mcp">
+                    🤖 Universal MCP Protocol<br>
+                    <small>One Language to Rule Them All</small>
+                </div>
+                
+                <div class="ecosystem-flow">
+                    <div class="ecosystem-tool">📈 Prometheus<br><small>Monitoring</small></div>
+                    <div class="ecosystem-tool">🔍 Grafana<br><small>Observability</small></div>
+                    <div class="ecosystem-tool">🗄️ Databases<br><small>Data Storage</small></div>
+                </div>
+            </div>
+
+            <div class="use-case-demo">
+                <div class="conversation">
+                    <div class="human-input">Human:</div>
+                    <p>"Set up a complete test environment: generate realistic user events in Shadowtraffic matching our user-profile schema, create a ksqlDB stream to process them, and set up monitoring alerts"</p>
+                    
+                    <div class="claude-response">Claude:</div>
+                    <p>🌟 Orchestrating complete data ecosystem setup across multiple MCP servers...</p>
+                    
+                    <div class="analysis-result">
+🌟 <span class="success">Multi-Tool Orchestration Complete:</span>
+
+<span class="info">**1. Schema Registry (Current MCP):**</span>
+✅ Retrieved user-profile schema v4
+✅ Validated compatibility for streaming
+✅ Generated schema documentation
+
+<span class="info">**2. Shadowtraffic.io (Coordinated MCP):**</span>
+✅ Created realistic user event generator
+✅ 50K events/minute matching exact schema
+✅ Geographic distribution: US (60%), EU (30%), APAC (10%)
+
+<span class="info">**3. ksqlDB (Stream Processing MCP):**</span>
+✅ Stream created: user_events_stream  
+✅ Real-time aggregations: events by region/hour
+✅ Anomaly detection: >2σ deviation alerts
+
+<span class="info">**4. Monitoring (Prometheus/Grafana MCPs):**</span>
+✅ Dashboard: Real-time event processing metrics
+✅ Alerts: Schema compatibility failures
+✅ SLA tracking: <100ms processing latency
+
+<span class="success">**🎯 Result: Complete data ecosystem running!**</span>
+🌊 Live data flowing through entire pipeline
+📊 Real-time monitoring and alerting active
+⚡ All configured through natural language!</div>
+                </div>
+            </div>
+
+            <div class="demo-url">
+                <strong>🌟 The Future:</strong> Single conversation orchestrates entire data platforms
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> This is the big reveal - MCP isn't just about connecting one tool, it's about orchestrating entire data ecosystems. Show how natural language can coordinate complex workflows across multiple tools. Reference Michael Drogalis's work and explain how this represents the future of data tooling.
+            </div>
+        </div>
+
+        <!-- Slide 11: Shadowtraffic.io Deep Dive (from original slide 22) -->
+        <div class="slide">
+            <h2>🌊 Shadowtraffic.io: Realistic Data Generation at Scale</h2>
+            <p class="subtitle"><strong>Deep Dive:</strong> The Power of Schema-Aware Test Data Generation</p>
+            
+            <!-- Video Container -->
+            <div class="video-container">
+                <h3>🎥 MCPs Shadowtraffic.io and Schema Registry in Action</h3>
+                <div class="video-embed">
+                    <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMUUzQzcyIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIyNSIgcj0iNjAiIGZpbGw9IiM0RUNEQUM0IiBvcGFjaXR5PSIwLjgiLz4KPHBvbHlnb24gcG9pbnRzPSIzODAsMTk1IDQzMCwyMjUgMzgwLDI1NSIgZmlsbD0iIzFFM0M3MiIvPgo8dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2hhZG93dHJhZmZpYy5pbyBEZW1vPC90ZXh0Pgo8L3N2Zz4=">
+                        <source src="https://dms.licdn.com/playlist/vid/v2/D4D05AQG32KIe46f-pg/mp4-720p-30fp-crf28/B4DZc386AaG8BM-/0/1748990439262?e=2147483647&v=beta&t=3AZVRHVoIKpxjwmH-gtL6TxaHPpTDgLooeZBTVPN2ec" type="video/mp4">
+                        <p style="color: #ff9f43; text-align: center; padding: 2rem;">
+                            🎥 <strong>Video Preview:</strong> Shadowtraffic.io demonstration<br>
+                            <small>Click to play the embedded video</small>
+                        </p>
+                    </video>
+                </div>
+            </div>
+
+            <!-- Shadowtraffic.io Features -->
+            <div class="shadowtraffic-highlights">
+                <div class="shadowtraffic-feature">
+                    <h4>🎯 Schema-Aware Generation</h4>
+                    <p>Automatically generates data that perfectly conforms to your registered schemas, ensuring 100% validation compliance</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🧠 Realistic Behavior Patterns</h4>
+                    <p>Simulates real user journeys, session flows, and business logic rather than just random data</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>⚡ Massive Scale</h4>
+                    <p>Generate millions of events per minute with configurable patterns, geographic distribution, and time-based variations</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🔗 MCP Integration</h4>
+                    <p>Seamlessly coordinate with Schema Registry through natural language commands via any AI client</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>📊 Quality Assurance</h4>
+                    <p>Built-in data quality checks, relationship constraints, and edge case handling for robust testing</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🌍 Production-Like Scenarios</h4>
+                    <p>Peak hour simulations, geographic patterns, seasonal variations, and realistic error rates</p>
+                </div>
+            </div>
+
+            <div class="demo-url">
+                <strong>🌊 Perfect for:</strong> Load testing • Schema validation • Pipeline development • Performance tuning
+            </div>
+            
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Play the embedded video to show Shadowtraffic.io in action. Emphasize how it complements the schema registry by generating test data that perfectly matches your schemas. This is the missing piece for comprehensive data pipeline testing.
+            </div>
+        </div>
+
+        <!-- FINAL SLIDE 12: Part 2 Conclusion & Bridge Back -->
+        <div class="slide">
+            <h1>🔧 You've Seen the Swiss Army Knife!</h1>
+            <p class="subtitle">Advanced capabilities that transform schema management into intelligent data orchestration</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔍 Intelligence Layer</h3>
+                    <p>DevOps intelligence, archaeology, and AI optimization provide insights beyond basic operations</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌍 Global Reach</h3>
+                    <p>Multi-region compliance and privacy engines handle worldwide data regulations automatically</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Crisis Management</h3>
+                    <p>Time machine capabilities and emergency responses keep production systems resilient</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🌊 Ecosystem Power</h3>
+                    <p>MCP orchestration coordinates entire data platforms through natural language</p>
+                </div>
+            </div>
+
+            <div class="back-to-part1">
+                <strong>🔗 Complete Experience:</strong> Part 1 (Foundation) + Part 2 (Advanced) = Full Picture<br>
+                📂 <strong>Part 1:</strong> presentation-part1.html (Foundation & Getting Started)
+            </div>
+
+            <div class="demo-url">
+                ⭐ <strong>What's Next?</strong> Explore the GitHub demos and start building your own MCP integrations!<br>
+                🤖 <strong>Universal Compatibility:</strong> Works with Claude, Copilot, Cursor & JetBrains AI
+            </div>
+
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Wrap up by emphasizing how these advanced use cases showcase the true potential of AI-assisted data management. Mention that both parts together show the complete journey from foundation to advanced capabilities. Encourage viewers to explore the GitHub organization for hands-on examples.
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="toggleNotes()">📝 Notes</button>
+        <button class="nav-btn" onclick="toggleTips()">🎥 Tips</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="speaker-notes" id="speaker-notes">
+        <strong>Speaker Notes:</strong><br>
+        <span id="notes-content">Welcome to Part 2! This section showcases advanced use cases that go beyond basic schema operations.</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        const speakerNotes = [
+            "Welcome to Part 2! This section showcases advanced use cases that go beyond basic schema operations. These scenarios demonstrate the tool as a Swiss Army knife for any schema challenge.",
+            "Switch to the web interface at localhost:3000. Give a quick tour showing the visual schema management capabilities and GitHub OAuth integration.",
+            "Explain that beyond basic schema operations, this tool is a Swiss Army knife that handles any schema challenge. Set up the advanced scenarios we'll explore.",
+            "Demonstrate schema drift detection live. Show how this prevents production issues by catching environment inconsistencies automatically. This is critical for DevOps teams.",
+            "Show historical schema tracking. This is powerful for security teams and compliance officers who need to understand data evolution over time for audits and investigations.",
+            "Demonstrate multi-region compliance. Show how the tool automatically handles different regulatory requirements in different regions - GDPR, CCPA, LGPD.",
+            "Show AI-powered optimization. This appeals to performance engineers and can demonstrate significant cost savings and performance improvements through intelligent analysis.",
+            "Demonstrate emergency rollback capabilities. This is critical for production reliability and incident response. Show the 30-second recovery time.",
+            "Show privacy-safe development schemas. This is important for companies handling sensitive data and demonstrates privacy-by-design principles in development workflows.",
+            "This is the big reveal - MCP isn't just about connecting one tool, it's about orchestrating entire data ecosystems. Show how natural language can coordinate complex workflows across multiple tools including Schema Registry, Shadowtraffic.io, ksqlDB, and monitoring systems. Reference Michael Drogalis's work.",
+            "Deep dive into Shadowtraffic.io capabilities. Play the embedded video to demonstrate realistic data generation at scale. Emphasize how it complements schema management by providing schema-aware test data. This is the missing piece for comprehensive data pipeline testing.",
+            "Wrap up by emphasizing how these advanced use cases showcase the true potential of AI-assisted data management. Mention that both parts together show the complete journey from foundation to advanced capabilities. Encourage viewers to explore the GitHub organization for hands-on examples."
+        ];
+
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            document.getElementById('notes-content').textContent = speakerNotes[currentSlide];
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            const notes = document.getElementById('speaker-notes');
+            notes.classList.toggle('show');
+        }
+
+        function toggleTips() {
+            document.body.classList.toggle('show-tips');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    previousSlide();
+                    break;
+                case 'n':
+                case 'N':
+                    toggleNotes();
+                    break;
+                case 't':
+                case 'T':
+                    toggleTips();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
