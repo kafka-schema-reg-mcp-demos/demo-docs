@@ -855,9 +855,23 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
     "servers": {
       "schema-registry": {
         "command": "docker",
-        "args": ["run", "-i", "--rm", "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"],
+        "args": [
+          "run", "-i", "--rm",
+          "-e", "PORT",
+          "-e", "GITHUB_CLIENT_ID",
+          "-e", "GITHUB_CLIENT_SECRET",
+          "-e", "DEVELOPMENT_REGISTRY_URL",
+          "-e", "STAGING_REGISTRY_URL",
+          "-e", "PRODUCTION_REGISTRY_URL",
+          "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
+        ],
         "env": {
-          "PORT": "38000"
+          "PORT": "38000",
+          "GITHUB_CLIENT_ID": "your_client_id",
+          "GITHUB_CLIENT_SECRET": "your_client_secret",
+          "DEVELOPMENT_REGISTRY_URL": "http://localhost:8081",
+          "STAGING_REGISTRY_URL": "http://localhost:8082",
+          "PRODUCTION_REGISTRY_URL": "http://localhost:8083"
         }
       }
     }
@@ -942,7 +956,7 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
             "Show more advanced scenarios. Demonstrate the migration capabilities and how any AI assistant makes complex operations simple.",
             "Transition to advanced use cases by saying 'Now that we've covered the foundation, let's explore the advanced capabilities. Please open adv-use-cases.html to see the Swiss Army Knife features.'",
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
-            "Walk through the setup process. Show the Docker configuration with the v2.0.0-rc1 image tag. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.",
+            "Walk through the setup process. Show the Docker configuration with proper environment variable passing through both args and env sections. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
