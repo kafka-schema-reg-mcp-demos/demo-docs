@@ -2,9 +2,9 @@
 
 ## 📂 Presentation Structure
 
-The demo presentation has been split into two focused parts for better organization and flow:
+The demo presentation is organized into two focused presentations for better organization and flow:
 
-### 🏗️ Part 1: Foundation (`presentation-part1.html`)
+### 🏗️ Foundation (`presentation.html`)
 **Duration:** ~20-25 minutes  
 **Focus:** Core concepts and basic functionality
 
@@ -18,7 +18,7 @@ The demo presentation has been split into two focused parts for better organizat
 
 **Best for:** Executives, new team members, or anyone wanting to understand the fundamentals
 
-### 🔧 Part 2: Advanced Use Cases (`presentation-part2.html`)
+### 🔧 Advanced Use Cases (`adv-use-cases.html`)
 **Duration:** ~15-20 minutes  
 **Focus:** Advanced scenarios and "Swiss Army Knife" capabilities
 
@@ -38,20 +38,20 @@ The demo presentation has been split into two focused parts for better organizat
 ## 🎯 Recommended Usage
 
 ### For Complete Demos (40-45 minutes)
-1. Start with `presentation-part1.html`
-2. Continue with `presentation-part2.html`
+1. Start with `presentation.html`
+2. Continue with `adv-use-cases.html`
 
 ### For Focused Sessions
-- **Executive Overview:** Part 1 only
-- **Technical Deep Dive:** Part 2 only (with brief Part 1 intro)
-- **Developer Onboarding:** Part 1 + selected Part 2 scenarios
+- **Executive Overview:** `presentation.html` only
+- **Technical Deep Dive:** `adv-use-cases.html` only (with brief foundation intro)
+- **Developer Onboarding:** `presentation.html` + selected `adv-use-cases.html` scenarios
 
 ## 🚀 Navigation
 
 Each presentation:
 - ✅ Includes speaker notes for each slide
 - ✅ Has video recording tips
-- ✅ Features smooth transitions between parts
+- ✅ Features smooth transitions between presentations
 - ✅ Contains cross-references to the other presentation
 
 ## 📱 Controls
@@ -69,10 +69,16 @@ Both presentations reference the live demo at:
 
 ## 🔗 Cross-References
 
-- Part 1 includes transition slide pointing to Part 2
-- Part 2 includes references back to Part 1
+- `presentation.html` includes transition slide pointing to `adv-use-cases.html`
+- `adv-use-cases.html` includes references back to `presentation.html`
 - Both presentations link to the GitHub organization and main repository
+
+## 📄 Files
+
+- **`presentation.html`** - Foundation presentation (main/primary)
+- **`adv-use-cases.html`** - Advanced use cases presentation
+- **`assets/`** - Shared presentation assets (logos, images)
 
 ---
 
-**Note:** The original `presentation.html` remains available but is now considered the "legacy" version. The split presentations provide better organization and improved presenter experience.
+**Note:** This represents the current presentation structure. The files have been optimized for clear organization and improved presenter experience.
