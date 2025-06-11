@@ -924,9 +924,9 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- Slide 14: Getting Started -->
+        <!-- Slide 14: Getting Started - Part 1 -->
         <div class="slide">
-            <h2>🚀 Getting Started</h2>
+            <h2>🚀 Getting Started - Setup</h2>
             <div class="demo-steps">
                 <div class="step">
                     <h3>Step 1: GitHub OAuth Setup</h3>
@@ -947,6 +947,16 @@ SCHEMA_REGISTRY_URL_2=http://localhost:8082
 SCHEMA_REGISTRY_NAME_3=production
 SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
                 </div>
+            </div>
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Walk through the GitHub OAuth setup process step-by-step. Show how to create a new OAuth application in GitHub settings and explain the environment variables structure.
+            </div>
+        </div>
+
+        <!-- Slide 15: Getting Started - Part 2 -->
+        <div class="slide">
+            <h2>🚀 Getting Started - Integration</h2>
+            <div class="demo-steps">
                 <div class="step">
                     <h3>Step 3: Claude Desktop Integration</h3>
                     <div class="code-block">{
@@ -956,7 +966,6 @@ SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
         "command": "docker",
         "args": [
           "run", "-i", "--rm",
-          "-e", "PORT",
           "-e", "GITHUB_CLIENT_ID",
           "-e", "GITHUB_CLIENT_SECRET",
           "-e", "SCHEMA_REGISTRY_NAME_1",
@@ -968,7 +977,6 @@ SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
           "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
         ],
         "env": {
-          "PORT": "38000",
           "GITHUB_CLIENT_ID": "your_client_id",
           "GITHUB_CLIENT_SECRET": "your_client_secret",
           "SCHEMA_REGISTRY_NAME_1": "development",
@@ -985,11 +993,11 @@ SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Walk through the setup process. Show the Docker configuration with proper environment variable passing through both args and env sections. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.
+                🎥 <strong>Recording Tip:</strong> Show the Claude Desktop configuration file and explain how the Docker integration works. Emphasize that this same pattern works for other AI clients with MCP support. Mention that the demo includes examples of ecosystem integrations.
             </div>
         </div>
 
-        <!-- FINAL SLIDE 15: Call to Action -->
+        <!-- FINAL SLIDE 16: Call to Action -->
         <div class="slide">
             <h1>Ready to Transform Your Data Ecosystem?</h1>
             <div class="feature-grid">
@@ -1062,7 +1070,8 @@ SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
             "Transition to advanced use cases by saying 'Now that we've covered the foundation, let's explore the advanced capabilities. Please open adv-use-cases.html to see the Swiss Army Knife features.'",
             "Deep dive into Shadowtraffic.io capabilities. Play the embedded video to demonstrate realistic data generation at scale. Emphasize how it complements schema management by providing schema-aware test data. This is the missing piece for comprehensive data pipeline testing.",
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
-            "Walk through the setup process. Show the Docker configuration with proper environment variable passing through both args and env sections. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.",
+            "Walk through the GitHub OAuth setup process step-by-step. Show how to create a new OAuth application in GitHub settings and explain the environment variables structure.",
+            "Show the Claude Desktop configuration file and explain how the Docker integration works. Emphasize that this same pattern works for other AI clients with MCP support. Mention that the demo includes examples of ecosystem integrations.",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
         ];
 
