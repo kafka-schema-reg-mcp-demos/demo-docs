@@ -416,6 +416,54 @@
             border: 3px solid rgba(255,255,255,0.5);
             font-weight: bold;
         }
+
+        /* New styles for Shadowtraffic slide */
+        .video-container {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .video-embed {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .video-embed iframe,
+        .video-embed video {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .shadowtraffic-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .shadowtraffic-feature {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff9f43;
+        }
+
+        .shadowtraffic-feature h4 {
+            color: #ff9f43;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -756,7 +804,7 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- NEW SLIDE 11: Transition to Advanced Use Cases -->
+        <!-- SLIDE 11: Transition to Advanced Use Cases -->
         <div class="slide">
             <h2>🔧 Ready for Advanced Use Cases?</h2>
             <div class="transition-to-advanced">
@@ -791,7 +839,63 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- Slide 12: Technical Benefits -->
+        <!-- NEW SLIDE 12: Shadowtraffic.io Deep Dive -->
+        <div class="slide">
+            <h2>🌊 Shadowtraffic.io: Realistic Data Generation at Scale</h2>
+            <p class="subtitle"><strong>Deep Dive:</strong> The Power of Schema-Aware Test Data Generation</p>
+            
+            <!-- Video Container -->
+            <div class="video-container">
+                <h3>🎥 MCPs Shadowtraffic.io and Schema Registry in Action</h3>
+                <div class="video-embed">
+                    <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMUUzQzcyIi8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIyNSIgcj0iNjAiIGZpbGw9IiM0RUNEQUM0IiBvcGFjaXR5PSIwLjgiLz4KPHBvbHlnb24gcG9pbnRzPSIzODAsMTk1IDQzMCwyMjUgMzgwLDI1NSIgZmlsbD0iIzFFM0M3MiIvPgo8dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2hhZG93dHJhZmZpYy5pbyBEZW1vPC90ZXh0Pgo8L3N2Zz4=">
+                        <source src="https://dms.licdn.com/playlist/vid/v2/D4D05AQG32KIe46f-pg/mp4-720p-30fp-crf28/B4DZc386AaG8BM-/0/1748990439262?e=2147483647&v=beta&t=3AZVRHVoIKpxjwmH-gtL6TxaHPpTDgLooeZBTVPN2ec" type="video/mp4">
+                        <p style="color: #ff9f43; text-align: center; padding: 2rem;">
+                            🎥 <strong>Video Preview:</strong> Shadowtraffic.io demonstration<br>
+                            <small>Click to play the embedded video</small>
+                        </p>
+                    </video>
+                </div>
+            </div>
+
+            <!-- Shadowtraffic.io Features -->
+            <div class="shadowtraffic-highlights">
+                <div class="shadowtraffic-feature">
+                    <h4>🎯 Schema-Aware Generation</h4>
+                    <p>Automatically generates data that perfectly conforms to your registered schemas, ensuring 100% validation compliance</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🧠 Realistic Behavior Patterns</h4>
+                    <p>Simulates real user journeys, session flows, and business logic rather than just random data</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>⚡ Massive Scale</h4>
+                    <p>Generate millions of events per minute with configurable patterns, geographic distribution, and time-based variations</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🔗 MCP Integration</h4>
+                    <p>Seamlessly coordinate with Schema Registry through natural language commands via any AI client</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>📊 Quality Assurance</h4>
+                    <p>Built-in data quality checks, relationship constraints, and edge case handling for robust testing</p>
+                </div>
+                <div class="shadowtraffic-feature">
+                    <h4>🌍 Production-Like Scenarios</h4>
+                    <p>Peak hour simulations, geographic patterns, seasonal variations, and realistic error rates</p>
+                </div>
+            </div>
+
+            <div class="demo-url">
+                <strong>🌊 Perfect for:</strong> Load testing • Schema validation • Pipeline development • Performance tuning
+            </div>
+            
+            <div class="video-recording-tip">
+                🎥 <strong>Recording Tip:</strong> Play the embedded video to show Shadowtraffic.io in action. Emphasize how it complements the schema registry by generating test data that perfectly matches your schemas. This is the missing piece for comprehensive data pipeline testing.
+            </div>
+        </div>
+
+        <!-- Slide 13: Technical Benefits -->
         <div class="slide">
             <h2>🚀 Why This Matters</h2>
             <div class="feature-grid">
@@ -828,7 +932,7 @@ in production registry"</div>
             </div>
         </div>
 
-        <!-- Slide 13: Getting Started -->
+        <!-- Slide 14: Getting Started -->
         <div class="slide">
             <h2>🚀 Getting Started</h2>
             <div class="demo-steps">
@@ -884,7 +988,7 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
             </div>
         </div>
 
-        <!-- FINAL SLIDE 14: Call to Action -->
+        <!-- FINAL SLIDE 15: Call to Action -->
         <div class="slide">
             <h1>Ready to Transform Your Data Ecosystem?</h1>
             <div class="feature-grid">
@@ -955,6 +1059,7 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
             "This is your first live demo! Show Claude Desktop integration, but remind the audience that developers could run the same commands in VS Code Copilot or Cursor. Keep it simple but impressive - register a schema using natural language.",
             "Show more advanced scenarios. Demonstrate the migration capabilities and how any AI assistant makes complex operations simple.",
             "Transition to advanced use cases by saying 'Now that we've covered the foundation, let's explore the advanced capabilities. Please open adv-use-cases.html to see the Swiss Army Knife features.'",
+            "Deep dive into Shadowtraffic.io capabilities. Play the embedded video to demonstrate realistic data generation at scale. Emphasize how it complements schema management by providing schema-aware test data. This is the missing piece for comprehensive data pipeline testing.",
             "Connect the technical features to business value. Emphasize the universal AI client compatibility - developers can choose their preferred AI assistant and still get the same powerful capabilities.",
             "Walk through the setup process. Show the Docker configuration with proper environment variable passing through both args and env sections. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.",
             "End with energy! Remind them about the advanced use cases presentation. Emphasize that they've seen the foundation of AI-assisted data management that works with any AI client. Thank them for watching and invite them to explore the advanced features."
