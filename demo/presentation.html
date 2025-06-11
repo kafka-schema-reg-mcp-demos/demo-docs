@@ -857,7 +857,12 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
         "command": "docker",
         "args": ["run", "-i", "--rm", "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"],
         "env": {
-          "PORT": "38000"
+          "PORT": "38000",
+          "GITHUB_CLIENT_ID": "your_client_id",
+          "GITHUB_CLIENT_SECRET": "your_client_secret",
+          "DEVELOPMENT_REGISTRY_URL": "http://localhost:8081",
+          "STAGING_REGISTRY_URL": "http://localhost:8082",
+          "PRODUCTION_REGISTRY_URL": "http://localhost:8083"
         }
       }
     }
