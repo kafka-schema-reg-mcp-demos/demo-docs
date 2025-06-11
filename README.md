@@ -2,7 +2,7 @@
 
 **Transform how you manage Kafka schemas with natural language commands through any MCP-compatible AI client**
 
-[![🚀 Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://github.com/aywengo/demo-deployment) [![📚 Documentation](https://img.shields.io/badge/📚-Documentation-green?style=for-the-badge)](https://github.com/aywengo/kafka-schema-reg-mcp) [![🎨 Demo Schemas](https://img.shields.io/badge/🎨-Demo%20Schemas-orange?style=for-the-badge)](https://github.com/aywengo/demo-schemas)
+[![🚀 Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-blue?style=for-the-badge)](https://github.com/kafka-schema-reg-mcp-demos/demo-deployment) [![📚 Documentation](https://img.shields.io/badge/📚-Documentation-green?style=for-the-badge)](https://github.com/aywengo/kafka-schema-reg-mcp) [![🎨 Demo Schemas](https://img.shields.io/badge/🎨-Demo%20Schemas-orange?style=for-the-badge)](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas)
 
 ---
 
@@ -21,6 +21,64 @@ AI Assistant: I'll create and register that schema for you in the development re
 ```
 
 **That's the power of the Kafka Schema Registry MCP Server** - bringing AI-driven schema management to any MCP-compatible IDE or AI assistant.
+
+---
+
+## 🏗️ Architecture: Local vs Remote Setup
+
+Our Kafka Schema Registry MCP implementation supports both **local development** and **remote enterprise** deployments:
+
+### **🏠 Local Development Setup**
+Perfect for development, testing, and learning:
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Claude App    │    │   VS Code       │    │   Cursor IDE    │
+│   (Desktop)     │    │   + Copilot     │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │ HTTP/SSE
+                    ┌─────────────▼─────────────┐
+                    │     Local MCP Server      │
+                    │    (docker-compose)       │
+                    │      localhost:38000      │
+                    └─────────────┬─────────────┘
+                                  │
+        ┌─────────────────────────┼─────────────────────────┐
+        │                         │                         │
+  ┌─────▼─────┐            ┌─────▼─────┐            ┌─────▼─────┐
+  │    Dev    │            │  Staging  │            │   Prod    │
+  │ Registry  │            │ Registry  │            │ Registry  │
+  │   :8081   │            │   :8082   │            │   :8083   │
+  └───────────┘            └───────────┘            └───────────┘
+```
+
+### **🌍 Remote Enterprise Setup**
+Production-ready deployment with centralized authentication:
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Claude App    │    │   VS Code       │    │  JetBrains IDE  │
+│   (Desktop)     │    │   + Copilot     │    │    + AI         │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │ HTTPS/SSE + GitHub OAuth
+                    ┌─────────────▼─────────────┐
+                    │    Remote MCP Server      │
+                    │   (Kubernetes/Cloud)      │
+                    │   your-domain.com:443     │
+                    └─────────────┬─────────────┘
+                                  │
+        ┌─────────────────────────┼─────────────────────────┐
+        │                         │                         │
+  ┌─────▼─────┐            ┌─────▼─────┐            ┌─────▼─────┐
+  │Enterprise │            │Enterprise │            │Enterprise │
+  │   Dev     │            │ Staging   │            │   Prod    │
+  │ Registry  │            │ Registry  │            │ Registry  │
+  └───────────┘            └───────────┘            └───────────┘
+```
 
 ---
 
@@ -86,42 +144,98 @@ The **Model Context Protocol (MCP)** is an open standard that enables AI models 
 
 ---
 
-## 🛠️ Quick Setup for Your IDE
+## 🚀 Quick Setup Guide
 
-Choose your preferred development environment:
+Choose your deployment model:
+
+### **🏠 Option 1: Local Development Setup**
+
+#### Step 1: Start Local Infrastructure
+
+```bash
+# Clone the demo deployment
+git clone https://github.com/kafka-schema-reg-mcp-demos/demo-deployment.git
+cd demo-deployment
+
+# Configure GitHub OAuth (optional for local dev)
+cp .env.example .env
+# Edit .env with your GitHub OAuth credentials
+
+# Start the complete environment
+docker-compose -f docker-compose.github-oauth.yml up -d
+
+# Wait for services to be ready (1-2 minutes)
+docker-compose ps
+
+# Load demo data
+./scripts/setup-demo-data.sh
+```
+
+This starts:
+- **MCP Server**: `localhost:38000` (with GitHub OAuth)
+- **Schema Registries**: Dev (8081), Staging (8082), Production (8083)
+- **Demo UI**: `localhost:3000`
+- **Monitoring**: Prometheus (9090), Grafana (3001)
+
+#### Step 2: Configure Your IDE/AI Client
+
+**🔑 Authentication Options:**
+- **With GitHub OAuth**: Use personal access token with org membership
+- **Local Development**: Set `DEV_MODE=true` in .env (no auth required)
+
+Now configure your client to connect to the **existing MCP server**:
+
+### **🌍 Option 2: Remote Enterprise Setup**
+
+For production deployments, deploy the MCP server to your infrastructure (Kubernetes, Docker Swarm, etc.) and configure clients to connect to the remote endpoint.
+
+---
+
+## 🛠️ Client Configuration Examples
+
+> **Important**: Clients connect to existing MCP servers via HTTP/SSE, they do **not** create Docker containers
 
 ### Claude Desktop Setup
+
+Connect to your local or remote MCP server:
 
 ```json
 {
   "mcpServers": {
     "kafka-schema-registry": {
-      "command": "docker",
+      "command": "mcp-client-http", 
       "args": [
-        "run", "--rm", "-i",
-        "--network", "demo-deployment_default",
-        "-e", "SCHEMA_REGISTRY_URL=http://dev-registry:8081",
-        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
-      ]
+        "--url", "http://localhost:38000",
+        "--auth", "github-oauth",
+        "--org", "kafka-schema-reg-mcp-demos"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "your_github_personal_access_token"
+      }
     }
   }
 }
 ```
 
-### VS Code Copilot Setup
+For remote servers, change the URL:
+```json
+"--url", "https://your-mcp-server.company.com"
+```
 
-Create `.vscode/mcp.json` in your workspace:
+### VS Code + Copilot Setup
+
+Create `.vscode/settings.json` in your workspace:
+
 ```json
 {
-  "servers": {
+  "mcp.servers": {
     "kafka-schema-registry": {
-      "command": "docker",
-      "args": [
-        "run", "--rm", "-i",
-        "--network", "host",
-        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081",
-        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
-      ]
+      "transport": "sse",
+      "endpoint": "http://localhost:38000/mcp/sse", 
+      "headers": {
+        "Authorization": "Bearer your_github_personal_access_token",
+        "X-GitHub-Org": "kafka-schema-reg-mcp-demos"
+      }
     }
   }
 }
@@ -129,40 +243,78 @@ Create `.vscode/mcp.json` in your workspace:
 
 ### Cursor IDE Setup
 
-Create `.cursor/mcp.json` in your project:
+Create `.cursor/settings.json` in your project:
+
 ```json
 {
-  "mcpServers": {
+  "mcp.servers": {
     "kafka-schema-registry": {
-      "command": "docker",
-      "args": [
-        "run", "--rm", "-i",
-        "--network", "host", 
-        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081",
-        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
-      ]
+      "transport": "sse",
+      "endpoint": "http://localhost:38000/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer your_github_personal_access_token",
+        "X-GitHub-Org": "kafka-schema-reg-mcp-demos"
+      }
     }
   }
 }
 ```
 
-### JetBrains Setup
+### JetBrains IDEs Setup
 
 In **Settings → Tools → AI Assistant → Model Context Protocol (MCP)**:
+
 ```json
 {
   "servers": {
     "kafka-schema-registry": {
-      "command": "docker",
-      "args": [
-        "run", "--rm", "-i",
-        "--network", "host",
-        "-e", "SCHEMA_REGISTRY_URL=http://localhost:8081", 
-        "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
-      ]
+      "transport": "sse",
+      "endpoint": "http://localhost:38000/mcp/sse",
+      "headers": {
+        "Authorization": "Bearer your_github_personal_access_token",
+        "X-GitHub-Org": "kafka-schema-reg-mcp-demos"
+      }
     }
   }
 }
+```
+
+---
+
+## 🔐 GitHub OAuth Authentication
+
+### Setting Up GitHub Authentication
+
+1. **Create GitHub OAuth App**:
+   - Go to: https://github.com/settings/applications/new
+   - Application name: "My Schema Registry MCP"
+   - Homepage URL: `http://localhost:3000` (or your domain)
+   - Authorization callback: `http://localhost:38000/auth/callback`
+
+2. **Generate Personal Access Token**:
+   - Go to: https://github.com/settings/tokens
+   - Generate token with appropriate scopes:
+     - `public_repo` - Read access to schemas
+     - `repo` - Write access to schemas  
+     - `admin:org` - Full admin access (if org member)
+
+### Permission Levels
+
+| GitHub Scope | MCP Access | Description |
+|--------------|------------|-------------|
+| `public_repo` | **Read** | View schemas, export documentation |
+| `repo` | **Write** | Register schemas, update configs (+ read) |
+| `admin:org` | **Admin** | Delete subjects, manage production (+ write + read) |
+
+### Team-Based Access Control
+
+Configure team-based permissions in your `.env`:
+
+```bash
+GITHUB_ORG=kafka-schema-reg-mcp-demos
+GITHUB_TEAM_READ=community      # Read access
+GITHUB_TEAM_WRITE=developers    # Write access  
+GITHUB_TEAM_ADMIN=maintainers   # Admin access
 ```
 
 ---
@@ -196,6 +348,48 @@ You: "Export all e-commerce schemas for documentation"
 
 ---
 
+## 🎬 Enterprise Use Cases
+
+### **🎯 Multi-Environment Schema Promotion**
+
+```
+DevOps Engineer: "The order-events schema tested successfully in staging. 
+                  Promote it to production."
+
+AI Assistant: I'll migrate the order-events schema from staging to production.
+              [Performs cross-registry migration]
+              ✅ Schema migrated successfully  
+              ✅ Production registry updated
+              ✅ All versions preserved
+```
+
+### **🔄 Schema Evolution for Growth**
+
+```
+Developer: "Our user profile schema needs to support international addresses. 
+           Can you add country and postal_code fields that are backward compatible?"
+
+AI Assistant: I'll add those fields as optional with defaults to maintain backward compatibility.
+              [Registers new schema version]
+              ✅ New version registered successfully
+              ✅ Backward compatibility verified
+              ✅ Ready for gradual rollout
+```
+
+### **📊 Compliance and Documentation**
+
+```
+Data Governance: "Export all schemas from our fintech context for the audit."
+
+AI Assistant: I'll export all fintech schemas with their documentation and evolution history.
+              [Generates comprehensive export]
+              ✅ 12 schemas exported in JSON format
+              ✅ Evolution history included
+              ✅ Compliance metadata attached
+```
+
+---
+
 ## 🚀 Complete Demo Ecosystem
 
 We've built a comprehensive demonstration that showcases enterprise-grade schema management:
@@ -213,7 +407,7 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 </ul>
 </td>
 <td width="25%" align="center">
-<h3>🏗️ <a href="https://github.com/aywengo/demo-deployment">Demo Environment</a></h3>
+<h3>🏗️ <a href="https://github.com/kafka-schema-reg-mcp-demos/demo-deployment">Demo Environment</a></h3>
 <p>Production-ready deployment with realistic infrastructure</p>
 <ul>
 <li>3-tier registry setup</li>
@@ -223,7 +417,7 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 </ul>
 </td>
 <td width="25%" align="center">
-<h3>🎨 <a href="https://github.com/aywengo/demo-schemas">Business Schemas</a></h3>
+<h3>🎨 <a href="https://github.com/kafka-schema-reg-mcp-demos/demo-schemas">Business Schemas</a></h3>
 <p>Real-world schemas from multiple industries</p>
 <ul>
 <li>E-commerce platform</li>
@@ -233,7 +427,7 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 </ul>
 </td>
 <td width="25%" align="center">
-<h3>📚 <a href="https://github.com/aywengo/demo-docs">Documentation</a></h3>
+<h3>📚 <a href="https://github.com/kafka-schema-reg-mcp-demos/demo-docs">Documentation</a></h3>
 <p>Comprehensive guides and tutorials</p>
 <ul>
 <li>Getting started guides</li>
@@ -268,173 +462,6 @@ Built for the **[Apache Kafka](https://kafka.apache.org/)** ecosystem with full 
 - **[Schema Contexts](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#contexts)** - Logical grouping and multi-tenancy
 - **[Compatibility Levels](https://docs.confluent.io/platform/current/schema-registry/avro.html#compatibility-types)** - Fine-grained evolution control
 - **[Subject Naming](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#subject-name-strategy)** - Flexible naming strategies
-
-**🌐 Kafka Ecosystem Resources:**
-- **[Kafka Documentation](https://kafka.apache.org/documentation/)** - Complete Apache Kafka guide
-- **[Confluent Documentation](https://docs.confluent.io/)** - Enterprise platform documentation  
-- **[Schema Registry API](https://docs.confluent.io/platform/current/schema-registry/develop/api.html)** - REST API reference
-- **[Kafka Community](https://kafka.apache.org/contact)** - Get involved with the broader ecosystem
-
----
-
-## 🎬 See It In Action
-
-### **🎯 Enterprise Scenarios**
-
-**Scenario 1: Schema Evolution for E-commerce Growth**
-```
-Developer: "Our user profile schema needs to support international addresses. 
-           Can you add country and postal_code fields that are backward compatible?"
-
-AI Assistant: I'll add those fields as optional with defaults to maintain backward compatibility.
-              [Registers new schema version]
-              ✅ New version registered successfully
-              ✅ Backward compatibility verified
-              ✅ Ready for gradual rollout
-```
-
-**Scenario 2: Multi-Environment Promotion**
-```
-DevOps Engineer: "The order-events schema tested successfully in staging. 
-                  Promote it to production."
-
-AI Assistant: I'll migrate the order-events schema from staging to production.
-              [Performs cross-registry migration]
-              ✅ Schema migrated successfully  
-              ✅ Production registry updated
-              ✅ All versions preserved
-```
-
-**Scenario 3: Compliance and Documentation**
-```
-Data Governance: "Export all schemas from our fintech context for the audit."
-
-AI Assistant: I'll export all fintech schemas with their documentation and evolution history.
-              [Generates comprehensive export]
-              ✅ 12 schemas exported in JSON format
-              ✅ Evolution history included
-              ✅ Compliance metadata attached
-```
-
-### **🔒 GitHub OAuth Integration**
-
-Realistic permission management using familiar GitHub authentication:
-
-| GitHub Permission | MCP Access | Use Case |
-|------------------|------------|-----------|
-| `public_repo` | **Read** | View schemas, export documentation |
-| `repo` | **Write** | Register schemas, update configs |
-| `admin:org` | **Admin** | Manage production, delete subjects |
-
----
-
-## 🏗️ Architecture: Enterprise-Ready Design
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     MCP-Compatible Clients                      │
-│  Claude Desktop │ VS Code Copilot │ Cursor │ JetBrains │ Others │
-└─────────────────────┬───────────────────────────────────────────┘
-                      │ MCP Protocol
-┌─────────────────────▼───────────────────────────────────────────┐
-│                  MCP Server (GitHub OAuth)                      │
-│  ┌─────────────┐ ┌─────────────┐  ┌─────────────┐ ┌──────────┐  │
-│  │   Schema    │ │  Context    │  │   Config    │ │   Mode   │  │
-│  │ Management  │ │ Management  │  │ Management  │ │ Control  │  │
-│  └─────────────┘ └─────────────┘  └─────────────┘ └──────────┘  │
-└─────────────┬───────────────┬───────────────┬───────────────────┘
-              │               │               │
-    ┌─────────▼─────────┐ ┌───▼────────┐ ┌───▼──────────┐
-    │   Development     │ │  Staging   │ │ Production   │
-    │   Registry        │ │  Registry  │ │   Registry   │
-    │   :8081           │ │   :8082    │ │    :8083     │
-    │ (Full Access)     │ │ (Limited)  │ │ (Read-Only)  │
-    └───────────────-───┘ └────────────┘ └──────────────┘
-```
-
-### **🔧 Key Architecture Benefits**
-
-- **🤖 AI-First**: Natural language interface eliminates learning curve
-- **🏢 Enterprise-Grade**: Multi-registry, context isolation, role-based access
-- **🔒 Secure**: GitHub OAuth with granular permissions
-- **📈 Scalable**: Handles complex schema evolution and governance
-- **🌐 Cloud-Ready**: Docker-based deployment for any environment
-- **🔌 Client-Agnostic**: Works with any MCP-compatible AI client
-
----
-
-## 🎯 Perfect For Your Team
-
-### **👨‍💻 Developers**
-> *"Finally, schema management that doesn't interrupt my flow"*
-
-**What you get:**
-- Natural language schema operations in your favorite IDE
-- Instant compatibility checking before deployment
-- AI-assisted schema design and evolution
-- Context-aware environment management
-
-**Compatible with:** Claude Desktop, VS Code Copilot, Cursor, JetBrains IDEs
-
-**Try it:** [Developer Quick Start →](getting-started.md#developers)
-
-### **🔧 DevOps Engineers**  
-> *"Multi-environment schema governance that actually works"*
-
-**What you get:**
-- Automated schema promotion pipelines
-- Cross-registry migration and synchronization
-- Production-safe readonly modes
-- Comprehensive monitoring and observability
-
-**Try it:** [DevOps Deployment Guide →](architecture.md#deployment)
-
-### **📊 Data Engineers**
-> *"Schema documentation and governance on autopilot"*
-
-**What you get:**
-- Automatic schema documentation generation
-- Evolution tracking and compatibility analysis
-- Bulk export and backup capabilities
-- Compliance-ready audit trails
-
-**Try it:** [Data Governance Workflows →](use-cases.md#data-governance)
-
-### **🏢 Platform Teams**
-> *"Enterprise schema management without the enterprise complexity"*
-
-**What you get:**
-- Multi-tenant context isolation
-- Role-based access control via GitHub
-- Centralized schema registry management
-- Self-service developer experience
-
-**Try it:** [Platform Setup Guide →](tutorials/platform-setup.md)
-
----
-
-## 🚀 Quick Start (5 Minutes)
-
-### **Option 1: Full Demo Experience**
-```bash
-# Clone and start the complete demo environment
-git clone https://github.com/aywengo/demo-deployment.git
-cd demo-deployment
-docker-compose -f docker-compose.github-oauth.yml up -d
-
-# Configure your MCP client (examples above)
-# Restart your IDE/AI client and start managing schemas with AI!
-```
-
-### **Option 2: Try with Your Registry**
-```bash
-# Use the MCP server with your existing Schema Registry
-docker run -p 38000:8000 \
-  -e SCHEMA_REGISTRY_URL=http://your-registry:8081 \
-  aywengo/kafka-schema-reg-mcp:v2.0.0-rc1
-```
-
-**📖 Detailed Setup:** [Complete Getting Started Guide →](getting-started.md)
 
 ---
 
@@ -508,7 +535,7 @@ Our demo includes production-ready schemas across multiple industries:
 }
 ```
 
-**🎨 Explore All Schemas:** [Demo Schemas Repository →](https://github.com/aywengo/demo-schemas)
+**🎨 Explore All Schemas:** [Demo Schemas Repository →](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas)
 
 ---
 
@@ -542,14 +569,56 @@ ecommerce/          fintech/           iot-platform/
 
 ---
 
+## 🎯 Perfect For Your Team
+
+### **👨‍💻 Developers**
+> *"Finally, schema management that doesn't interrupt my flow"*
+
+**What you get:**
+- Natural language schema operations in your favorite IDE
+- Instant compatibility checking before deployment
+- AI-assisted schema design and evolution
+- Context-aware environment management
+
+**Compatible with:** Claude Desktop, VS Code Copilot, Cursor, JetBrains IDEs
+
+### **🔧 DevOps Engineers**  
+> *"Multi-environment schema governance that actually works"*
+
+**What you get:**
+- Automated schema promotion pipelines
+- Cross-registry migration and synchronization
+- Production-safe readonly modes
+- Comprehensive monitoring and observability
+
+### **📊 Data Engineers**
+> *"Schema documentation and governance on autopilot"*
+
+**What you get:**
+- Automatic schema documentation generation
+- Evolution tracking and compatibility analysis
+- Bulk export and backup capabilities
+- Compliance-ready audit trails
+
+### **🏢 Platform Teams**
+> *"Enterprise schema management without the enterprise complexity"*
+
+**What you get:**
+- Multi-tenant context isolation
+- Role-based access control via GitHub
+- Centralized schema registry management
+- Self-service developer experience
+
+---
+
 ## 🔗 Complete Ecosystem Links
 
 | Component | Purpose | Repository | Status |
-|-----------|---------|------------|---------| 
+|-----------|---------|------------|---------|
 | **🤖 MCP Server** | Core AI integration | [kafka-schema-reg-mcp](https://github.com/aywengo/kafka-schema-reg-mcp) | ✅ Production Ready |
-| **🏗️ Demo Deployment** | Infrastructure & OAuth | [demo-deployment](https://github.com/aywengo/demo-deployment) | ✅ Ready to Deploy |
-| **🎨 Demo Schemas** | Business examples | [demo-schemas](https://github.com/aywengo/demo-schemas) | ✅ 14 schemas, 39 versions |
-| **📚 Documentation** | Guides & tutorials | [demo-docs](https://github.com/aywengo/demo-docs) | ✅ Comprehensive guides |
+| **🏗️ Demo Deployment** | Infrastructure & OAuth | [demo-deployment](https://github.com/kafka-schema-reg-mcp-demos/demo-deployment) | ✅ Ready to Deploy |
+| **🎨 Demo Schemas** | Business examples | [demo-schemas](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas) | ✅ 14 schemas, 39 versions |
+| **📚 Documentation** | Guides & tutorials | [demo-docs](https://github.com/kafka-schema-reg-mcp-demos/demo-docs) | ✅ Comprehensive guides |
 
 ---
 
@@ -558,14 +627,14 @@ ecommerce/          fintech/           iot-platform/
 ### **⭐ Star the Project**
 Help others discover AI-powered schema management:
 - ⭐ [kafka-schema-reg-mcp](https://github.com/aywengo/kafka-schema-reg-mcp)
-- ⭐ [demo-deployment](https://github.com/aywengo/demo-deployment)  
-- ⭐ [demo-schemas](https://github.com/aywengo/demo-schemas)
+- ⭐ [demo-deployment](https://github.com/kafka-schema-reg-mcp-demos/demo-deployment)  
+- ⭐ [demo-schemas](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas)
 
 ### **🚀 Get Started Today**
-1. **[Try the Demo →](https://github.com/aywengo/demo-deployment)** - Full environment in 5 minutes
-2. **[Read the Docs →](getting-started.md)** - Comprehensive setup guide  
-3. **[Explore Use Cases →](use-cases.md)** - Real-world scenarios
-4. **[Check the Architecture →](architecture.md)** - Technical deep-dive
+1. **[Try the Local Demo →](#-option-1-local-development-setup)** - Full environment in 5 minutes
+2. **[Read the Setup Guide →](#-quick-setup-guide)** - Comprehensive deployment instructions
+3. **[Configure Your IDE →](#-client-configuration-examples)** - Connect your favorite AI assistant
+4. **[Explore Use Cases →](#-enterprise-use-cases)** - Real-world scenarios
 
 ### **🤝 Community & Support**
 - **Issues**: [GitHub Issues](https://github.com/aywengo/kafka-schema-reg-mcp/issues)
@@ -574,7 +643,7 @@ Help others discover AI-powered schema management:
 
 ---
 
-**🤖 Ready to transform your schema management with AI?** [Start with the demo environment →](https://github.com/aywengo/demo-deployment)
+**🤖 Ready to transform your schema management with AI?** [Start with the local setup →](#-option-1-local-development-setup)
 
 ---
 
@@ -582,7 +651,7 @@ Help others discover AI-powered schema management:
 
 **Built with ❤️ for the [Apache Kafka](https://kafka.apache.org/) and AI community**
 
-[Documentation](https://github.com/aywengo/demo-docs) • [Demo](https://github.com/aywengo/demo-deployment) • [Schemas](https://github.com/aywengo/demo-schemas) • [MCP Server](https://github.com/aywengo/kafka-schema-reg-mcp)
+[Documentation](https://github.com/kafka-schema-reg-mcp-demos/demo-docs) • [Demo](https://github.com/kafka-schema-reg-mcp-demos/demo-deployment) • [Schemas](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas) • [MCP Server](https://github.com/aywengo/kafka-schema-reg-mcp)
 
 **Powered by:** [Apache Kafka](https://kafka.apache.org/) • [Confluent Schema Registry](https://docs.confluent.io/platform/current/schema-registry/) • [Apache Avro](https://avro.apache.org/) • [Model Context Protocol](https://modelcontextprotocol.io/)
 
