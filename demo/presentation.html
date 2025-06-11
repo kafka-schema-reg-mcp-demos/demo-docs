@@ -940,9 +940,12 @@ in production registry"</div>
                     <h3>Step 2: Environment Configuration</h3>
                     <div class="code-block">GITHUB_CLIENT_ID=your_client_id
 GITHUB_CLIENT_SECRET=your_client_secret
-DEVELOPMENT_REGISTRY_URL=http://localhost:8081
-STAGING_REGISTRY_URL=http://localhost:8082
-PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
+SCHEMA_REGISTRY_NAME_1=development
+SCHEMA_REGISTRY_URL_1=http://localhost:8081
+SCHEMA_REGISTRY_NAME_2=staging
+SCHEMA_REGISTRY_URL_2=http://localhost:8082
+SCHEMA_REGISTRY_NAME_3=production
+SCHEMA_REGISTRY_URL_3=http://localhost:8083</div>
                 </div>
                 <div class="step">
                     <h3>Step 3: Claude Desktop Integration</h3>
@@ -956,18 +959,24 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
           "-e", "PORT",
           "-e", "GITHUB_CLIENT_ID",
           "-e", "GITHUB_CLIENT_SECRET",
-          "-e", "DEVELOPMENT_REGISTRY_URL",
-          "-e", "STAGING_REGISTRY_URL",
-          "-e", "PRODUCTION_REGISTRY_URL",
+          "-e", "SCHEMA_REGISTRY_NAME_1",
+          "-e", "SCHEMA_REGISTRY_URL_1",
+          "-e", "SCHEMA_REGISTRY_NAME_2",
+          "-e", "SCHEMA_REGISTRY_URL_2",
+          "-e", "SCHEMA_REGISTRY_NAME_3",
+          "-e", "SCHEMA_REGISTRY_URL_3",
           "aywengo/kafka-schema-reg-mcp:v2.0.0-rc1"
         ],
         "env": {
           "PORT": "38000",
           "GITHUB_CLIENT_ID": "your_client_id",
           "GITHUB_CLIENT_SECRET": "your_client_secret",
-          "DEVELOPMENT_REGISTRY_URL": "http://localhost:8081",
-          "STAGING_REGISTRY_URL": "http://localhost:8082",
-          "PRODUCTION_REGISTRY_URL": "http://localhost:8083"
+          "SCHEMA_REGISTRY_NAME_1": "development",
+          "SCHEMA_REGISTRY_URL_1": "http://localhost:8081",
+          "SCHEMA_REGISTRY_NAME_2": "staging",
+          "SCHEMA_REGISTRY_URL_2": "http://localhost:8082",
+          "SCHEMA_REGISTRY_NAME_3": "production",
+          "SCHEMA_REGISTRY_URL_3": "http://localhost:8083"
         }
       }
     }
@@ -976,7 +985,7 @@ PRODUCTION_REGISTRY_URL=http://localhost:8083</div>
                 </div>
             </div>
             <div class="video-recording-tip">
-                🎥 <strong>Recording Tip:</strong> Walk through the setup process. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.
+                🎥 <strong>Recording Tip:</strong> Walk through the setup process. Show the Docker configuration with proper environment variable passing through both args and env sections. Mention that the demo includes examples of ecosystem integrations. Encourage people to explore the advanced coordination capabilities.
             </div>
         </div>
 
