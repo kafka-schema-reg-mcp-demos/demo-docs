@@ -83,6 +83,51 @@
             margin-bottom: 3rem;
         }
 
+        .presenter-info {
+            font-size: 1.4rem;
+            color: #00c9ff;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .content-overview {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 800px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: left;
+        }
+
+        .content-overview h4 {
+            color: #92fe9d;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .content-overview ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-overview li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-overview li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #00c9ff;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -378,6 +423,21 @@
         <div class="slide active">
             <h1>MCP for DevOps/SRE</h1>
             <p class="subtitle">Securing AI Infrastructure Operations at Scale</p>
+            
+            <p class="presenter-info">Roman Melnyk | Kafka/Kubernetes SRE</p>
+
+            <div class="content-overview">
+                <h4>What We'll Cover Today</h4>
+                <ul>
+                    <li>Understanding MCP and its role in AI operations</li>
+                    <li>Security concerns: LLM hallucinations in production</li>
+                    <li>Making self-hosted LLMs viable with MCP</li>
+                    <li>Real-world implementation: Kafka Schema Registry</li>
+                    <li>SLIM_MODE: Optimizing for smaller models</li>
+                    <li>Building your MCP roadmap</li>
+                </ul>
+            </div>
+
             <div class="spec-highlight">
                 <h3>🎯 Latest MCP Specification: 2025-06-18</h3>
                 <p>The future of infrastructure automation is here</p>
