@@ -24,6 +24,29 @@ AI Assistant: I'll create and register that schema for you in the development re
 
 ---
 
+## 🆕 Latest Features (v2.1.1)
+
+### **🚀 SLIM_MODE Performance Optimization**
+- **Reduced tool overhead**: From 57+ tools to ~9 essential tools
+- **Faster LLM responses**: Significantly improved response times
+- **Lower token usage**: Reduced costs for AI operations
+- **Smart defaults**: Recommended for most use cases
+- **Full remote support**: Maintains all remote deployment capabilities
+
+### **🤖 Enhanced Schema Operations**
+- **Interactive schema migration**: Smart migration with user preference elicitation
+- **Automatic backups**: Pre-migration backup creation
+- **Post-migration verification**: Comprehensive schema validation
+- **Bulk operations wizard**: Guided workflows for complex operations
+
+### **🔒 Security & Compliance**
+- **SSL/TLS verification**: Explicit certificate verification for all connections
+- **Custom CA support**: Enterprise environment compatibility
+- **Secure logging**: Automatic credential masking in logs
+- **MCP 2025-06-18 compliance**: Full protocol specification compliance
+
+---
+
 ## 🏗️ Architecture: Local vs Remote Setup
 
 Our Kafka Schema Registry MCP implementation supports both **local development** and **remote enterprise** deployments:
@@ -43,6 +66,7 @@ Perfect for development, testing, and learning:
                     │     Local MCP Server      │
                     │    (docker-compose)       │
                     │      localhost:38000      │
+                    │      SLIM_MODE=true       │
                     └─────────────┬─────────────┘
                                   │
         ┌─────────────────────────┼─────────────────────────┐
@@ -69,6 +93,7 @@ Production-ready deployment with centralized authentication:
                     │    Remote MCP Server      │
                     │   (Kubernetes/Cloud)      │
                     │   your-domain.com:443     │
+                    │      SLIM_MODE=true       │
                     └─────────────┬─────────────┘
                                   │
         ┌─────────────────────────┼─────────────────────────┐
@@ -172,7 +197,7 @@ docker-compose ps
 ```
 
 This starts:
-- **MCP Server**: `localhost:38000` (with GitHub OAuth)
+- **MCP Server**: `localhost:38000` (with GitHub OAuth + SLIM_MODE)
 - **Schema Registries**: Dev (8081), Staging (8082), Production (8083)
 - **Demo UI**: `localhost:3000`
 - **Monitoring**: Prometheus (9090), Grafana (3001)
@@ -319,6 +344,33 @@ GITHUB_TEAM_ADMIN=maintainers   # Admin access
 
 ---
 
+## 🚀 SLIM_MODE: Optimized for Performance
+
+The demo runs with **SLIM_MODE** enabled by default:
+
+### Why SLIM_MODE?
+- **Reduced LLM overhead**: From 57+ tools to ~9 essential tools
+- **Faster response times**: Significantly improved AI performance
+- **Lower token usage**: Reduced costs for AI operations
+- **Production-ready**: Ideal for demos and read-heavy operations
+
+### Tools Available in SLIM_MODE:
+```
+✅ Schema registration and compatibility checking
+✅ Context creation and management  
+✅ Basic export operations
+✅ Registry management and statistics
+✅ All read operations through resources
+```
+
+### When to Disable SLIM_MODE:
+```bash
+# For advanced operations (migrations, bulk updates)
+SLIM_MODE=false
+```
+
+---
+
 ## 🌟 Why This Changes Everything
 
 ### **Before**: Traditional Schema Management
@@ -400,7 +452,7 @@ We've built a comprehensive demonstration that showcases enterprise-grade schema
 <h3>🤖 <a href="https://github.com/aywengo/kafka-schema-reg-mcp">MCP Server</a></h3>
 <p>The core AI integration that connects any MCP client to Kafka Schema Registry</p>
 <ul>
-<li>48 MCP tools for complete schema operations</li>
+<li>9 essential tools (SLIM_MODE)</li>
 <li>Multi-registry support (dev/staging/prod)</li>
 <li>Context-based organization</li>
 <li>GitHub OAuth integration</li>
@@ -556,7 +608,7 @@ Our demo includes production-ready schemas across multiple industries:
 Development → Staging → Production
      ↓            ↓           ↓
 Context: dev   Context: staging   Context: prod
-Access: Full   Access: Limited    Access: ReadOnly
+Access: Full   Access: Limited    Access: ViewOnly
 ```
 
 ### **🏢 Multi-Tenant Organization**
@@ -588,7 +640,7 @@ ecommerce/          fintech/           iot-platform/
 **What you get:**
 - Automated schema promotion pipelines
 - Cross-registry migration and synchronization
-- Production-safe readonly modes
+- Production-safe VIEWONLY modes
 - Comprehensive monitoring and observability
 
 ### **📊 Data Engineers**
@@ -614,8 +666,8 @@ ecommerce/          fintech/           iot-platform/
 ## 🔗 Complete Ecosystem Links
 
 | Component | Purpose | Repository | Status |
-|-----------|---------|------------|---------|
-| **🤖 MCP Server** | Core AI integration | [kafka-schema-reg-mcp](https://github.com/aywengo/kafka-schema-reg-mcp) | ✅ Production Ready |
+|-----------|---------|------------|--------|
+| **🤖 MCP Server** | Core AI integration | [kafka-schema-reg-mcp](https://github.com/aywengo/kafka-schema-reg-mcp) | ✅ v2.1.1 Production |
 | **🏗️ Demo Deployment** | Infrastructure & OAuth | [demo-deployment](https://github.com/kafka-schema-reg-mcp-demos/demo-deployment) | ✅ Ready to Deploy |
 | **🎨 Demo Schemas** | Business examples | [demo-schemas](https://github.com/kafka-schema-reg-mcp-demos/demo-schemas) | ✅ 14 schemas, 39 versions |
 | **📚 Documentation** | Guides & tutorials | [demo-docs](https://github.com/kafka-schema-reg-mcp-demos/demo-docs) | ✅ Comprehensive guides |
