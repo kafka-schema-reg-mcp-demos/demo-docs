@@ -407,6 +407,46 @@
             color: #92fe9d;
             margin-bottom: 1rem;
         }
+
+        .transport-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .transport-box {
+            padding: 1.5rem;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .transport-box.local {
+            background: rgba(255, 165, 0, 0.1);
+            border: 2px solid #ff9f43;
+        }
+
+        .transport-box.remote {
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid #00c9ff;
+        }
+
+        .transport-box h4 {
+            color: inherit;
+            margin-bottom: 1rem;
+        }
+
+        .enterprise-badge {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -723,7 +763,70 @@ LLM → MCP Protocol → MCP Server → Validated Actions → Production Systems
 }</div>
         </div>
 
-        <!-- Slide 9: Demo Architecture -->
+        <!-- Slide 9 (NEW): Local vs Remote MCP Hosting -->
+        <div class="slide">
+            <h2>🖥️ Local vs Remote MCP Hosting</h2>
+            <p class="subtitle">Transport Protocols & Enterprise Readiness</p>
+
+            <div class="transport-comparison">
+                <div class="transport-box local">
+                    <h3>🏠 Local MCP (STDIO)</h3>
+                    <p><strong>Transport: Standard I/O</strong></p>
+                    <ul style="text-align: left;">
+                        <li>Process-based communication</li>
+                        <li>Single-user desktop apps</li>
+                        <li>Low latency, high throughput</li>
+                        <li>No network overhead</li>
+                        <li>Limited to local machine</li>
+                    </ul>
+                    <div class="code-block" style="background: rgba(255,165,0,0.2);">// STDIO Transport
+$ mcp-server --stdio
+LLM ↔️ MCP Server (same machine)</div>
+                </div>
+
+                <div class="transport-box remote">
+                    <span class="enterprise-badge">Enterprise Ready</span>
+                    <h3>☁️ Remote MCP (HTTP/SSE)</h3>
+                    <p><strong>Transport: HTTP Streaming</strong></p>
+                    <ul style="text-align: left;">
+                        <li>Network-based communication</li>
+                        <li>Multi-tenant support</li>
+                        <li>Load balancing ready</li>
+                        <li>Geographic distribution</li>
+                        <li>Central management</li>
+                    </ul>
+                    <div class="code-block" style="background: rgba(0,255,255,0.1);">// HTTP/SSE Transport
+https://mcp.company.com/api
+LLM ↔️ Load Balancer ↔️ MCP Cluster</div>
+                </div>
+            </div>
+
+            <div class="devops-impact">
+                <h3>🚀 Enterprise Features with Remote MCP</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📈 Scalability</h4>
+                        <p>• Horizontal scaling<br>
+                        • Auto-scaling groups<br>
+                        • Multi-region deployment</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔐 Security</h4>
+                        <p>• Centralized auth<br>
+                        • Network isolation<br>
+                        • TLS encryption</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📊 Monitoring</h4>
+                        <p>• Centralized logging<br>
+                        • Metrics aggregation<br>
+                        • Health checks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10 (previously 9): Demo Architecture -->
         <div class="slide">
             <h2>🏛️ Production MCP Architecture</h2>
             <p class="subtitle">Kafka Schema Registry Implementation</p>
@@ -761,7 +864,7 @@ LLM → MCP Protocol → MCP Server → Validated Actions → Production Systems
             </div>
         </div>
 
-        <!-- Slide 10: SLIM_MODE and Performance -->
+        <!-- Slide 11 (previously 10): SLIM_MODE and Performance -->
         <div class="slide">
             <h2>⚡ SLIM_MODE: Performance vs Security</h2>
             <p class="subtitle">Optimizing for Production Self-Hosted LLMs</p>
@@ -802,7 +905,7 @@ LLM → MCP Protocol → MCP Server → Validated Actions → Production Systems
 Perfect for self-hosted Llama 3 7B/13B models!</div>
         </div>
 
-        <!-- Slide 11: ShadowTraffic Demo -->
+        <!-- Slide 12 (previously 11): ShadowTraffic Demo -->
         <div class="slide">
             <h2>🌊 Shadowtraffic.io Integration</h2>
             <p class="subtitle">Automated Testing Through MCP</p>
@@ -829,7 +932,7 @@ Perfect for self-hosted Llama 3 7B/13B models!</div>
             </div>
         </div>
 
-        <!-- Slide 12: Practical Implementation -->
+        <!-- Slide 13 (previously 12): Practical Implementation -->
         <div class="slide">
             <h2>🛠️ Implementing MCP in Your Organization</h2>
             <p class="subtitle">A DevOps Roadmap</p>
@@ -878,7 +981,7 @@ Perfect for self-hosted Llama 3 7B/13B models!</div>
             </div>
         </div>
 
-        <!-- Slide 13: Resources -->
+        <!-- Slide 14 (previously 13): Resources -->
         <div class="slide">
             <h2>📚 Resources & References</h2>
             <p class="subtitle">Deep Dive Into MCP</p>
@@ -912,7 +1015,7 @@ Perfect for self-hosted Llama 3 7B/13B models!</div>
             </div>
         </div>
 
-        <!-- Slide 14: Call to Action -->
+        <!-- Slide 15 (previously 14): Call to Action -->
         <div class="slide">
             <h1>The Future is Secure AI Operations</h1>
             
