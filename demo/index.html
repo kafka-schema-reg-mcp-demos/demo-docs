@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafka Schema Registry MCP - Presentations</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .presentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .presentation-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: #4ecdc4;
+        }
+
+        .presentation-card h2 {
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+
+        .presentation-card p {
+            color: #a8a8a8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .audience-tag {
+            display: inline-block;
+            background: rgba(255, 159, 67, 0.2);
+            color: #ff9f43;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            color: #a8a8a8;
+        }
+
+        .footer a {
+            color: #4ecdc4;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kafka Schema Registry MCP</h1>
+        <p style="font-size: 1.3rem; color: #a8a8a8; margin-bottom: 3rem;">
+            Choose your presentation based on your audience
+        </p>
+
+        <div class="presentation-grid">
+            <div class="presentation-card">
+                <span class="audience-tag">General / Business</span>
+                <h2>Foundation Concepts</h2>
+                <p>
+                    Introduction to MCP, multi-client compatibility, GitHub OAuth, 
+                    and basic schema management demonstrations.
+                </p>
+                <a href="presentation.html" class="btn">View Presentation →</a>
+            </div>
+
+            <div class="presentation-card">
+                <span class="audience-tag">DevOps / SRE</span>
+                <h2>Security & Operations</h2>
+                <p>
+                    MCP security architecture, LLM hallucination mitigation, 
+                    self-hosted deployments, and production safety.
+                </p>
+                <a href="devops-sre-presentation.html" class="btn">View Presentation →</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>Repository:</strong> 
+                <a href="https://github.com/aywengo/kafka-schema-reg-mcp" target="_blank">
+                    github.com/aywengo/kafka-schema-reg-mcp
+                </a>
+            </p>
+            <p>
+                <strong>Demo Organization:</strong> 
+                <a href="https://github.com/kafka-schema-reg-mcp-demos" target="_blank">
+                    github.com/kafka-schema-reg-mcp-demos
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
