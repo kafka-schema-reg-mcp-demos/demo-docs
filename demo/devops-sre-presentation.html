@@ -207,15 +207,25 @@
         }
         
         /* MCP Architecture Diagram Styles */
-        .mcp-diagram-container {
+        .mcp-architecture-diagram {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            height: 450px;
-            margin: 30px auto;
+            max-width: 1000px;
+            height: 600px;
+            margin: 40px auto;
         }
         
-        .center-app {
+        /* SVG for connection lines */
+        .connection-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .ai-center-box {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -223,158 +233,97 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border: 3px solid #667eea;
             border-radius: 20px;
-            padding: 25px 35px;
+            padding: 30px 40px;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
             z-index: 10;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
         
-        .center-app .icon {
+        .ai-icon {
             font-size: 2.5em;
-            margin-bottom: 10px;
         }
         
-        .center-app .label {
-            font-size: 1.2em;
+        .ai-label {
+            font-size: 1.3em;
             font-weight: 700;
             color: #333;
         }
         
-        .service-node {
+        .service-item {
             position: absolute;
+            z-index: 5;
+        }
+        
+        .service-box {
             background: white;
             border: 2px solid #dee2e6;
             border-radius: 12px;
-            padding: 12px 18px;
+            padding: 15px 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s ease;
+            min-width: 120px;
         }
         
-        .service-node:hover {
+        .service-box:hover {
             transform: scale(1.05);
-            border-color: #667eea;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: #667eea;
         }
         
-        .service-node .icon {
-            font-size: 1.8em;
-            margin-bottom: 5px;
+        .service-icon {
+            font-size: 2em;
         }
         
-        .service-node .label {
-            font-size: 0.9em;
+        .service-label {
+            font-size: 0.95em;
             font-weight: 600;
             color: #495057;
-        }
-        
-        /* Position services */
-        .service-node.web-apis { top: 10%; left: 10%; }
-        .service-node.database { top: 5%; left: 50%; transform: translateX(-50%); }
-        .service-node.github { top: 10%; right: 10%; }
-        .service-node.slack { bottom: 10%; left: 10%; }
-        .service-node.filesystem { bottom: 5%; left: 50%; transform: translateX(-50%); }
-        .service-node.gmail { bottom: 10%; right: 10%; }
-        
-        /* MCP connection lines */
-        .mcp-line {
-            position: absolute;
-            background: #667eea;
-            opacity: 0.3;
-        }
-        
-        .mcp-line::after {
-            content: 'MCP';
-            position: absolute;
-            background: white;
-            color: #667eea;
-            font-weight: 700;
-            font-size: 0.75em;
-            padding: 2px 6px;
-            border: 1.5px dashed #667eea;
-            border-radius: 4px;
             white-space: nowrap;
+            text-align: center;
         }
         
-        /* Line styles for each connection */
-        .mcp-line.to-web-apis {
-            width: 150px;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            transform: rotate(-135deg);
-            transform-origin: left center;
-        }
-        .mcp-line.to-web-apis::after {
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(135deg);
+        /* Position services to match SVG endpoints */
+        .service-item.top-left {
+            top: 10%;
+            left: 15%;
+            transform: translate(-50%, -50%);
         }
         
-        .mcp-line.to-database {
-            width: 2px;
-            height: 150px;
-            top: 50%;
+        .service-item.top-center {
+            top: 10%;
             left: 50%;
-            transform: translateY(-150px) translateX(-1px);
-        }
-        .mcp-line.to-database::after {
-            top: 50%;
-            left: -25px;
+            transform: translate(-50%, -50%);
         }
         
-        .mcp-line.to-github {
-            width: 150px;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            transform: rotate(-45deg);
-            transform-origin: left center;
-        }
-        .mcp-line.to-github::after {
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
+        .service-item.top-right {
+            top: 10%;
+            right: 15%;
+            transform: translate(50%, -50%);
         }
         
-        .mcp-line.to-slack {
-            width: 150px;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            transform: rotate(135deg);
-            transform-origin: left center;
-        }
-        .mcp-line.to-slack::after {
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-135deg);
+        .service-item.bottom-left {
+            bottom: 10%;
+            left: 15%;
+            transform: translate(-50%, 50%);
         }
         
-        .mcp-line.to-filesystem {
-            width: 2px;
-            height: 150px;
-            bottom: 50%;
+        .service-item.bottom-center {
+            bottom: 10%;
             left: 50%;
-            transform: translateY(150px) translateX(-1px);
-        }
-        .mcp-line.to-filesystem::after {
-            bottom: 50%;
-            left: -25px;
+            transform: translate(-50%, 50%);
         }
         
-        .mcp-line.to-gmail {
-            width: 150px;
-            height: 2px;
-            top: 50%;
-            left: 50%;
-            transform: rotate(45deg);
-            transform-origin: left center;
-        }
-        .mcp-line.to-gmail::after {
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-45deg);
+        .service-item.bottom-right {
+            bottom: 10%;
+            right: 15%;
+            transform: translate(50%, 50%);
         }
         
         @media (max-width: 768px) {
@@ -386,8 +335,25 @@
                 font-size: 2em;
             }
             
-            .mcp-diagram-container {
-                transform: scale(0.8);
+            .mcp-architecture-diagram {
+                height: 500px;
+            }
+            
+            .connection-svg {
+                display: block;
+            }
+            
+            .service-box {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+            
+            .service-icon {
+                font-size: 1.5em;
+            }
+            
+            .service-label {
+                font-size: 0.85em;
             }
         }
     </style>
@@ -422,61 +388,107 @@
             </div>
         </div>
         
-        <!-- Slide 2: What is MCP Visual -->
+        <!-- Slide 2: NEW - What is MCP Visual -->
         <div class="slide">
             <h1>What is MCP?</h1>
-            <div class="mcp-diagram-container">
-                <!-- Connection lines -->
-                <div class="mcp-line to-web-apis"></div>
-                <div class="mcp-line to-database"></div>
-                <div class="mcp-line to-github"></div>
-                <div class="mcp-line to-slack"></div>
-                <div class="mcp-line to-filesystem"></div>
-                <div class="mcp-line to-gmail"></div>
+            <div class="mcp-architecture-diagram">
+                <!-- SVG for proper connection lines -->
+                <svg class="connection-svg" width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+                    <!-- Define markers for line ends -->
+                    <defs>
+                        <marker id="dot" markerWidth="8" markerHeight="8" refX="4" refY="4">
+                            <circle cx="4" cy="4" r="3" fill="#667eea" opacity="0.6"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Connection lines -->
+                    <!-- To Web APIs (top-left) -->
+                    <line x1="500" y1="300" x2="200" y2="100" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="320" y="185" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="350" y="203" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                    
+                    <!-- To Database (top-center) -->
+                    <line x1="500" y1="300" x2="500" y2="100" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="470" y="185" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="500" y="203" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                    
+                    <!-- To GitHub (top-right) -->
+                    <line x1="500" y1="300" x2="800" y2="100" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="620" y="185" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="650" y="203" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                    
+                    <!-- To Slack (bottom-left) -->
+                    <line x1="500" y1="300" x2="200" y2="500" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="320" y="385" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="350" y="403" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                    
+                    <!-- To Local Filesystem (bottom-center) -->
+                    <line x1="500" y1="300" x2="500" y2="500" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="470" y="385" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="500" y="403" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                    
+                    <!-- To Gmail (bottom-right) -->
+                    <line x1="500" y1="300" x2="800" y2="500" stroke="#667eea" stroke-width="2" stroke-dasharray="8,4" opacity="0.5" marker-end="url(#dot)"/>
+                    <rect x="620" y="385" width="60" height="30" fill="white" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,2" rx="4"/>
+                    <text x="650" y="403" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">MCP</text>
+                </svg>
                 
                 <!-- Central AI Application -->
-                <div class="center-app">
-                    <div class="icon">🤖</div>
-                    <div class="label">AI Application</div>
+                <div class="ai-center-box">
+                    <div class="ai-icon">🤖</div>
+                    <div class="ai-label">AI Application</div>
                 </div>
                 
-                <!-- Service nodes -->
-                <div class="service-node web-apis">
-                    <div class="icon">🌐</div>
-                    <div class="label">Web APIs</div>
+                <!-- Services arranged in a circle -->
+                <!-- Top Row -->
+                <div class="service-item top-left">
+                    <div class="service-box">
+                        <div class="service-icon">🌐</div>
+                        <div class="service-label">Web APIs</div>
+                    </div>
                 </div>
                 
-                <div class="service-node database">
-                    <div class="icon">🗄️</div>
-                    <div class="label">Database</div>
+                <div class="service-item top-center">
+                    <div class="service-box">
+                        <div class="service-icon">🗄️</div>
+                        <div class="service-label">Database</div>
+                    </div>
                 </div>
                 
-                <div class="service-node github">
-                    <div class="icon">🐙</div>
-                    <div class="label">GitHub</div>
+                <div class="service-item top-right">
+                    <div class="service-box">
+                        <div class="service-icon">🐙</div>
+                        <div class="service-label">GitHub</div>
+                    </div>
                 </div>
                 
-                <div class="service-node slack">
-                    <div class="icon">💬</div>
-                    <div class="label">Slack</div>
+                <!-- Bottom Row -->
+                <div class="service-item bottom-left">
+                    <div class="service-box">
+                        <div class="service-icon">💬</div>
+                        <div class="service-label">Slack</div>
+                    </div>
                 </div>
                 
-                <div class="service-node filesystem">
-                    <div class="icon">📁</div>
-                    <div class="label">Local Filesystem</div>
+                <div class="service-item bottom-center">
+                    <div class="service-box">
+                        <div class="service-icon">📁</div>
+                        <div class="service-label">Local Filesystem</div>
+                    </div>
                 </div>
                 
-                <div class="service-node gmail">
-                    <div class="icon">📧</div>
-                    <div class="label">Gmail</div>
+                <div class="service-item bottom-right">
+                    <div class="service-box">
+                        <div class="service-icon">📧</div>
+                        <div class="service-label">Gmail</div>
+                    </div>
                 </div>
             </div>
-            <div class="highlight" style="margin-top: 30px;">
+            <div class="highlight" style="margin-top: 40px;">
                 <p><strong>MCP is a standardized protocol</strong> that enables AI applications to securely connect with various data sources and services through a unified interface.</p>
             </div>
         </div>
         
-        <!-- Remaining slides stay the same -->
         <!-- Slide 3: Technical Overview -->
         <div class="slide">
             <h1>MCP Technical Architecture</h1>
