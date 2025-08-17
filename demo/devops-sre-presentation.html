@@ -3,1108 +3,880 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCP for DevOps/SRE: Securing AI Infrastructure Operations</title>
+    <title>MCP for DevOps/SRE - Enhanced Presentation</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             overflow: hidden;
+            position: relative;
         }
-
-        .presentation {
+        
+        .presentation-container {
+            width: 100vw;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
-
+        
         .slide {
-            display: none;
-            width: 90%;
+            width: 90vw;
             max-width: 1200px;
-            text-align: center;
-            animation: slideIn 0.6s ease-out;
+            height: 85vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+            padding: 60px;
+            position: relative;
+            overflow: auto;
+            animation: slideIn 0.5s ease;
         }
-
+        
         .slide.active {
             display: block;
         }
-
+        
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateX(100px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+        
+        .slide h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #00c9ff;
-        }
-
-        h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #92fe9d;
-        }
-
-        p, li {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: #a8a8a8;
-            margin-bottom: 3rem;
-        }
-
-        .presenter-info {
-            font-size: 1.4rem;
-            color: #00c9ff;
-            margin-bottom: 2rem;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .content-overview {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 2rem auto;
-            max-width: 800px;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: left;
-        }
-
-        .content-overview h4 {
-            color: #92fe9d;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
             text-align: center;
         }
-
-        .content-overview ul {
-            list-style: none;
-            padding: 0;
+        
+        .slide h2 {
+            color: #444;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
-
-        .content-overview li {
-            font-size: 1.1rem;
+        
+        .slide h3 {
+            color: #555;
+            font-size: 1.6em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .slide p {
+            color: #666;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .slide ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .slide li {
+            color: #666;
+            font-size: 1.1em;
             line-height: 1.8;
-            padding-left: 1.5rem;
-            position: relative;
-            margin-bottom: 0.5rem;
+            margin-bottom: 12px;
         }
-
-        .content-overview li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #00c9ff;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .code-block {
-            background: rgba(0,0,0,0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            text-align: left;
+        
+        .slide pre {
+            background: #f4f4f4;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
             overflow-x: auto;
-            border-left: 4px solid #00c9ff;
-            white-space: pre-wrap;
-            line-height: 1.4;
         }
-
-        .architecture-diagram {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border: 2px solid rgba(255,255,255,0.2);
+        
+        .slide code {
+            font-family: 'Courier New', monospace;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #d73a49;
         }
-
-        .security-warning {
-            background: rgba(255, 0, 0, 0.2);
-            border: 2px solid #ff4444;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            color: #ff9999;
-        }
-
-        .security-solution {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            color: #99ff99;
-        }
-
+        
         .navigation {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 1rem;
+            gap: 15px;
             z-index: 1000;
         }
-
+        
         .nav-btn {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.3);
-            color: white;
+            background: white;
+            border: none;
             padding: 12px 24px;
             border-radius: 25px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            font-size: 1rem;
-            backdrop-filter: blur(10px);
+            color: #667eea;
         }
-
+        
         .nav-btn:hover {
-            background: rgba(255,255,255,0.3);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
-
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         .slide-counter {
             position: fixed;
             top: 30px;
             right: 30px;
-            background: rgba(0,0,0,0.5);
+            background: white;
             padding: 10px 20px;
             border-radius: 20px;
-            font-size: 1.1rem;
+            font-weight: 600;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-
-        .spec-highlight {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border: 3px solid rgba(255,255,255,0.5);
-            color: #000;
-            font-weight: bold;
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
-
-        .timeline {
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #667eea30;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .mcp-diagram {
             display: flex;
-            justify-content: space-between;
-            margin: 2rem 0;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
             position: relative;
         }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: #00c9ff;
-            z-index: -1;
-        }
-
-        .timeline-item {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 2px solid #00c9ff;
-            flex: 1;
-            margin: 0 0.5rem;
-            text-align: center;
-        }
-
-        .demo-url {
-            background: rgba(255,255,255,0.2);
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            margin: 2rem 0;
-            font-size: 1.2rem;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-
-        .reference-card {
-            background: rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            text-align: left;
-            border-left: 4px solid #00c9ff;
-        }
-
-        .reference-card h4 {
-            color: #00c9ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .reference-card a {
-            color: #92fe9d;
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .reference-card a:hover {
-            text-decoration: underline;
-        }
-
-        .llm-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .llm-box {
-            padding: 1.5rem;
+        
+        .mcp-center {
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
             border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
         }
-
-        .llm-box.without-mcp {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid #ff4444;
-        }
-
-        .llm-box.with-mcp {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid #00ff00;
-        }
-
-        .risk-matrix {
+        
+        .service-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .risk-item {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid transparent;
-        }
-
-        .risk-item.high {
-            border-color: #ff4444;
-            background: rgba(255, 0, 0, 0.2);
-        }
-
-        .risk-item.medium {
-            border-color: #ff9f43;
-            background: rgba(255, 159, 67, 0.2);
-        }
-
-        .risk-item.low {
-            border-color: #00ff00;
-            background: rgba(0, 255, 0, 0.1);
-        }
-
-        .video-container {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .video-embed {
+            gap: 50px;
+            margin-top: 60px;
             width: 100%;
             max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.3);
         }
-
-        .video-embed iframe,
-        .video-embed video {
-            width: 100%;
-            height: 450px;
-            border: none;
-            border-radius: 15px;
-        }
-
-        .logo {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #00c9ff;
-        }
-
-        .impact-scale {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 2rem 0;
-            background: linear-gradient(90deg, #ff4444 0%, #ff9f43 50%, #00ff00 100%);
-            padding: 1rem;
-            border-radius: 10px;
-            color: #000;
-        }
-
-        .devops-impact {
-            background: rgba(146, 254, 157, 0.1);
-            border: 2px solid #92fe9d;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .devops-impact h3 {
-            color: #92fe9d;
-            margin-bottom: 1rem;
-        }
-
-        .transport-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .transport-box {
-            padding: 1.5rem;
-            border-radius: 15px;
+        
+        .service-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             position: relative;
         }
-
-        .transport-box.local {
-            background: rgba(255, 165, 0, 0.1);
-            border: 2px solid #ff9f43;
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-
-        .transport-box.remote {
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid #00c9ff;
+        
+        .service-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
-
-        .transport-box h4 {
-            color: inherit;
-            margin-bottom: 1rem;
+        
+        .service-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
         }
-
-        .enterprise-badge {
+        
+        .connection-line {
             position: absolute;
-            top: -10px;
-            right: 15px;
-            background: linear-gradient(45deg, #00c9ff, #92fe9d);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            width: 2px;
+            height: 60px;
+            background: #ccc;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connection-line::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .ai-app-box {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border: 2px solid #999;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            
+            .slide h1 {
+                font-size: 2em;
+            }
+            
+            .service-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="logo">
-        🔒 MCP for DevOps/SRE
-    </div>
-    
-    <div class="slide-counter">
-        <span id="current-slide">1</span> / <span id="total-slides"></span>
-    </div>
-
-    <div class="presentation">
-        <!-- Slide 1: Title -->
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+        </div>
+        
+        <!-- Slide 1: Title Slide -->
         <div class="slide active">
-            <h1>MCP for DevOps/SRE</h1>
-            <p class="subtitle">Securing AI Infrastructure Operations at Scale</p>
-            
-            <p class="presenter-info">Roman Melnyk | Kafka/Kubernetes SRE</p>
-
-            <div class="content-overview">
-                <h4>What We'll Cover Today</h4>
+            <h1>🔐 Model Context Protocol (MCP)</h1>
+            <h2 style="text-align: center; margin-top: 40px;">Revolutionizing AI-Infrastructure Integration</h2>
+            <div class="highlight" style="margin-top: 60px;">
+                <h3>DevOps & SRE Perspective</h3>
+                <p>How MCP transforms the way AI applications interact with your infrastructure while maintaining security and operational excellence.</p>
+            </div>
+            <div class="feature-grid" style="margin-top: 40px;">
+                <div class="feature-card">
+                    <h3>🛡️ Security First</h3>
+                    <p>OAuth 2.0, fine-grained permissions, and audit logging</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Performance</h3>
+                    <p>Efficient protocols and resource optimization</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 Standardization</h3>
+                    <p>Unified protocol for all AI-service interactions</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: NEW - What is MCP Visual -->
+        <div class="slide">
+            <h1>What is MCP?</h1>
+            <div class="ai-app-box">AI Application</div>
+            <div class="mcp-center">MCP</div>
+            <div class="service-container">
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">🌐</div>
+                    <div class="service-name">Web APIs</div>
+                </div>
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">🗄️</div>
+                    <div class="service-name">Database</div>
+                </div>
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">🐙</div>
+                    <div class="service-name">GitHub</div>
+                </div>
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">💬</div>
+                    <div class="service-name">Slack</div>
+                </div>
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">📧</div>
+                    <div class="service-name">Gmail</div>
+                </div>
+                <div class="service-card">
+                    <div class="connection-line"></div>
+                    <div class="service-icon">📁</div>
+                    <div class="service-name">Local Filesystem</div>
+                </div>
+            </div>
+            <div class="highlight" style="margin-top: 40px;">
+                <p><strong>MCP is a standardized protocol</strong> that enables AI applications to securely connect with various data sources and services through a unified interface.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Technical Overview -->
+        <div class="slide">
+            <h1>MCP Technical Architecture</h1>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🔌 Protocol Layer</h3>
+                    <ul>
+                        <li>JSON-RPC 2.0 based communication</li>
+                        <li>Supports multiple transport mechanisms</li>
+                        <li>Bi-directional streaming capabilities</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Security Layer</h3>
+                    <ul>
+                        <li>OAuth 2.0 authentication</li>
+                        <li>Fine-grained permission scopes</li>
+                        <li>Encrypted transport (TLS)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Resource Layer</h3>
+                    <ul>
+                        <li>Unified resource access</li>
+                        <li>Schema validation</li>
+                        <li>Version management</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Tool Layer</h3>
+                    <ul>
+                        <li>Standardized tool definitions</li>
+                        <li>Parameter validation</li>
+                        <li>Error handling</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight">
+                <h3>Key Insight for DevOps</h3>
+                <p>MCP provides a standardized, secure bridge between AI models and your infrastructure - think of it as "OAuth for AI" with built-in observability.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Current State -->
+        <div class="slide">
+            <h1>Current State: MCP 2025-06-18</h1>
+            <h2>Latest Specification Updates</h2>
+            <div class="success">
+                <h3>✅ What's New</h3>
                 <ul>
-                    <li>Understanding MCP and its role in AI operations</li>
-                    <li>Security concerns: LLM hallucinations in production</li>
-                    <li>Making self-hosted LLMs viable with MCP</li>
-                    <li>Real-world implementation: Kafka Schema Registry</li>
-                    <li>SLIM_MODE: Optimizing for smaller models</li>
-                    <li>Building your MCP roadmap</li>
+                    <li><strong>JSON-RPC compliance:</strong> Full adherence to JSON-RPC 2.0 specification</li>
+                    <li><strong>No batching:</strong> Simplified protocol, one request per message</li>
+                    <li><strong>Enhanced security:</strong> Improved OAuth 2.0 integration</li>
+                    <li><strong>Better error handling:</strong> Standardized error codes and messages</li>
                 </ul>
             </div>
-
-            <div class="spec-highlight">
-                <h3>🎯 Latest MCP Specification: 2025-06-18</h3>
-                <p>The future of infrastructure automation is here</p>
+            <div class="warning">
+                <h3>⚠️ Breaking Changes</h3>
+                <ul>
+                    <li>Removed JSON-RPC batching support</li>
+                    <li>Updated header requirements</li>
+                    <li>New scope definitions for OAuth</li>
+                </ul>
             </div>
-            <div class="demo-url">
-                <strong>Focus:</strong> Security | Reliability | Self-Hosted LLMs | Production Readiness
-            </div>
-        </div>
-
-        <!-- Slide 2: What is MCP? -->
-        <div class="slide">
-            <h2>🤔 What is MCP?</h2>
-            <p class="subtitle">Model Context Protocol - The Missing Link in AI Operations</p>
-            
-            <div class="architecture-diagram">
-                <h3>Traditional vs MCP Architecture</h3>
-                <div class="code-block">Traditional:
-LLM → Direct API Calls → Production Systems ❌ DANGEROUS!
-
-MCP Architecture:
-LLM → MCP Protocol → MCP Server → Validated Actions → Production Systems ✅ SAFE!</div>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>🛡️ Security Layer</h3>
-                    <p>Controlled, auditable interface between AI and infrastructure</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔧 Tool Abstraction</h3>
-                    <p>Structured tools with schemas, validation, and guardrails</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Observability</h3>
-                    <p>Full audit trail of AI actions and decisions</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3: Current State of MCP -->
-        <div class="slide">
-            <h2>📅 MCP Today: 2025-06-18 Specification</h2>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h4>2024</h4>
-                    <p>Initial Release</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>Early 2025</h4>
-                    <p>Production Adoption</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>June 2025</h4>
-                    <p>Enterprise Spec</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>Now</h4>
-                    <p>Gaining momentum</p>
-                </div>
-            </div>
-
-            <div class="spec-highlight">
-                <h3>Key Specification Updates</h3>
-                <p>• JSON-RPC 2.0 over stdio/SSE/HTTP<br>
-                • No batch operations (security by design)<br>
-                • Structured tool schemas with validation<br>
-                • Resource-oriented architecture<br>
-                • Built-in auth & audit capabilities</p>
-            </div>
-
-            <div class="demo-url">
-                <strong>🔐 Security First:</strong> Every design decision prioritizes production safety
-            </div>
-        </div>
-
-        <!-- Slide 4: DevOps/SRE Impact -->
-        <div class="slide">
-            <h2>🚀 The Future of DevOps/SRE</h2>
-            <p class="subtitle">How MCP Changes Everything</p>
-
-            <div class="devops-impact">
-                <h3>From Manual to AI-Assisted Operations</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>📝 Today</h3>
-                        <p>• Manual runbooks<br>
-                        • Script maintenance<br>
-                        • Context switching<br>
-                        • Tribal knowledge</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>🤖 With MCP</h3>
-                        <p>• AI executes runbooks<br>
-                        • Self-documenting ops<br>
-                        • Natural language control<br>
-                        • Knowledge capture</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>🎯 Benefits</h3>
-                        <p>• 10x faster incident response<br>
-                        • Reduced on-call burden<br>
-                        • Consistent operations<br>
-                        • Audit compliance</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="impact-scale">
-                <span>Manual Toil</span>
-                <span>→</span>
-                <span>AI-Augmented</span>
-                <span>→</span>
-                <span>Autonomous Ops</span>
-            </div>
-        </div>
-
-        <!-- Slide 5: Security Concerns -->
-        <div class="slide">
-            <h2>⚠️ The Elephant in the Room</h2>
-            <p class="subtitle">LLM Hallucinations & Production Risk</p>
-
-            <div class="llm-comparison">
-                <div class="llm-box without-mcp">
-                    <h3>❌ Without MCP</h3>
-                    <p><strong>Direct LLM Access:</strong></p>
-                    <ul style="text-align: left;">
-                        <li>Hallucinated commands</li>
-                        <li>Arbitrary code execution</li>
-                        <li>No validation layer</li>
-                        <li>Unaudited actions</li>
-                        <li>Production disasters</li>
-                    </ul>
-                    <div class="code-block" style="background: rgba(255,0,0,0.2);">LLM: "I'll help you scale down"
-> kubectl delete deployment --all ❌
-> rm -rf /var/lib/* ❌</div>
-                </div>
-
-                <div class="llm-box with-mcp">
-                    <h3>✅ With MCP</h3>
-                    <p><strong>Controlled Access:</strong></p>
-                    <ul style="text-align: left;">
-                        <li>Validated tool calls only</li>
-                        <li>Structured parameters</li>
-                        <li>Permission boundaries</li>
-                        <li>Full audit trail</li>
-                        <li>Safe production ops</li>
-                    </ul>
-                    <div class="code-block" style="background: rgba(0,255,0,0.1);">MCP: scale_deployment(
-  name="web-app",
-  replicas=2,
-  validate=true
-) ✅</div>
-                </div>
-            </div>
-
-            <div class="security-warning">
-                <strong>🚨 Critical:</strong> Never give LLMs direct shell access or kubectl permissions!
-            </div>
-        </div>
-
-        <!-- Slide 6: Self-Hosted LLMs -->
-        <div class="slide">
-            <h2>🏠 Self-Hosted LLMs & MCP</h2>
-            <p class="subtitle">Running AI On-Premises with Production Safety</p>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>🧠 Smaller Models</h3>
-                    <p><strong>7B-13B Parameters</strong><br>
-                    • Llama 3<br>
-                    • Mistral<br>
-                    • Phi-3<br>
-                    Less capable BUT safer with MCP</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔒 Data Privacy</h3>
-                    <p><strong>On-Premises Benefits</strong><br>
-                    • No data leaves network<br>
-                    • Compliance ready<br>
-                    • Air-gapped operations<br>
-                    • Full control</p>
-                </div>
-                <div class="feature-card">
-                    <h3>⚡ MCP Advantage</h3>
-                    <p><strong>Compensates for Model Limits</strong><br>
-                    • Structured tool use<br>
-                    • Reduced hallucinations<br>
-                    • Clear boundaries<br>
-                    • Works with 7B models!</p>
-                </div>
-            </div>
-
-            <div class="security-solution">
-                <strong>💡 Key Insight:</strong> MCP makes smaller, self-hosted LLMs production-viable by providing structure and safety rails
-            </div>
-        </div>
-
-        <!-- Slide 7: MCP Architecture Benefits -->
-        <div class="slide">
-            <h2>🏗️ Proper MCP Architecture</h2>
-            <p class="subtitle">Reducing Risk Through Design</p>
-
-            <div class="code-block">┌─────────────────────────────────────────────────────────┐
-│                   AI Layer (Any LLM)                    │
-│         Claude, GPT-4, Llama 3, Mistral, etc.          │
-└───────────────────────┬─────────────────────────────────┘
-                        │ MCP Protocol (JSON-RPC)
-┌───────────────────────▼─────────────────────────────────┐
-│                    MCP Server                           │
-│  • Authentication (OAuth, mTLS)                         │
-│  • Authorization (RBAC, Scopes)                         │
-│  • Validation (Schema enforcement)                      │
-│  • Rate Limiting & Circuit Breakers                    │
-│  • Audit Logging (Who, What, When, Why)               │
-└───────────────────────┬─────────────────────────────────┘
-                        │ Validated Actions Only
-┌───────────────────────▼─────────────────────────────────┐
-│              Production Infrastructure                  │
-│    Kubernetes │ Databases │ Monitoring │ CI/CD         │
-└─────────────────────────────────────────────────────────┘</div>
-
-            <div class="risk-matrix">
-                <div class="risk-item high">
-                    <h4>❌ High Risk</h4>
-                    <p>Direct LLM → Prod</p>
-                </div>
-                <div class="risk-item medium">
-                    <h4>⚠️ Medium Risk</h4>
-                    <p>Basic Auth Only</p>
-                </div>
-                <div class="risk-item low">
-                    <h4>✅ Low Risk</h4>
-                    <p>Full MCP Stack</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Kafka Schema Registry Demo -->
-        <div class="slide">
-            <h2>🎯 Real-World Example: Kafka Schema Registry MCP</h2>
-            <p class="subtitle">Production-Grade Implementation</p>
-
-            <div class="demo-url">
-                <strong>🔗 GitHub:</strong> github.com/aywengo/kafka-schema-reg-mcp
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>🛡️ Security Features</h3>
-                    <p>• GitHub OAuth integration<br>
-                    • Role-based permissions<br>
-                    • Read-only production mode<br>
-                    • Full audit trail</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🔧 DevOps Operations</h3>
-                    <p>• Schema migrations<br>
-                    • Environment promotion<br>
-                    • Compatibility checks<br>
-                    • Bulk operations</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📊 Production Safety</h3>
-                    <p>• Structured tool calls only<br>
-                    • No arbitrary commands<br>
-                    • Validation at every step<br>
-                    • Rollback capabilities</p>
-                </div>
-            </div>
-
-            <div class="code-block">Example MCP Tool Definition:
+            <pre><code>// Example: MCP 2025-06-18 compliant request
 {
-  "name": "migrate_schema",
-  "description": "Safely migrate schema between environments",
-  "parameters": {
-    "source_registry": {"type": "string", "enum": ["dev", "staging"]},
-    "target_registry": {"type": "string", "enum": ["staging", "prod"]},
-    "schema_id": {"type": "string", "pattern": "^[a-zA-Z0-9-]+$"},
-    "dry_run": {"type": "boolean", "default": true}
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "get_schema",
+    "arguments": {
+      "subject": "user-events",
+      "version": "latest"
+    }
   },
-  "required": ["source_registry", "target_registry", "schema_id"]
-}</div>
+  "id": "unique-request-id"
+}</code></pre>
         </div>
-
-        <!-- Slide 9 (NEW): Local vs Remote MCP Hosting -->
+        
+        <!-- Slide 5: DevOps/SRE Impact -->
         <div class="slide">
-            <h2>🖥️ Local vs Remote MCP Hosting</h2>
-            <p class="subtitle">Transport Protocols & Enterprise Readiness</p>
-
-            <div class="transport-comparison">
-                <div class="transport-box local">
-                    <h3>🏠 Local MCP (STDIO)</h3>
-                    <p><strong>Transport: Standard I/O</strong></p>
-                    <ul style="text-align: left;">
-                        <li>Process-based communication</li>
-                        <li>Single-user desktop apps</li>
-                        <li>Low latency, high throughput</li>
-                        <li>No network overhead</li>
-                        <li>Limited to local machine</li>
-                    </ul>
-                    <div class="code-block" style="background: rgba(255,165,0,0.2);">// STDIO Transport
-$ mcp-server --stdio
-LLM ↔️ MCP Server (same machine)</div>
-                </div>
-
-                <div class="transport-box remote">
-                    <span class="enterprise-badge">Enterprise Ready</span>
-                    <h3>☁️ Remote MCP (HTTP/SSE)</h3>
-                    <p><strong>Transport: HTTP Streaming</strong></p>
-                    <ul style="text-align: left;">
-                        <li>Network-based communication</li>
-                        <li>Multi-tenant support</li>
-                        <li>Load balancing ready</li>
-                        <li>Geographic distribution</li>
-                        <li>Central management</li>
-                    </ul>
-                    <div class="code-block" style="background: rgba(0,255,255,0.1);">// HTTP/SSE Transport
-https://mcp.company.com/api
-LLM ↔️ Load Balancer ↔️ MCP Cluster</div>
-                </div>
-            </div>
-
-            <div class="devops-impact">
-                <h3>🚀 Enterprise Features with Remote MCP</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h4>📈 Scalability</h4>
-                        <p>• Horizontal scaling<br>
-                        • Auto-scaling groups<br>
-                        • Multi-region deployment</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>🔐 Security</h4>
-                        <p>• Centralized auth<br>
-                        • Network isolation<br>
-                        • TLS encryption</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>📊 Monitoring</h4>
-                        <p>• Centralized logging<br>
-                        • Metrics aggregation<br>
-                        • Health checks</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10 (previously 9): Demo Architecture -->
-        <div class="slide">
-            <h2>🏛️ Production MCP Architecture</h2>
-            <p class="subtitle">Kafka Schema Registry Implementation</p>
-
-            <div class="architecture-diagram">
-                <div class="code-block">┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Self-Hosted   │    │   Claude API    │    │   GPT-4 API    │
-│   Llama 3 13B   │    │   (External)    │    │   (External)    │
-└────────┬────────┘    └────────┬────────┘    └────────┬────────┘
-         │                      │                       │
-         └──────────────────────┼───────────────────────┘
-                                │ MCP Protocol
-                    ┌───────────▼───────────────┐
-                    │     MCP Server            │
-                    │   • GitHub OAuth          │
-                    │   • SLIM_MODE (9 tools)   │
-                    │   • Audit Logging         │
-                    └───────────┬───────────────┘
-                                │
-        ┌───────────────────────┼───────────────────────┐
-        │                       │                       │
-   ┌────▼─────┐          ┌─────▼─────┐          ┌─────▼─────┐
-   │   Dev    │          │  Staging  │          │   Prod    │
-   │ Registry │          │ Registry  │          │ Registry  │
-   │  (R/W)   │          │   (R/W)   │          │ (R only) │
-   └──────────┘          └───────────┘          └───────────┘</div>
-            </div>
-
-            <div class="devops-impact">
-                <h3>🔐 Security Layers</h3>
-                <p>1. <strong>Authentication:</strong> GitHub OAuth with org membership<br>
-                2. <strong>Authorization:</strong> Scope-based permissions (read/write/admin)<br>
-                3. <strong>Validation:</strong> Schema validation on every operation<br>
-                4. <strong>Audit:</strong> Complete trail of who did what when</p>
-            </div>
-        </div>
-
-        <!-- Slide 11 (previously 10): SLIM_MODE and Performance -->
-        <div class="slide">
-            <h2>⚡ SLIM_MODE: Performance vs Security</h2>
-            <p class="subtitle">Optimizing for Production Self-Hosted LLMs</p>
-
-            <div class="spec-highlight">
-                <h3>The Challenge: Tool Overload</h3>
-                <p>57+ tools → LLM confusion → Increased hallucinations</p>
-            </div>
-
-            <div class="llm-comparison">
-                <div class="llm-box without-mcp">
-                    <h3>❌ Full Tool Set (57+ tools)</h3>
-                    <p>• High token usage<br>
-                    • Slower responses<br>
-                    • More hallucinations<br>
-                    • Requires larger models<br>
-                    • Not suitable for 7B models</p>
-                </div>
-                <div class="llm-box with-mcp">
-                    <h3>✅ SLIM_MODE (9 tools)</h3>
-                    <p>• Minimal token usage<br>
-                    • Fast responses<br>
-                    • Reduced errors<br>
-                    • Works with small models<br>
-                    • Production optimized</p>
-                </div>
-            </div>
-
-            <div class="code-block">SLIM_MODE Tools (Essential Operations Only):
-- ping                    # Health check
-- register_schema         # Create schemas
-- check_compatibility     # Validate changes
-- create_context         # Organize schemas
-- export_schema          # Backup operations
-- count_schemas          # Statistics
-- get_default_registry   # Configuration
-
-Perfect for self-hosted Llama 3 7B/13B models!</div>
-        </div>
-
-        <!-- Slide 12 (previously 11): ShadowTraffic Demo -->
-        <div class="slide">
-            <h2>🌊 Shadowtraffic.io Integration</h2>
-            <p class="subtitle">Automated Testing Through MCP</p>
-            
-            <div class="video-container">
-                <h3>🎥 MCP-Driven Test Data Generation</h3>
-                <div class="video-embed">
-                    <video controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgdmlld0JveD0iMCAwIDgwMCA0NTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDUwIiBmaWxsPSIjMUYyOTM3Ii8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIyNSIgcj0iNjAiIGZpbGw9IiMwMEM5RkYiIG9wYWNpdHk9IjAuOCIvPgo8cG9seWdvbiBwb2ludHM9IjM4MCwxOTUgNDMwLDIyNSAzODAsMjU1IiBmaWxsPSIjMUYyOTM3Ii8+Cjx0ZXh0IHg9IjQwMCIgeT0iMzAwIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TaGFkb3d0cmFmZmljLmlvIE1DIABEZW1vPC90ZXh0Pgo8L3N2Zz4=">
-                        <source src="https://dms.licdn.com/playlist/vid/v2/D4D05AQG32KIe46f-pg/mp4-720p-30fp-crf28/B4DZc386AaG8BM-/0/1748990439262?e=2147483647&v=beta&t=3AZVRHVoIKpxjwmH-gtL6TxaHPpTDgLooeZBTVPN2ec" type="video/mp4">
-                        <p style="color: #00c9ff; text-align: center; padding: 2rem;">
-                            🎥 <strong>Video Preview:</strong> Schema-aware test data generation<br>
-                            <small>Click to play the embedded video</small>
-                        </p>
-                    </video>
-                </div>
-            </div>
-
-            <div class="devops-impact">
-                <h3>🔧 DevOps Benefits</h3>
-                <p>• <strong>Automated Load Testing:</strong> Generate realistic traffic patterns<br>
-                • <strong>Schema Validation:</strong> Test data always matches production schemas<br>
-                • <strong>CI/CD Integration:</strong> MCP-driven test automation<br>
-                • <strong>Performance Testing:</strong> Simulate production workloads safely</p>
-            </div>
-        </div>
-
-        <!-- Slide 13 (previously 12): Practical Implementation -->
-        <div class="slide">
-            <h2>🛠️ Implementing MCP in Your Organization</h2>
-            <p class="subtitle">A DevOps Roadmap</p>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h4>Week 1-2</h4>
-                    <p><strong>Pilot</strong><br>Read-only tools</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>Week 3-4</h4>
-                    <p><strong>Expand</strong><br>Safe write ops</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>Month 2</h4>
-                    <p><strong>Production</strong><br>Critical paths</p>
-                </div>
-                <div class="timeline-item">
-                    <h4>Month 3+</h4>
-                    <p><strong>Scale</strong><br>Full automation</p>
-                </div>
-            </div>
-
+            <h1>DevOps/SRE Impact</h1>
+            <h2>How MCP Transforms Operations</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>📝 Start Small</h3>
-                    <p>• Monitoring queries<br>
-                    • Log analysis<br>
-                    • Read-only operations<br>
-                    • Build confidence</p>
+                    <h3>🚀 Automated Operations</h3>
+                    <ul>
+                        <li>AI-driven incident response</li>
+                        <li>Intelligent log analysis</li>
+                        <li>Predictive maintenance</li>
+                        <li>Self-healing systems</li>
+                    </ul>
                 </div>
                 <div class="feature-card">
-                    <h3>🔧 Add Controls</h3>
-                    <p>• Implement RBAC<br>
-                    • Set up audit logs<br>
-                    • Define boundaries<br>
-                    • Test extensively</p>
+                    <h3>📈 Enhanced Monitoring</h3>
+                    <ul>
+                        <li>Natural language queries for metrics</li>
+                        <li>Anomaly detection with context</li>
+                        <li>Intelligent alerting</li>
+                        <li>Root cause analysis</li>
+                    </ul>
                 </div>
                 <div class="feature-card">
-                    <h3>🚀 Scale Safely</h3>
-                    <p>• Gradual rollout<br>
-                    • Monitor metrics<br>
-                    • Iterate on tools<br>
-                    • Document patterns</p>
+                    <h3>🔄 Workflow Automation</h3>
+                    <ul>
+                        <li>CI/CD pipeline optimization</li>
+                        <li>Automated code reviews</li>
+                        <li>Infrastructure provisioning</li>
+                        <li>Configuration management</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Security Operations</h3>
+                    <ul>
+                        <li>Threat detection and response</li>
+                        <li>Compliance automation</li>
+                        <li>Security policy enforcement</li>
+                        <li>Audit log analysis</li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Slide 14 (previously 13): Resources -->
+        
+        <!-- Slide 6: Security Concerns -->
         <div class="slide">
-            <h2>📚 Resources & References</h2>
-            <p class="subtitle">Deep Dive Into MCP</p>
-
-            <div class="reference-card">
-                <h4>📺 Video: MCP Deep Dive</h4>
-                <p>Technical walkthrough of MCP architecture</p>
-                <a href="https://www.youtube.com/watch?v=FLpS7OfD5-s">https://www.youtube.com/watch?v=FLpS7OfD5-s</a>
+            <h1>Security Concerns & Mitigation</h1>
+            <h2>Addressing LLM Hallucinations in Production</h2>
+            <div class="warning">
+                <h3>🚨 The Hallucination Risk</h3>
+                <p>LLMs can generate plausible but incorrect commands that could harm production systems:</p>
+                <ul>
+                    <li>Incorrect database queries leading to data loss</li>
+                    <li>Misconfigured infrastructure changes</li>
+                    <li>False positive security responses</li>
+                </ul>
             </div>
-
-            <div class="reference-card">
-                <h4>🎓 Anthropic MCP Course</h4>
-                <p>Official documentation and tutorials</p>
-                <a href="https://www.anthropic.com/learn/build-with-claude">https://www.anthropic.com/learn/build-with-claude</a>
+            <div class="success">
+                <h3>✅ MCP's Security Solutions</h3>
+                <ul>
+                    <li><strong>Schema Validation:</strong> All requests validated against predefined schemas</li>
+                    <li><strong>Permission Scoping:</strong> Fine-grained OAuth scopes limit access</li>
+                    <li><strong>Audit Logging:</strong> Complete request/response tracking</li>
+                    <li><strong>Dry-run Mode:</strong> Test changes before execution</li>
+                    <li><strong>Human-in-the-loop:</strong> Critical operations require approval</li>
+                </ul>
             </div>
-
-            <div class="reference-card">
-                <h4>🐍 FastMCP Library</h4>
-                <p>Python framework for building MCP servers quickly</p>
-                <a href="https://github.com/jlowin/fastmcp">https://github.com/jlowin/fastmcp</a>
+            <pre><code>// Example: Safe operation with validation
+{
+  "method": "database/query",
+  "params": {
+    "query": "SELECT * FROM users LIMIT 10",
+    "dry_run": true,
+    "require_approval": true,
+    "max_rows": 10
+  }
+}</code></pre>
+        </div>
+        
+        <!-- Slide 7: Self-Hosted LLMs -->
+        <div class="slide">
+            <h1>Self-Hosted LLMs & MCP</h1>
+            <h2>Working with Smaller Models Safely</h2>
+            <div class="highlight">
+                <h3>Why Self-Hosted Models?</h3>
+                <ul>
+                    <li>Data sovereignty and compliance requirements</li>
+                    <li>Cost optimization for high-volume operations</li>
+                    <li>Reduced latency for on-premise deployments</li>
+                    <li>Custom fine-tuning for domain-specific tasks</li>
+                </ul>
             </div>
-
-            <div class="reference-card">
-                <h4>🔧 Kafka Schema Registry MCP</h4>
-                <p>Production reference implementation</p>
-                <a href="https://github.com/aywengo/kafka-schema-reg-mcp">https://github.com/aywengo/kafka-schema-reg-mcp</a>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📊 Model Considerations</h3>
+                    <ul>
+                        <li>7B-13B parameters optimal for most ops</li>
+                        <li>Llama, Mistral, or specialized models</li>
+                        <li>Fine-tuning on operational data</li>
+                        <li>Quantization for efficiency</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Safety Mechanisms</h3>
+                    <ul>
+                        <li>Constrained action spaces</li>
+                        <li>Template-based responses</li>
+                        <li>Validation layers</li>
+                        <li>Rollback capabilities</li>
+                    </ul>
+                </div>
             </div>
-
-            <div class="demo-url">
-                <strong>💡 Pro Tip:</strong> Start with FastMCP for rapid prototyping
+            <pre><code># Example: SLIM_MODE configuration
+export MCP_SLIM_MODE=true
+export MCP_MAX_RESPONSE_SIZE=1024
+export MCP_VALIDATION_STRICT=true
+export MCP_REQUIRE_SCHEMAS=true</code></pre>
+        </div>
+        
+        <!-- Slide 8: MCP Architecture Deep Dive -->
+        <div class="slide">
+            <h1>MCP Architecture: Reducing Risks</h1>
+            <div class="highlight">
+                <h3>Layered Security Model</h3>
+            </div>
+            <pre><code>┌─────────────────────────────────────┐
+│         AI Application              │
+└────────────┬────────────────────────┘
+             │ MCP Protocol
+┌────────────▼────────────────────────┐
+│      MCP Server (Validation)        │
+│  • Schema enforcement               │
+│  • Permission checking              │
+│  • Rate limiting                    │
+└────────────┬────────────────────────┘
+             │
+┌────────────▼────────────────────────┐
+│     Business Logic Layer            │
+│  • Domain validation                │
+│  • Workflow orchestration           │
+│  • Approval workflows               │
+└────────────┬────────────────────────┘
+             │
+┌────────────▼────────────────────────┐
+│      Infrastructure Services        │
+│  • Databases                        │
+│  • Message queues                   │
+│  • External APIs                    │
+└─────────────────────────────────────┘</code></pre>
+            <div class="success">
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li>Each layer validates and sanitizes requests</li>
+                    <li>Failures are contained and don't cascade</li>
+                    <li>Complete observability at each layer</li>
+                    <li>Gradual rollout and testing capabilities</li>
+                </ul>
             </div>
         </div>
-
-        <!-- Slide 15 (previously 14): Call to Action -->
+        
+        <!-- Slide 9: Kafka Schema Registry Demo -->
         <div class="slide">
-            <h1>The Future is Secure AI Operations</h1>
-            
-            <div class="devops-impact">
-                <h3>🎯 Key Takeaways for DevOps/SRE</h3>
-                <p>1. <strong>MCP is your security layer</strong> between AI and infrastructure<br>
-                2. <strong>Self-hosted LLMs are viable</strong> with proper MCP architecture<br>
-                3. <strong>Start with read-only operations</strong> and expand gradually<br>
-                4. <strong>Keep context small and clean</strong> for optimal performance<br>
-                5. <strong>Full audit trail</strong> satisfies compliance requirements</p>
+            <h1>Real-World Demo: Kafka Schema Registry</h1>
+            <h2>MCP-Enabled Schema Management</h2>
+            <div class="highlight">
+                <h3>🎯 Use Case</h3>
+                <p>AI-assisted schema evolution and compatibility checking for Kafka topics</p>
             </div>
+            <pre><code># Start the MCP server
+npm start
 
-            <div class="spec-highlight">
-                <h3>🚀 Your Next Steps</h3>
-                <p>1. Learn about MCP and understand its architecture<br>
-                2. Identify daily tasks that could benefit from AI assistance<br>
-                3. Build a pilot MCP server with FastMCP<br>
-                4. Define your security boundaries<br>
-                5. Transform your operations!</p>
+# AI can now:
+# 1. Query existing schemas
+"What schemas exist for user events?"
+
+# 2. Check compatibility
+"Will this new field break consumers?"
+
+# 3. Migrate schemas safely
+"Add an optional 'metadata' field to user-events"
+
+# 4. Generate migration guides
+"Create a migration plan for v2 schema"</code></pre>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>✅ Benefits</h3>
+                    <ul>
+                        <li>Automated compatibility checking</li>
+                        <li>Natural language schema queries</li>
+                        <li>Safe migration workflows</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Safeguards</h3>
+                    <ul>
+                        <li>Dry-run mode for all changes</li>
+                        <li>Compatibility validation</li>
+                        <li>Rollback capabilities</li>
+                    </ul>
+                </div>
             </div>
-
-            <div class="demo-url">
-                <strong>Remember:</strong> The goal isn't to replace DevOps/SRE – it's to amplify your impact 10x
+        </div>
+        
+        <!-- Slide 10: SLIM_MODE & Performance -->
+        <div class="slide">
+            <h1>SLIM_MODE: Optimizing for Self-Hosted Models</h1>
+            <div class="warning">
+                <h3>⚡ Performance Challenge</h3>
+                <p>Smaller models (7B-13B) have limited context windows and processing power</p>
+            </div>
+            <div class="success">
+                <h3>✅ SLIM_MODE Solution</h3>
+                <ul>
+                    <li><strong>Reduced response sizes:</strong> Concise, focused outputs</li>
+                    <li><strong>Simplified schemas:</strong> Essential fields only</li>
+                    <li><strong>Batched operations:</strong> Minimize round trips</li>
+                    <li><strong>Caching layer:</strong> Reduce redundant processing</li>
+                </ul>
+            </div>
+            <pre><code>// SLIM_MODE configuration
+{
+  "slim_mode": {
+    "enabled": true,
+    "max_response_tokens": 512,
+    "schema_simplification": true,
+    "response_format": "concise",
+    "batch_size": 10,
+    "cache_ttl": 3600
+  }
+}</code></pre>
+            <div class="highlight">
+                <h3>Results</h3>
+                <ul>
+                    <li>70% reduction in response size</li>
+                    <li>3x faster processing with 7B models</li>
+                    <li>Maintained accuracy with validation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Slide 11: Implementation Roadmap -->
+        <div class="slide">
+            <h1>Implementation Roadmap</h1>
+            <h2>Adopting MCP in Your Organization</h2>
+            <div class="feature-grid">
+                <div class="feature-card" style="grid-column: span 2;">
+                    <h3>📅 Phase 1: Foundation (Weeks 1-2)</h3>
+                    <ul>
+                        <li>Set up MCP server infrastructure</li>
+                        <li>Configure authentication (OAuth 2.0)</li>
+                        <li>Define initial permission scopes</li>
+                        <li>Implement logging and monitoring</li>
+                    </ul>
+                </div>
+                <div class="feature-card" style="grid-column: span 2;">
+                    <h3>🔧 Phase 2: Integration (Weeks 3-4)</h3>
+                    <ul>
+                        <li>Connect read-only data sources</li>
+                        <li>Implement schema validation</li>
+                        <li>Set up dry-run testing environment</li>
+                        <li>Train team on MCP concepts</li>
+                    </ul>
+                </div>
+                <div class="feature-card" style="grid-column: span 2;">
+                    <h3>🚀 Phase 3: Pilot (Weeks 5-8)</h3>
+                    <ul>
+                        <li>Select low-risk automation use cases</li>
+                        <li>Implement human-in-the-loop approvals</li>
+                        <li>Monitor and collect metrics</li>
+                        <li>Iterate based on feedback</li>
+                    </ul>
+                </div>
+                <div class="feature-card" style="grid-column: span 2;">
+                    <h3>📈 Phase 4: Scale (Weeks 9+)</h3>
+                    <ul>
+                        <li>Expand to more services and tools</li>
+                        <li>Implement advanced workflows</li>
+                        <li>Fine-tune models for your domain</li>
+                        <li>Establish best practices and governance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 12: Resources -->
+        <div class="slide">
+            <h1>Resources & Next Steps</h1>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📚 Documentation</h3>
+                    <ul>
+                        <li><a href="https://docs.anthropic.com/mcp" target="_blank">Anthropic MCP Docs</a></li>
+                        <li><a href="https://github.com/kafka-schema-reg-mcp-demos" target="_blank">Demo Repository</a></li>
+                        <li><a href="#">FastMCP Framework</a></li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🎥 Tutorials</h3>
+                    <ul>
+                        <li><a href="#">YouTube: MCP Deep Dive</a></li>
+                        <li><a href="#">Workshop: Building MCP Servers</a></li>
+                        <li><a href="#">Security Best Practices</a></li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 Tools</h3>
+                    <ul>
+                        <li>MCP Inspector (Chrome Extension)</li>
+                        <li>Schema Validator CLI</li>
+                        <li>Performance Testing Suite</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>💬 Community</h3>
+                    <ul>
+                        <li>Discord: MCP Developers</li>
+                        <li>Stack Overflow: #mcp-protocol</li>
+                        <li>GitHub Discussions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="success" style="margin-top: 40px;">
+                <h3>🎯 Key Takeaways</h3>
+                <ul>
+                    <li>MCP provides a secure, standardized way for AI to interact with infrastructure</li>
+                    <li>Built-in security features mitigate hallucination risks</li>
+                    <li>Self-hosted models can be used safely with proper configuration</li>
+                    <li>Start small, validate thoroughly, scale gradually</li>
+                </ul>
+            </div>
+            <div class="highlight" style="margin-top: 30px; text-align: center;">
+                <h3>Questions?</h3>
+                <p>Let's discuss how MCP can transform your operations!</p>
             </div>
         </div>
     </div>
-
+    
     <div class="navigation">
-        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" id="prev-btn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="changeSlide(1)">Next →</button>
         <button class="nav-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
-        <button class="nav-btn" onclick="nextSlide()">Next →</button>
     </div>
-
+    
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
         document.getElementById('total-slides').textContent = totalSlides;
         
-        function updateSlide() {
-            slides.forEach((slide, index) => {
-                slide.classList.toggle('active', index === currentSlide);
-            });
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
             
-            document.getElementById('current-slide').textContent = currentSlide + 1;
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide;
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 1;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
         }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlide();
-            }
+        
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
         }
-
-        function previousSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
-
+        
         function toggleFullscreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
             } else {
-                document.exitFullscreen();
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
             }
         }
-
+        
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            switch(e.key) {
-                case 'ArrowRight':
-                case ' ':
-                    nextSlide();
-                    break;
-                case 'ArrowLeft':
-                    previousSlide();
-                    break;
-                case 'f':
-                case 'F':
-                    toggleFullscreen();
-                    break;
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+            if (e.key === 'Escape' && document.fullscreenElement) {
+                document.exitFullscreen();
             }
         });
-
+        
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) changeSlide(1);  // Swipe left
+            if (touchEndX > touchStartX + 50) changeSlide(-1); // Swipe right
+        }
+        
         // Initialize
-        updateSlide();
+        showSlide(1);
     </script>
 </body>
 </html>
