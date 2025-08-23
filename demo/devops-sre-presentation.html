@@ -220,6 +220,64 @@
             margin-bottom: 8px;
         }
         
+        /* Deployment Mode Comparison Styles */
+        .deployment-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .deployment-mode {
+            padding: 25px;
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .deployment-mode.local {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 2px solid #4caf50;
+        }
+        
+        .deployment-mode.remote {
+            background: linear-gradient(135deg, #e3f2fd 0%, #e8eaf6 100%);
+            border: 2px solid #2196f3;
+        }
+        
+        .deployment-mode h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .deployment-mode.local h3 {
+            color: #2e7d32;
+        }
+        
+        .deployment-mode.remote h3 {
+            color: #1565c0;
+        }
+        
+        .deployment-mode h4 {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .deployment-mode ul {
+            margin-left: 20px;
+        }
+        
+        .deployment-mode li {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
         .highlight {
             background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
             padding: 20px;
@@ -399,13 +457,18 @@
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
             }
+            
+            /* Make deployment comparison responsive */
+            .deployment-comparison {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+            <span id="current-slide">1</span> / <span id="total-slides">13</span>
         </div>
         
         <!-- Slide 1: Title Slide -->
@@ -432,7 +495,7 @@
             </div>
         </div>
         
-        <!-- Slide 2: NEW - What is MCP Visual -->
+        <!-- Slide 2: What is MCP Visual -->
         <div class="slide">
             <h1>What is MCP?</h1>
             <div class="mcp-architecture-diagram">
@@ -533,7 +596,7 @@
             </div>
         </div>
         
-        <!-- Slide 3: Technical Overview - UPDATED TO 2x2 LAYOUT -->
+        <!-- Slide 3: Technical Overview -->
         <div class="slide">
             <h1>MCP Technical Architecture</h1>
             <div class="feature-grid-2x2">
@@ -576,7 +639,67 @@
             </div>
         </div>
         
-        <!-- Slide 4: Current State -->
+        <!-- NEW Slide 4: MCP Deployment Modes -->
+        <div class="slide">
+            <h1>MCP Server Deployment Modes</h1>
+            <h2 style="text-align: center;">Local vs Remote Hosting</h2>
+            <div class="deployment-comparison">
+                <div class="deployment-mode local">
+                    <h3><span>🖥️</span> Local Mode</h3>
+                    <h4>Characteristics:</h4>
+                    <ul>
+                        <li>Runs on user's personal computer</li>
+                        <li>Direct process spawning via stdio</li>
+                        <li>No network exposure</li>
+                        <li>Simple transport layer</li>
+                    </ul>
+                    <h4>Security & Responsibility:</h4>
+                    <ul>
+                        <li>✅ User controls entire stack</li>
+                        <li>✅ Data never leaves local machine</li>
+                        <li>⚠️ User responsible for security</li>
+                        <li>⚠️ Manual updates & maintenance</li>
+                    </ul>
+                    <h4>Best For:</h4>
+                    <ul>
+                        <li>Personal productivity tools</li>
+                        <li>Development & testing</li>
+                        <li>Sensitive data processing</li>
+                    </ul>
+                </div>
+                
+                <div class="deployment-mode remote">
+                    <h3><span>☁️</span> Remote Mode</h3>
+                    <h4>Characteristics:</h4>
+                    <ul>
+                        <li>Hosted in private network or internet</li>
+                        <li>HTTP/WebSocket transport</li>
+                        <li>Multi-tenant architecture</li>
+                        <li>Shared infrastructure</li>
+                    </ul>
+                    <h4>Security Requirements:</h4>
+                    <ul>
+                        <li>🔒 Authentication (OAuth 2.0/JWT)</li>
+                        <li>🔒 TLS/SSL encryption</li>
+                        <li>🔒 API rate limiting</li>
+                        <li>🔒 Data isolation between users</li>
+                        <li>🔒 Audit logging & monitoring</li>
+                    </ul>
+                    <h4>Best For:</h4>
+                    <ul>
+                        <li>Team collaboration</li>
+                        <li>Enterprise deployments</li>
+                        <li>Scalable services</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warning" style="margin-top: 20px;">
+                <h3>⚠️ Important Consideration</h3>
+                <p><strong>Remote MCP servers require significant additional infrastructure</strong> for security, multi-tenancy, and reliability - transforming from a simple stdio protocol to a full distributed system with authentication, authorization, and resource management.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 5 (was 4): Current State -->
         <div class="slide">
             <h1>Current State: MCP 2025-06-18</h1>
             <h2>Latest Specification Updates</h2>
@@ -612,7 +735,7 @@
 }</code></pre>
         </div>
         
-        <!-- Slide 5: DevOps/SRE Impact - UPDATED TO 2x2 LAYOUT -->
+        <!-- Slide 6 (was 5): DevOps/SRE Impact -->
         <div class="slide">
             <h1>DevOps/SRE Impact</h1>
             <h2>How MCP Transforms Operations</h2>
@@ -656,7 +779,8 @@
             </div>
         </div>
         
-        <!-- Slide 6: Security Concerns -->
+        <!-- Remaining slides continue with updated numbering... -->
+        <!-- Slide 7 (was 6): Security Concerns -->
         <div class="slide">
             <h1>Security Concerns & Mitigation</h1>
             <h2>Addressing LLM Hallucinations in Production</h2>
@@ -691,7 +815,7 @@
 }</code></pre>
         </div>
         
-        <!-- Slide 7: Self-Hosted LLMs -->
+        <!-- Slide 8 (was 7): Self-Hosted LLMs -->
         <div class="slide">
             <h1>Self-Hosted LLMs & MCP</h1>
             <h2>Working with Smaller Models Safely</h2>
@@ -731,7 +855,7 @@ export MCP_VALIDATION_STRICT=true
 export MCP_REQUIRE_SCHEMAS=true</code></pre>
         </div>
         
-        <!-- Slide 8: MCP Architecture Deep Dive -->
+        <!-- Slide 9 (was 8): MCP Architecture Deep Dive -->
         <div class="slide">
             <h1>MCP Architecture: Reducing Risks</h1>
             <div class="highlight">
@@ -772,7 +896,7 @@ export MCP_REQUIRE_SCHEMAS=true</code></pre>
             </div>
         </div>
         
-        <!-- Slide 9: Kafka Schema Registry Demo -->
+        <!-- Slide 10 (was 9): Kafka Schema Registry Demo -->
         <div class="slide">
             <h1>Real-World Demo: Kafka Schema Registry</h1>
             <h2>MCP-Enabled Schema Management</h2>
@@ -815,7 +939,7 @@ npm start
             </div>
         </div>
         
-        <!-- Slide 10: SLIM_MODE & Performance -->
+        <!-- Slide 11 (was 10): SLIM_MODE & Performance -->
         <div class="slide">
             <h1>SLIM_MODE: Optimizing for Self-Hosted Models</h1>
             <div class="warning">
@@ -852,7 +976,7 @@ npm start
             </div>
         </div>
         
-        <!-- Slide 11: Implementation Roadmap -->
+        <!-- Slide 12 (was 11): Implementation Roadmap -->
         <div class="slide">
             <h1>Implementation Roadmap</h1>
             <h2>Adopting MCP in Your Organization</h2>
@@ -896,7 +1020,7 @@ npm start
             </div>
         </div>
         
-        <!-- Slide 12: Resources - UPDATED TO 2x2 LAYOUT WITH FIXED LINKS -->
+        <!-- Slide 13 (was 12): Resources -->
         <div class="slide">
             <h1>Resources & Next Steps</h1>
             <div class="feature-grid-2x2">
