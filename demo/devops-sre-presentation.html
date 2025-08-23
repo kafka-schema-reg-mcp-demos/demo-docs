@@ -170,6 +170,16 @@
             margin: 30px 0;
         }
         
+        /* NEW: 2x2 Grid Layout for specific slides */
+        .feature-grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+            min-height: 400px;
+        }
+        
         .feature-card {
             background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
             padding: 25px;
@@ -180,6 +190,34 @@
         
         .feature-card:hover {
             transform: translateY(-5px);
+        }
+        
+        /* Enhanced styling for 2x2 cards */
+        .feature-grid-2x2 .feature-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 200px;
+        }
+        
+        .feature-grid-2x2 .feature-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #667eea;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea30;
+            padding-bottom: 10px;
+        }
+        
+        .feature-grid-2x2 .feature-card ul {
+            margin-left: 20px;
+            flex-grow: 1;
+        }
+        
+        .feature-grid-2x2 .feature-card li {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 8px;
         }
         
         .highlight {
@@ -355,6 +393,12 @@
             .service-label {
                 font-size: 0.85em;
             }
+            
+            /* Make 2x2 grid responsive */
+            .feature-grid-2x2 {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
         }
     </style>
 </head>
@@ -489,10 +533,10 @@
             </div>
         </div>
         
-        <!-- Slide 3: Technical Overview -->
+        <!-- Slide 3: Technical Overview - UPDATED TO 2x2 LAYOUT -->
         <div class="slide">
             <h1>MCP Technical Architecture</h1>
-            <div class="feature-grid">
+            <div class="feature-grid-2x2">
                 <div class="feature-card">
                     <h3>🔌 Protocol Layer</h3>
                     <ul>
@@ -568,11 +612,11 @@
 }</code></pre>
         </div>
         
-        <!-- Slide 5: DevOps/SRE Impact -->
+        <!-- Slide 5: DevOps/SRE Impact - UPDATED TO 2x2 LAYOUT -->
         <div class="slide">
             <h1>DevOps/SRE Impact</h1>
             <h2>How MCP Transforms Operations</h2>
-            <div class="feature-grid">
+            <div class="feature-grid-2x2">
                 <div class="feature-card">
                     <h3>🚀 Automated Operations</h3>
                     <ul>
