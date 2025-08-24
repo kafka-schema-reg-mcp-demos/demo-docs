@@ -504,6 +504,114 @@
             margin: 0;
         }
         
+        /* New Deployment Comparison Styles from the provided document */
+        .deployment-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .deployment-mode {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: #f9f9f9;
+        }
+
+        .local-mode {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #f0fff0 0%, #ffffff 100%);
+        }
+
+        .remote-mode {
+            border-color: #2196F3;
+            background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+        }
+
+        .deployment-mode h3 {
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid currentColor;
+        }
+
+        .local-mode h3 {
+            color: #4CAF50;
+        }
+
+        .remote-mode h3 {
+            color: #2196F3;
+        }
+
+        .mode-content h4 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .risks li {
+            margin: 0.5rem 0;
+        }
+
+        .remote-requirements {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .remote-requirements h3 {
+            color: #FF6B35;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .requirement-layer {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .requirement-layer h4 {
+            margin-top: 0;
+            color: #FF6B35;
+            font-size: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .requirement-layer ul {
+            margin: 0.5rem 0;
+            padding-left: 1.2rem;
+        }
+
+        .requirement-layer li {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .key-takeaway {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 4px solid #FF6B35;
+            border-radius: 4px;
+        }
+
+        .key-takeaway p {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+        
         @media (max-width: 768px) {
             .slide {
                 padding: 30px;
@@ -545,6 +653,10 @@
                 grid-template-columns: 1fr;
             }
             
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .video-embed video {
                 height: 250px;
             }
@@ -554,7 +666,7 @@
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">14</span>
+            <span id="current-slide">1</span> / <span id="total-slides">13</span>
         </div>
         
         <!-- Slide 1: Title Slide -->
@@ -836,7 +948,107 @@
             </div>
         </div>
         
-        <!-- Slide 6: DevOps/SRE Impact (was Slide 5) -->
+        <!-- NEW Slide 6: MCP Server Deployment: Local vs Remote (from the provided document) -->
+        <div class="slide">
+            <h2>MCP Server Deployment: Local vs Remote</h2>
+            
+            <div class="deployment-comparison">
+                <div class="deployment-mode local-mode">
+                    <h3>🖥️ Local Mode</h3>
+                    <div class="mode-content">
+                        <h4>Characteristics</h4>
+                        <ul>
+                            <li>Direct process spawning via stdio</li>
+                            <li>Runs on user's machine</li>
+                            <li>Simple transport layer</li>
+                            <li>Native OS integration</li>
+                        </ul>
+                        
+                        <h4>Security & Risks</h4>
+                        <ul class="risks">
+                            <li>✅ User controls entire stack</li>
+                            <li>✅ No network exposure</li>
+                            <li>⚠️ User responsible for security</li>
+                            <li>⚠️ Resource consumption on local machine</li>
+                            <li>⚠️ Manual updates & maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="deployment-mode remote-mode">
+                    <h3>☁️ Remote Mode</h3>
+                    <div class="mode-content">
+                        <h4>Characteristics</h4>
+                        <ul>
+                            <li>Network-based communication</li>
+                            <li>Shared infrastructure</li>
+                            <li>Requires transport protocol (HTTP/WebSocket)</li>
+                            <li>Multi-tenant architecture</li>
+                        </ul>
+                        
+                        <h4>Security & Risks</h4>
+                        <ul class="risks">
+                            <li>🔒 Authentication & authorization required</li>
+                            <li>🔒 Data isolation between tenants</li>
+                            <li>⚠️ Network security concerns</li>
+                            <li>⚠️ Rate limiting & resource quotas</li>
+                            <li>⚠️ Compliance & data residency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="remote-requirements">
+                <h3>🔧 Making MCP Server Remote-Ready</h3>
+                <div class="requirements-grid">
+                    <div class="requirement-layer">
+                        <h4>Transport Layer</h4>
+                        <ul>
+                            <li>HTTP/HTTPS endpoints</li>
+                            <li>WebSocket for bidirectional</li>
+                            <li>gRPC for performance</li>
+                            <li>TLS/SSL encryption</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirement-layer">
+                        <h4>Security Layer</h4>
+                        <ul>
+                            <li>OAuth 2.0 / JWT tokens</li>
+                            <li>API key management</li>
+                            <li>Role-based access control</li>
+                            <li>Audit logging</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirement-layer">
+                        <h4>Multi-tenancy Layer</h4>
+                        <ul>
+                            <li>Tenant isolation</li>
+                            <li>Resource quotas</li>
+                            <li>Usage metering</li>
+                            <li>Data partitioning</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="requirement-layer">
+                        <h4>Operations Layer</h4>
+                        <ul>
+                            <li>Load balancing</li>
+                            <li>Health checks</li>
+                            <li>Monitoring & alerting</li>
+                            <li>Scaling policies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-takeaway">
+                <p><strong>Key Insight:</strong> Remote MCP servers require significant additional infrastructure for security, multi-tenancy, and reliability - transforming from a simple stdio protocol to a full distributed system.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 7: DevOps/SRE Impact (was Slide 5, now Slide 7) -->
         <div class="slide">
             <h1>DevOps/SRE Impact</h1>
             <h2>How MCP Transforms Operations</h2>
@@ -880,7 +1092,7 @@
             </div>
         </div>
         
-        <!-- Slide 7: MCP as Force Multiplier (was Slide 6) -->
+        <!-- Slide 8: MCP as Force Multiplier (was Slide 6, now Slide 8) -->
         <div class="slide">
             <h1>MCP: Your Force Multiplier</h1>
             <h2 style="text-align: center;">Amplifying SRE/DevOps Expertise, Not Replacing It</h2>
@@ -945,7 +1157,7 @@ Human: "Apply the fix with canary deployment"
 MCP: Executing with your approval workflow...</code></pre>
         </div>
         
-        <!-- Slide 8: Security Concerns (was Slide 7) -->
+        <!-- Slide 9: Security Concerns (was Slide 7, now Slide 9) -->
         <div class="slide">
             <h1>Security Concerns & Mitigation</h1>
             <h2>Addressing LLM Hallucinations in Production</h2>
@@ -980,7 +1192,7 @@ MCP: Executing with your approval workflow...</code></pre>
 }</code></pre>
         </div>
         
-        <!-- Slide 9: Self-Hosted LLMs (was Slide 8) -->
+        <!-- Slide 10: Self-Hosted LLMs (was Slide 8, now Slide 10) -->
         <div class="slide">
             <h1>Self-Hosted LLMs & MCP</h1>
             <h2>Working with Smaller Models Safely</h2>
@@ -1020,50 +1232,47 @@ export MCP_VALIDATION_STRICT=true
 export MCP_REQUIRE_SCHEMAS=true</code></pre>
         </div>
         
-        <!-- Slide 10: MCP Architecture Deep Dive (was Slide 9) -->
+        <!-- Slide 11: Kafka Schema Registry Demo (was Slide 12, now Slide 11) -->
         <div class="slide">
-            <h1>MCP Architecture: Reducing Risks</h1>
+            <h1>Real-World Demo: Kafka Schema Registry</h1>
+            <h2>MCP-Enabled Schema Management</h2>
             <div class="highlight">
-                <h3>Layered Security Model</h3>
+                <h3>🎯 Use Case</h3>
+                <p>AI-assisted schema evolution and compatibility checking for Kafka topics</p>
             </div>
-            <pre>
-┌─────────────────────────────────────┐
-│         AI Application              │
-└────────────┬────────────────────────┘
-             │ MCP Protocol
-┌────────────▼────────────────────────┐
-│      MCP Server (Validation)        │
-│  • Schema enforcement               │
-│  • Permission checking              │
-│  • Rate limiting                    │
-└────────────┬────────────────────────┘
-             │
-┌────────────▼────────────────────────┐
-│     Business Logic Layer            │
-│  • Domain validation                │
-│  • Workflow orchestration           │
-│  • Approval workflows               │
-└────────────┬────────────────────────┘
-             │
-┌────────────▼────────────────────────┐
-│      Infrastructure Services        │
-│  • Databases                        │
-│  • Message queues                   │
-│  • External APIs                    │
-└─────────────────────────────────────┘
-            </pre>
-            <div class="success">
-                <h3>Key Benefits</h3>
-                <ul>
-                    <li>Each layer validates and sanitizes requests</li>
-                    <li>Failures are contained and don't cascade</li>
-                    <li>Complete observability at each layer</li>
-                    <li>Gradual rollout and testing capabilities</li>
-                </ul>
+            <pre><code>
+# 1. Query existing schemas
+"What schemas exist for user events?"
+
+# 2. Check compatibility
+"Will this new field break consumers?"
+
+# 3. Migrate schemas safely
+"Add an optional 'metadata' field to user-events"
+
+# 4. Generate migration guides
+"Create a migration plan for v2 schema"</code></pre>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>✅ Benefits</h3>
+                    <ul>
+                        <li>Automated compatibility checking</li>
+                        <li>Natural language schema queries</li>
+                        <li>Safe migration workflows</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>🛡️ Safeguards</h3>
+                    <ul>
+                        <li>Dry-run mode for all changes</li>
+                        <li>Compatibility validation</li>
+                        <li>Rollback capabilities</li>
+                    </ul>
+                </div>
             </div>
         </div>
         
-        <!-- NEW Slide 11: Shadowtraffic.io Deep Dive (inserted after Slide 10) -->
+        <!-- Slide 12: Shadowtraffic.io Deep Dive (was Slide 11, now Slide 12) -->
         <div class="slide">
             <h1>Shadowtraffic.io: Data Generation at Scale</h1>
             <h2 style="text-align: center;">Schema-Aware Test Data for Production-Like Scenarios</h2>
@@ -1108,84 +1317,7 @@ export MCP_REQUIRE_SCHEMAS=true</code></pre>
             </div>
         </div>
         
-        <!-- Slide 12: Kafka Schema Registry Demo (was Slide 11, now Slide 12) -->
-        <div class="slide">
-            <h1>Real-World Demo: Kafka Schema Registry</h1>
-            <h2>MCP-Enabled Schema Management</h2>
-            <div class="highlight">
-                <h3>🎯 Use Case</h3>
-                <p>AI-assisted schema evolution and compatibility checking for Kafka topics</p>
-            </div>
-            <pre><code>
-# 1. Query existing schemas
-"What schemas exist for user events?"
-
-# 2. Check compatibility
-"Will this new field break consumers?"
-
-# 3. Migrate schemas safely
-"Add an optional 'metadata' field to user-events"
-
-# 4. Generate migration guides
-"Create a migration plan for v2 schema"</code></pre>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>✅ Benefits</h3>
-                    <ul>
-                        <li>Automated compatibility checking</li>
-                        <li>Natural language schema queries</li>
-                        <li>Safe migration workflows</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <h3>🛡️ Safeguards</h3>
-                    <ul>
-                        <li>Dry-run mode for all changes</li>
-                        <li>Compatibility validation</li>
-                        <li>Rollback capabilities</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slide 13: SLIM_MODE & Performance (was Slide 12, now Slide 13) -->
-        <div class="slide">
-            <h1>SLIM_MODE: Optimizing for Self-Hosted Models</h1>
-            <div class="warning">
-                <h3>⚡ Performance Challenge</h3>
-                <p>Smaller models (7B-13B) have limited context windows and processing power</p>
-            </div>
-            <div class="success">
-                <h3>✅ SLIM_MODE Solution</h3>
-                <ul>
-                    <li><strong>Reduced response sizes:</strong> Concise, focused outputs</li>
-                    <li><strong>Simplified schemas:</strong> Essential fields only</li>
-                    <li><strong>Batched operations:</strong> Minimize round trips</li>
-                    <li><strong>Caching layer:</strong> Reduce redundant processing</li>
-                </ul>
-            </div>
-            <pre><code>// SLIM_MODE configuration
-{
-  "slim_mode": {
-    "enabled": true,
-    "max_response_tokens": 512,
-    "schema_simplification": true,
-    "response_format": "concise",
-    "batch_size": 10,
-    "cache_ttl": 3600
-  }
-}</code></pre>
-            <div class="highlight">
-                <h3>Results</h3>
-                <ul>
-                    <li>70% reduction in response size</li>
-                    <li>3x faster processing with 7B models</li>
-                    <li>Maintained accuracy with validation</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Slide 14: Resources (was Slide 13, now Slide 14) -->
+        <!-- Slide 13: Resources (was Slide 14, now Slide 13) -->
         <div class="slide">
             <h1>Resources & Next Steps</h1>
             <div class="feature-grid-2x2">
