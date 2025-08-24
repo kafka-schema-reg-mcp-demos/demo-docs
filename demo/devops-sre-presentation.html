@@ -666,7 +666,7 @@
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">13</span>
+            <span id="current-slide">1</span> / <span id="total-slides">12</span>
         </div>
         
         <!-- Slide 1: Title Slide -->
@@ -794,7 +794,7 @@
             </div>
         </div>
         
-        <!-- NEW Slide 3: MCP 2025-06-18 Specification -->
+        <!-- Slide 3: MCP 2025-06-18 Specification -->
         <div class="slide">
             <h1>MCP Specification 2025-06-18</h1>
             <h2 style="text-align: center;">Latest Protocol Evolution & Breaking Changes</h2>
@@ -845,7 +845,7 @@
             </div>
         </div>
         
-        <!-- Slide 4: Technical Overview (was Slide 3) -->
+        <!-- Slide 4: Technical Overview -->
         <div class="slide">
             <h1>MCP Technical Architecture</h1>
             <div class="feature-grid-2x2">
@@ -888,67 +888,7 @@
             </div>
         </div>
         
-        <!-- Slide 5: MCP Deployment Modes (was Slide 4) -->
-        <div class="slide">
-            <h1>MCP Server Deployment Modes</h1>
-            <h2 style="text-align: center;">Local vs Remote Hosting</h2>
-            <div class="deployment-comparison">
-                <div class="deployment-mode local">
-                    <h3><span>🖥️</span> Local Mode</h3>
-                    <h4>Characteristics:</h4>
-                    <ul>
-                        <li>Runs on user's personal computer</li>
-                        <li>Direct process spawning via stdio</li>
-                        <li>No network exposure</li>
-                        <li>Simple transport layer</li>
-                    </ul>
-                    <h4>Security & Responsibility:</h4>
-                    <ul>
-                        <li>✅ User controls entire stack</li>
-                        <li>✅ Data never leaves local machine</li>
-                        <li>⚠️ User responsible for security</li>
-                        <li>⚠️ Manual updates & maintenance</li>
-                    </ul>
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Personal productivity tools</li>
-                        <li>Development & testing</li>
-                        <li>Sensitive data processing</li>
-                    </ul>
-                </div>
-                
-                <div class="deployment-mode remote">
-                    <h3><span>☁️</span> Remote Mode</h3>
-                    <h4>Characteristics:</h4>
-                    <ul>
-                        <li>Hosted in private network or internet</li>
-                        <li>HTTP/WebSocket transport</li>
-                        <li>Multi-tenant architecture</li>
-                        <li>Shared infrastructure</li>
-                    </ul>
-                    <h4>Security Requirements:</h4>
-                    <ul>
-                        <li>🔒 Authentication (OAuth 2.0/JWT)</li>
-                        <li>🔒 TLS/SSL encryption</li>
-                        <li>🔒 API rate limiting</li>
-                        <li>🔒 Data isolation between users</li>
-                        <li>🔒 Audit logging & monitoring</li>
-                    </ul>
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Team collaboration</li>
-                        <li>Enterprise deployments</li>
-                        <li>Scalable services</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="warning" style="margin-top: 20px;">
-                <h3>⚠️ Important Consideration</h3>
-                <p><strong>Remote MCP servers require significant additional infrastructure</strong> for security, multi-tenancy, and reliability - transforming from a simple stdio protocol to a full distributed system with authentication, authorization, and resource management.</p>
-            </div>
-        </div>
-        
-        <!-- NEW Slide 6: MCP Server Deployment: Local vs Remote (from the provided document) -->
+        <!-- Slide 5: MCP Server Deployment: Local vs Remote (from the provided document) -->
         <div class="slide">
             <h2>MCP Server Deployment: Local vs Remote</h2>
             
@@ -1048,7 +988,7 @@
             </div>
         </div>
         
-        <!-- Slide 7: DevOps/SRE Impact (was Slide 5, now Slide 7) -->
+        <!-- Slide 6: DevOps/SRE Impact -->
         <div class="slide">
             <h1>DevOps/SRE Impact</h1>
             <h2>How MCP Transforms Operations</h2>
@@ -1092,7 +1032,7 @@
             </div>
         </div>
         
-        <!-- Slide 8: MCP as Force Multiplier (was Slide 6, now Slide 8) -->
+        <!-- Slide 7: MCP as Force Multiplier -->
         <div class="slide">
             <h1>MCP: Your Force Multiplier</h1>
             <h2 style="text-align: center;">Amplifying SRE/DevOps Expertise, Not Replacing It</h2>
@@ -1157,7 +1097,7 @@ Human: "Apply the fix with canary deployment"
 MCP: Executing with your approval workflow...</code></pre>
         </div>
         
-        <!-- Slide 9: Security Concerns (was Slide 7, now Slide 9) -->
+        <!-- Slide 8: Security Concerns -->
         <div class="slide">
             <h1>Security Concerns & Mitigation</h1>
             <h2>Addressing LLM Hallucinations in Production</h2>
@@ -1192,7 +1132,7 @@ MCP: Executing with your approval workflow...</code></pre>
 }</code></pre>
         </div>
         
-        <!-- Slide 10: Self-Hosted LLMs (was Slide 8, now Slide 10) -->
+        <!-- Slide 9: Self-Hosted LLMs -->
         <div class="slide">
             <h1>Self-Hosted LLMs & MCP</h1>
             <h2>Working with Smaller Models Safely</h2>
@@ -1232,7 +1172,7 @@ export MCP_VALIDATION_STRICT=true
 export MCP_REQUIRE_SCHEMAS=true</code></pre>
         </div>
         
-        <!-- Slide 11: Kafka Schema Registry Demo (was Slide 12, now Slide 11) -->
+        <!-- Slide 10: Kafka Schema Registry Demo -->
         <div class="slide">
             <h1>Real-World Demo: Kafka Schema Registry</h1>
             <h2>MCP-Enabled Schema Management</h2>
@@ -1272,7 +1212,7 @@ export MCP_REQUIRE_SCHEMAS=true</code></pre>
             </div>
         </div>
         
-        <!-- Slide 12: Shadowtraffic.io Deep Dive (was Slide 11, now Slide 12) -->
+        <!-- Slide 11: Shadowtraffic.io Deep Dive -->
         <div class="slide">
             <h1>Shadowtraffic.io: Data Generation at Scale</h1>
             <h2 style="text-align: center;">Schema-Aware Test Data for Production-Like Scenarios</h2>
@@ -1317,7 +1257,7 @@ export MCP_REQUIRE_SCHEMAS=true</code></pre>
             </div>
         </div>
         
-        <!-- Slide 13: Resources (was Slide 14, now Slide 13) -->
+        <!-- Slide 12: Resources -->
         <div class="slide">
             <h1>Resources & Next Steps</h1>
             <div class="feature-grid-2x2">
