@@ -231,6 +231,17 @@
             border-bottom-color: #4caf5050 !important;
         }
         
+        /* Spec Update Card Styles */
+        .spec-update-card {
+            background: linear-gradient(135deg, #ff980015 0%, #ff630015 100%);
+            border: 2px solid #ff9800;
+        }
+        
+        .spec-update-card h3 {
+            color: #e65100 !important;
+            border-bottom-color: #ff980050 !important;
+        }
+        
         /* Deployment Mode Comparison Styles */
         .deployment-comparison {
             display: grid;
@@ -308,6 +319,14 @@
         .success {
             background: #d4edda;
             border-left: 4px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
             padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
@@ -479,7 +498,7 @@
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+            <span id="current-slide">1</span> / <span id="total-slides">13</span>
         </div>
         
         <!-- Slide 1: Title Slide -->
@@ -607,7 +626,58 @@
             </div>
         </div>
         
-        <!-- Slide 3: Technical Overview -->
+        <!-- NEW Slide 3: MCP 2025-06-18 Specification -->
+        <div class="slide">
+            <h1>MCP Specification 2025-06-18</h1>
+            <h2 style="text-align: center;">Latest Protocol Evolution & Breaking Changes</h2>
+            <div class="info" style="margin-bottom: 20px;">
+                <p><strong>🚀 MCP is less than one year old</strong> - Introduced by Anthropic in November 2024, it's rapidly evolving with significant updates every few months.</p>
+            </div>
+            <div class="feature-grid-2x2">
+                <div class="feature-card spec-update-card">
+                    <h3>🔄 Protocol Changes</h3>
+                    <ul>
+                        <li><strong>❌ Removed JSON-RPC batching</strong> - Breaking from JSON-RPC 2.0 standard</li>
+                        <li><strong>Structured tool output</strong> - Tools return predictable JSON</li>
+                        <li><strong>MCP-Protocol-Version header</strong> - Required for all HTTP requests</li>
+                        <li><strong>Resource links</strong> - Reference URIs instead of inlining</li>
+                    </ul>
+                </div>
+                <div class="feature-card spec-update-card">
+                    <h3>🔐 Security Enhancements</h3>
+                    <ul>
+                        <li><strong>OAuth Resource Servers</strong> - MCP servers classified as OAuth 2.1 resources</li>
+                        <li><strong>RFC 8707 compliance</strong> - Resource indicators prevent token theft</li>
+                        <li><strong>PKCE required</strong> - Protection against authorization code interception</li>
+                        <li><strong>Security best practices</strong> - New dedicated documentation</li>
+                    </ul>
+                </div>
+                <div class="feature-card spec-update-card">
+                    <h3>💬 New Capabilities</h3>
+                    <ul>
+                        <li><strong>Elicitation</strong> - Servers can ask users for additional info mid-session</li>
+                        <li><strong>Roots</strong> - Server-initiated filesystem boundary inquiries</li>
+                        <li><strong>Sampling</strong> - Server-initiated recursive LLM interactions</li>
+                        <li><strong>Progress tracking</strong> - Better async operation monitoring</li>
+                    </ul>
+                </div>
+                <div class="feature-card spec-update-card">
+                    <h3>⚠️ Migration Considerations</h3>
+                    <ul>
+                        <li><strong>Breaking compatibility</strong> - 2025-03-26 clients may not work with 2025-06-18 servers</li>
+                        <li><strong>SDK updates required</strong> - JSON-RPC libraries need modifications</li>
+                        <li><strong>Header validation</strong> - Servers must check protocol version</li>
+                        <li><strong>Backward compatibility</strong> - Default to 2025-03-26 if header missing</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="warning">
+                <h3>⚠️ Critical for DevOps</h3>
+                <p>The removal of JSON-RPC batching is controversial - it breaks standard JSON-RPC 2.0 compliance. If you're using standard JSON-RPC libraries, you'll need to disable batching or modify your implementation. Consider maintaining version compatibility matrices for your MCP deployments.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Technical Overview (was Slide 3) -->
         <div class="slide">
             <h1>MCP Technical Architecture</h1>
             <div class="feature-grid-2x2">
@@ -650,7 +720,7 @@
             </div>
         </div>
         
-        <!-- Slide 4: MCP Deployment Modes -->
+        <!-- Slide 5: MCP Deployment Modes (was Slide 4) -->
         <div class="slide">
             <h1>MCP Server Deployment Modes</h1>
             <h2 style="text-align: center;">Local vs Remote Hosting</h2>
@@ -710,7 +780,7 @@
             </div>
         </div>
         
-        <!-- Slide 5: DevOps/SRE Impact (SWAPPED - was 6) -->
+        <!-- Slide 6: DevOps/SRE Impact (was Slide 5) -->
         <div class="slide">
             <h1>DevOps/SRE Impact</h1>
             <h2>How MCP Transforms Operations</h2>
@@ -754,7 +824,7 @@
             </div>
         </div>
         
-        <!-- Slide 6: MCP as Force Multiplier (SWAPPED - was 5) -->
+        <!-- Slide 7: MCP as Force Multiplier (was Slide 6) -->
         <div class="slide">
             <h1>MCP: Your Force Multiplier</h1>
             <h2 style="text-align: center;">Amplifying SRE/DevOps Expertise, Not Replacing It</h2>
@@ -819,7 +889,7 @@ Human: "Apply the fix with canary deployment"
 MCP: Executing with your approval workflow...</code></pre>
         </div>
         
-        <!-- Slide 7: Security Concerns -->
+        <!-- Slide 8: Security Concerns (was Slide 7) -->
         <div class="slide">
             <h1>Security Concerns & Mitigation</h1>
             <h2>Addressing LLM Hallucinations in Production</h2>
@@ -854,7 +924,7 @@ MCP: Executing with your approval workflow...</code></pre>
 }</code></pre>
         </div>
         
-        <!-- Slide 8: Self-Hosted LLMs -->
+        <!-- Slide 9: Self-Hosted LLMs (was Slide 8) -->
         <div class="slide">
             <h1>Self-Hosted LLMs & MCP</h1>
             <h2>Working with Smaller Models Safely</h2>
@@ -894,7 +964,7 @@ export MCP_VALIDATION_STRICT=true
 export MCP_REQUIRE_SCHEMAS=true</code></pre>
         </div>
         
-        <!-- Slide 9: MCP Architecture Deep Dive -->
+        <!-- Slide 10: MCP Architecture Deep Dive (was Slide 9) -->
         <div class="slide">
             <h1>MCP Architecture: Reducing Risks</h1>
             <div class="highlight">
@@ -937,7 +1007,7 @@ export MCP_REQUIRE_SCHEMAS=true</code></pre>
             </div>
         </div>
         
-        <!-- Slide 10: Kafka Schema Registry Demo -->
+        <!-- Slide 11: Kafka Schema Registry Demo (was Slide 10) -->
         <div class="slide">
             <h1>Real-World Demo: Kafka Schema Registry</h1>
             <h2>MCP-Enabled Schema Management</h2>
@@ -980,7 +1050,7 @@ npm start
             </div>
         </div>
         
-        <!-- Slide 11: SLIM_MODE & Performance -->
+        <!-- Slide 12: SLIM_MODE & Performance (was Slide 11) -->
         <div class="slide">
             <h1>SLIM_MODE: Optimizing for Self-Hosted Models</h1>
             <div class="warning">
@@ -1017,7 +1087,7 @@ npm start
             </div>
         </div>
         
-        <!-- Slide 12: Resources -->
+        <!-- Slide 13: Resources (was Slide 12) -->
         <div class="slide">
             <h1>Resources & Next Steps</h1>
             <div class="feature-grid-2x2">
